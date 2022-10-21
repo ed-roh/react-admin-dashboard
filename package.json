@@ -47,6 +47,13 @@
       "react-app/jest"
     ]
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "src/**/*.{json,css,scss}": "prettier --write"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -58,5 +65,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.10",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
   }
 }
