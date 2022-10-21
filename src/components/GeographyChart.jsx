@@ -1,8 +1,8 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveChoropleth } from "@nivo/geo";
-import { geoFeatures } from "../data/mockGeoFeatures";
-import { tokens } from "../theme";
-import { mockGeographyData as data } from "../data/mockData";
+import { geoFeatures } from "data/mockGeoFeatures";
+import { tokens } from "theme";
+import { mockGeographyData as data } from "data/mockData";
 
 const GeographyChart = ({ isDashboard = false }) => {
   const theme = useTheme();
@@ -14,41 +14,41 @@ const GeographyChart = ({ isDashboard = false }) => {
         axis: {
           domain: {
             line: {
-              stroke: colors.grey[100],
-            },
+              stroke: colors.grey[100]
+            }
           },
           legend: {
             text: {
-              fill: colors.grey[100],
-            },
+              fill: colors.grey[100]
+            }
           },
           ticks: {
             line: {
               stroke: colors.grey[100],
-              strokeWidth: 1,
+              strokeWidth: 1
             },
             text: {
-              fill: colors.grey[100],
-            },
-          },
+              fill: colors.grey[100]
+            }
+          }
         },
         legends: {
           text: {
-            fill: colors.grey[100],
-          },
-        },
+            fill: colors.grey[100]
+          }
+        }
       }}
       features={geoFeatures.features}
       margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
       domain={[0, 1000000]}
-      unknownColor="#666666"
-      label="properties.name"
-      valueFormat=".2s"
+      unknownColor='#666666'
+      label='properties.name'
+      valueFormat='.2s'
       projectionScale={isDashboard ? 40 : 150}
       projectionTranslation={isDashboard ? [0.49, 0.6] : [0.5, 0.5]}
       projectionRotation={[0, 0, 0]}
       borderWidth={1.5}
-      borderColor="#ffffff"
+      borderColor='#ffffff'
       legends={
         !isDashboard
           ? [
@@ -70,11 +70,11 @@ const GeographyChart = ({ isDashboard = false }) => {
                     on: "hover",
                     style: {
                       itemTextColor: "#ffffff",
-                      itemOpacity: 1,
-                    },
-                  },
-                ],
-              },
+                      itemOpacity: 1
+                    }
+                  }
+                ]
+              }
             ]
           : undefined
       }
