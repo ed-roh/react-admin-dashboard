@@ -31,6 +31,8 @@ module.exports = {
         'prettier/prettier': 'off',
         'consistent-return': 'off',
         'react/display-name': 'off',
+        'react/jsx-uses-react': 'off',
+        'react/react-in-jsx-scope': 'off',
         'no-empty': [
             'error',
             {

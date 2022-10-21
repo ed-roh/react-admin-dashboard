@@ -23,7 +23,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "chart.js": "^3.9.1",
+    "chart": "^3.9.1",
     "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",
