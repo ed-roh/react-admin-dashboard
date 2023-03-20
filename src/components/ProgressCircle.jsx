@@ -1,5 +1,5 @@
 import { Box, useTheme } from "@mui/material";
-import { tokens } from "../theme";
+import { tokens } from "theme";
 
 const ProgressCircle = ({ progress = "0.75", size = "40" }) => {
   const theme = useTheme();
@@ -13,7 +13,7 @@ const ProgressCircle = ({ progress = "0.75", size = "40" }) => {
             ${colors.greenAccent[500]}`,
         borderRadius: "50%",
         width: `${size}px`,
-        height: `${size}px`,
+        height: `${size}px`
       }}
     />
   );

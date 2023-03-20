@@ -1,0 +1,10 @@
+*.svg
+*.png
+*.jpg
+/public/*.html
+/public/**/*
+
+node_modules
+# Ignore artifacts:
+build
+coverage
