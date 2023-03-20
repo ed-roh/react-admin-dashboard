@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../components/Header";
+import React, {useState, useEffect} from "react"
 
 const Invoices = () => {
   const theme = useTheme();
@@ -41,7 +42,16 @@ const Invoices = () => {
       flex: 1,
     },
   ];
+  const [tableData, setTableData] = useState([])
 
+  useEffect(() => {
+    fetch("http://localhost:3333/Invoices")
+      .then((data) => data.json())
+      .then((data) => setTableData(data))
+
+  }, [])
+
+  console.log(tableData)
   return (
     <Box m="20px">
       <Header title="INVOICES" subtitle="List of Invoice Balances" />
@@ -74,7 +84,7 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+        <DataGrid checkboxSelection rows={tableData} columns={columns} />
       </Box>
     </Box>
   );

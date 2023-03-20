@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
+// import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-
+import React, {useState, useEffect} from "react"
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -52,6 +52,17 @@ const Contacts = () => {
     },
   ];
 
+
+  const [tableData, setTableData] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:3333/contact")
+      .then((data) => data.json())
+      .then((data) => setTableData(data))
+
+  }, [])
+
+  console.log(tableData)
   return (
     <Box m="20px">
       <Header
@@ -91,7 +102,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={tableData}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
