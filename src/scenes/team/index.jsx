@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 // import { mockDataTeam } from "../../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
@@ -110,13 +110,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid          slots={{ Toolbar: GridToolbar }}
-          slotProps={{
-            Toolbar: {
-              showQuickFilter: true,
-              // quickFilterProps: { debounceMs: 500 },
-            },
-          }} rows={tableData} columns={columns} />
+        <DataGrid checkboxSelection rows={tableData} columns={columns} />
       </Box>
     </Box>
   );

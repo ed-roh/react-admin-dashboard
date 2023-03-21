@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-// import { mockDataInvoices } from "../../data/mockData";
+import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../components/Header";
 import React, {useState, useEffect} from "react"
 
@@ -84,17 +84,7 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid         
-        rows={tableData}
-        columns={columns} 
-        slots={{ Toolbar: GridToolbar }}
-          slotProps={{
-            Toolbar: {
-              showQuickFilter: true,
-              // quickFilterProps: { debounceMs: 500 },
-            },
-          }} 
-          />
+        <DataGrid checkboxSelection rows={tableData} columns={columns} />
       </Box>
     </Box>
   );

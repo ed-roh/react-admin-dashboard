@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-
+// import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import React, {useState, useEffect} from "react"
@@ -104,13 +104,7 @@ const Contacts = () => {
         <DataGrid
           rows={tableData}
           columns={columns}
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-              // quickFilterProps: { debounceMs: 500 },
-            },
-          }}
+          components={{ Toolbar: GridToolbar }}
         />
       </Box>
     </Box>
