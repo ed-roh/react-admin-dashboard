@@ -49,7 +49,7 @@ const Sidebar = () => {
    const data1 = fetch("http://localhost:3333/img")
       .then((data) => data.json())
       .then((data) =>  setImag(data))
-     
+      console.log(data1)
 
   }, [])
 
