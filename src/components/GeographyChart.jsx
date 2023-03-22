@@ -2,11 +2,23 @@ import { useTheme } from "@mui/material";
 import { ResponsiveChoropleth } from "@nivo/geo";
 import { geoFeatures } from "../data/mockGeoFeatures";
 import { tokens } from "../theme";
-import { mockGeographyData as data } from "../data/mockData";
-
+// import { mockGeographyData as data } from "../data/mockData";
+import React, {useState, useEffect} from "react"
 const GeographyChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:3333/Geographydata")
+      .then((data) => data.json())
+      .then((data) => setData(data))
+
+  }, [])
+
+
+
   return (
     <ResponsiveChoropleth
       data={data}

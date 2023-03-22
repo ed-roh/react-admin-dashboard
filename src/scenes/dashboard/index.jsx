@@ -1,6 +1,6 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
+// import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
@@ -12,11 +12,18 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
-
+import React, {useState, useEffect} from "react"
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [tableData, setTableData] = useState([])
 
+  useEffect(() => {
+    fetch("http://localhost:3333/Transactions")
+      .then((data) => data.json())
+      .then((data) => setTableData(data))
+
+  }, [])
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -183,7 +190,7 @@ const Dashboard = () => {
               Recent Transactions
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {tableData.map((transaction, i) => (
             <Box
               key={`${transaction.txId}-${i}`}
               display="flex"

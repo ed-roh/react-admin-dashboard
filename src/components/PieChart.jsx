@@ -1,14 +1,25 @@
 import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
-import { mockPieData as data } from "../data/mockData";
-
+// import { mockPieData as data } from "../data/mockData";
+import React, {useState, useEffect} from "react"
 const PieChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [tableData, setTableData] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:3333/PieData")
+      .then((data) => data.json())
+      .then((data) => setTableData(data))
+
+  }, [])
+
+  
   return (
     <ResponsivePie
-      data={data}
+      data={tableData}
       theme={{
         axis: {
           domain: {

@@ -1,15 +1,22 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
-import { mockBarData as data } from "../data/mockData";
-
+// import { mockBarData as data } from "../data/mockData";
+import React, {useState, useEffect} from "react"
 const BarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [tableData, setTableData] = useState([])
 
+  useEffect(() => {
+    fetch("http://localhost:3333/BarData")
+      .then((data) => data.json())
+      .then((data) => setTableData(data))
+
+  }, [])
   return (
     <ResponsiveBar
-      data={data}
+      data={tableData}
       theme={{
         // added
         axis: {

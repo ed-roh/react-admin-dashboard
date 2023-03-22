@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -16,10 +15,13 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-
+import React, {useState, useEffect} from "react"
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+
+
   return (
     <MenuItem
       active={selected === title}
@@ -40,6 +42,16 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+  const [imag, setImag] = useState()
+
+  useEffect(() => {
+   const data1 = fetch("http://localhost:3333/img")
+      .then((data) => data.json())
+      .then((data) =>  setImag(data))
+     
+
+  }, [])
 
   return (
     <Box
@@ -96,7 +108,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={imag?.img1}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
