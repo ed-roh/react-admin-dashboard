@@ -11,7 +11,7 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import React,{ useState } from "react"
-const Form = () => {
+const Form = () => { 
   const [access, setAccess] = React.useState('');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -33,9 +33,9 @@ const Form = () => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  function handleSubmit() {
-    console.log(data)
-  }
+  // function handleSubmit() {
+  //   console.log(data)
+  // }
   const handleChange = (event) => {
     setAccess(event.target.value);
   };
@@ -46,7 +46,7 @@ const Form = () => {
 
 
 
-      <form onSubmit={handleSubmit}>
+      <form >
         <Box
           display="grid"
           gap="30px"
@@ -61,8 +61,8 @@ const Form = () => {
             type="text"
             label="First Name"
             // onBlur={handleBlur}
-            onChange={handleChange}
-            value={data.name}
+            // onChange={handleChange}
+            value={setdata.name}
             name="name"
             // error={!!touched.name && !!errors.name}
             // helperText={touched.name && errors.name}
@@ -75,7 +75,7 @@ const Form = () => {
             label="Age"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={data.age}
+            value={setdata.age}
             name="age"
             // error={!!touched.age && !!errors.age}
             // helperText={touched.age && errors.age}
@@ -88,7 +88,7 @@ const Form = () => {
             label="Email"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={data.email}
+            value={setdata.email}
             name="email"
             // error={!!touched.email && !!errors.email}
             // helperText={touched.email && errors.email}
@@ -101,7 +101,7 @@ const Form = () => {
             label="phone Number"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={data.phone}
+            value={setdata.phone}
             name="phone"
             // error={!!touched.phone && !!errors.phone}
             // helperText={touched.phone && errors.phone}
@@ -114,13 +114,13 @@ const Form = () => {
             label="Address 1"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={data.access}
+            value={setdata.access}
             name="access"
             // error={!!touched.access && !!errors.access}
             // helperText={touched.access && errors.access}
             sx={{ gridColumn: "span 4" }}
           />
-          <Box 
+          <InputLabel 
           id="demo-simple-select-label"
           width="60%"
           m="0 auto"
@@ -143,11 +143,11 @@ const Form = () => {
           <Typography color={colors.grey[100]} sx={{ ml: "5px"}} justifyContent="center" >
               {access}
             </Typography>
-            </Box>
+            </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={data.access}
+            value={setdata.access}
             label="Access"
             autoWidth
             onChange={handleChange}
