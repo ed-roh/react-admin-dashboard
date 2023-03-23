@@ -24,8 +24,8 @@ const Form = () => {
   //   access: "",
   // };
   const [data, setData] = useState({
-    name: "ubaidullah",
-    email: "ubaidullah@gmail.com",
+    name: "",
+    email: "",
     age: "",
     phone: "",
     access: ""
@@ -33,9 +33,9 @@ const Form = () => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  function handleSubmit() {
-    console.log(data)
-  }
+  // function handleSubmit() {
+  //   console.log(data)
+  // }
   const handleChange = (event) => {
     setAccess(event.target.value);
   };
@@ -46,7 +46,7 @@ const Form = () => {
 
 
 
-      <form onSubmit={handleSubmit}>
+      <form >
         <Box
           display="grid"
           gap="30px"
