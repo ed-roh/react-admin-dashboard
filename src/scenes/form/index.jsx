@@ -12,7 +12,19 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import React,{ useState , useEffect} from "react"
 const Form = () => { 
-  const [access, setAccess] = React.useState('user');
+
+  const [tableData, setTableData] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:3333/Team")
+      .then((data) => data.json())
+      .then((data) => setTableData(data))
+
+  }, [])
+
+  console.log(tableData.id)
+
+  // const [access, setAccess] = React.useState('user');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -28,6 +40,7 @@ const Form = () => {
   //   access: "",
   // };
   const [data, setData] = useState({
+    id:"",
     name: "",
     email: "",
     age: "",
@@ -36,22 +49,14 @@ const Form = () => {
   });
     // const [sdata, setSdata] = useState()
 
-  // useEffect(() => {
-  //  const data1 = fetch("http://localhost:3333/Team")
-  //     .then((data) => data.json())
-  //     .then((data) =>  setSdata(data))
-  //     console.log(data1)
-
-  // }, [])
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-    console.log(data)
 
   const handleChangeaccess = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(name,value)
+ 
     setData((prev)=>{
       return{
         ...prev,[name]:value
@@ -61,7 +66,7 @@ const Form = () => {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(name,value)
+    
     setData((prev)=>{
       return{
         ...prev,[name]:value
@@ -78,7 +83,25 @@ const ITEM_PADDING_TOP = 8;
       },
     },
   };
+  function Fromsubmit (e){
+    e.preventDefault();
+console.log(data)
+    
+      fetch("http://localhost:3333/Team",{
+       method: 'post',
+       headers: {
+         "Content-type":'application/json; charset=UTF-8',
+       },
+       body: JSON.stringify(data)
+      })  
+        .then(response => response.json())
+        .then(response => {console.log(response)
+          });
+     
+   
   
+   
+  }
 
   return (
     <Box m="20px">
@@ -86,7 +109,7 @@ const ITEM_PADDING_TOP = 8;
 
 
 
-      <form >
+      <form onSubmit={Fromsubmit}>
         <Box
           display="grid"
           gap="30px"
