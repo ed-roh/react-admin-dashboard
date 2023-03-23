@@ -11,6 +11,7 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import React,{ useState , useEffect} from "react"
+import { useNavigate } from "react-router-dom";
 const Form = () => { 
 
   const [tableData, setTableData] = useState([])
@@ -31,7 +32,7 @@ const Form = () => {
 
 
 
-
+  const navigate = useNavigate();
   // const initialValues = {
   //   name: "",
   //   email: "",
@@ -45,7 +46,7 @@ const Form = () => {
     email: "",
     age: "",
     phone: "",
-    access: ""
+    access: "user"
   });
     // const [sdata, setSdata] = useState()
 
@@ -64,6 +65,7 @@ const Form = () => {
     })
   };
   const handleChange = (e) => {
+    handleNameChange(e);
     const name = e.target.name;
     const value = e.target.value;
     
@@ -97,11 +99,25 @@ console.log(data)
         .then(response => response.json())
         .then(response => {console.log(response)
           });
+          navigate('/team')
      
    
   
    
   }
+  const [name, setName] = useState('');
+  const [nameError, setNameError] = useState(false);
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+    setNameError(false);
+  };
+
+  const handleBlur = () => {
+    if (name === '') {
+      setNameError(true);
+    }
+  };
 
   return (
     <Box m="20px">
@@ -118,16 +134,27 @@ console.log(data)
             "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
           }}
         >
+              {/* <div>
+      <TextField
+        id="name"
+        label="Name"
+        value={name}
+        onChange={handleNameChange}
+        onBlur={handleBlur}
+        error={nameError}
+        helperText={nameError ? 'Name is required' : ''}
+      />
+    </div> */}
           <TextField
             fullWidth
             variant="filled"
             type="text"
             label="First Name"
-            // onBlur={handleBlur}
+            onBlur={handleBlur}
             onChange={handleChange}
             value={data.name}
             name="name"
-            // error={!!touched.name && !!errors.name}
+            error={nameError}
             // helperText={touched.name && errors.name}
             sx={{ gridColumn: "span 2" }}
           />
@@ -136,11 +163,11 @@ console.log(data)
             variant="filled"
             type="text"
             label="Age"
-            // onBlur={handleBlur}
+            onBlur={handleBlur}
             onChange={handleChange}
             value={data.age}
             name="age"
-            // error={!!touched.age && !!errors.age}
+            error={nameError}
             // helperText={touched.age && errors.age}
             sx={{ gridColumn: "span 2" }}
           />
@@ -149,11 +176,11 @@ console.log(data)
             variant="filled"
             type="text"
             label="Email"
-            // onBlur={handleBlur}
+            onBlur={handleBlur}
             onChange={handleChange}
             value={data.email}
             name="email"
-            // error={!!touched.email && !!errors.email}
+            error={nameError}
             // helperText={touched.email && errors.email}
             sx={{ gridColumn: "span 4" }}
           />
@@ -162,11 +189,11 @@ console.log(data)
             variant="filled"
             type="text"
             label="phone Number"
-            // onBlur={handleBlur}
+            onBlur={handleBlur}
             onChange={handleChange}
             value={data.phone}
             name="phone"
-            // error={!!touched.phone && !!errors.phone}
+            error={nameError}
             // helperText={touched.phone && errors.phone}
             sx={{ gridColumn: "span 4" }}
           />
@@ -208,8 +235,7 @@ console.log(data)
             onChange={handleChangeaccess}
             sx={{ gridColumn: "span 2" }}
             MenuProps={MenuProps}
-            
-
+            error={nameError}
           >
             <MenuItem value={"admin"}>Admin</MenuItem>
             <MenuItem value={"manager"}>Manager</MenuItem>
