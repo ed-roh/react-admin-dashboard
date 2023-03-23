@@ -10,11 +10,23 @@ import MenuItem from '@mui/material/MenuItem';
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
-import React,{ useState } from "react"
+import React,{ useState , useEffect} from "react"
 const Form = () => { 
   const [access, setAccess] = React.useState('user');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [sdata, setSdata] = useState()
+
+  useEffect(() => {
+   const data1 = fetch("http://localhost:3333/Team")
+      .then((data) => data.json())
+      .then((data) =>  setSdata(data))
+      console.log(data1)
+
+  }, [])
+
+
 
   // const initialValues = {
   //   name: "",
