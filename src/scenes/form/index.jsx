@@ -23,7 +23,7 @@ const Form = () => {
   //   phone: "",
   //   access: "",
   // };
-  const [data, setdata] = useState({
+  const [data, setData] = useState({
     name: "",
     email: "",
     age: "",
@@ -61,8 +61,8 @@ const Form = () => {
             type="text"
             label="First Name"
             // onBlur={handleBlur}
-            // onChange={handleChange}
-            value={setdata.name}
+            onChange={handleChange}
+            value={data.name}
             name="name"
             // error={!!touched.name && !!errors.name}
             // helperText={touched.name && errors.name}
@@ -75,7 +75,7 @@ const Form = () => {
             label="Age"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={setdata.age}
+            value={data.age}
             name="age"
             // error={!!touched.age && !!errors.age}
             // helperText={touched.age && errors.age}
@@ -88,7 +88,7 @@ const Form = () => {
             label="Email"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={setdata.email}
+            value={data.email}
             name="email"
             // error={!!touched.email && !!errors.email}
             // helperText={touched.email && errors.email}
@@ -101,7 +101,7 @@ const Form = () => {
             label="phone Number"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={setdata.phone}
+            value={data.phone}
             name="phone"
             // error={!!touched.phone && !!errors.phone}
             // helperText={touched.phone && errors.phone}
@@ -114,7 +114,7 @@ const Form = () => {
             label="Address 1"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={setdata.access}
+            value={data.access}
             name="access"
             // error={!!touched.access && !!errors.access}
             // helperText={touched.access && errors.access}
@@ -147,7 +147,7 @@ const Form = () => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={setdata.access}
+            value={data.access}
             label="Access"
             autoWidth
             onChange={handleChange}
