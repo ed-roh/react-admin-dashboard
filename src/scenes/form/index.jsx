@@ -16,15 +16,7 @@ const Form = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [sdata, setSdata] = useState()
 
-  useEffect(() => {
-   const data1 = fetch("http://localhost:3333/Team")
-      .then((data) => data.json())
-      .then((data) =>  setSdata(data))
-      console.log(data1)
-
-  }, [])
 
 
 
@@ -42,14 +34,40 @@ const Form = () => {
     phone: "",
     access: ""
   });
+    // const [sdata, setSdata] = useState()
+
+  // useEffect(() => {
+  //  const data1 = fetch("http://localhost:3333/Team")
+  //     .then((data) => data.json())
+  //     .then((data) =>  setSdata(data))
+  //     console.log(data1)
+
+  // }, [])
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
     console.log(data)
 
-  const handleChange = (event) => {
-    setAccess(event.target.value);
+  const handleChangeaccess = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    console.log(name,value)
+    setData((prev)=>{
+      return{
+        ...prev,[name]:value
+      }
+    })
   };
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    console.log(name,value)
+    setData((prev)=>{
+      return{
+        ...prev,[name]:value
+      }
+    })
+  }
 
   return (
     <Box m="20px">
@@ -118,19 +136,6 @@ const Form = () => {
             // helperText={touched.phone && errors.phone}
             sx={{ gridColumn: "span 4" }}
           />
-          <TextField
-            fullWidth
-            variant="filled"
-            type="text"
-            label="Address 1"
-            // onBlur={handleBlur}
-            onChange={handleChange}
-            value={data.access}
-            name="access"
-            // error={!!touched.access && !!errors.access}
-            // helperText={touched.access && errors.access}
-            sx={{ gridColumn: "span 4" }}
-          />
           <InputLabel 
           id="demo-simple-select-label"
           width="60%"
@@ -164,8 +169,9 @@ const Form = () => {
             id="demo-simple-select"
             value={access}
             label="Access"
+            name="access"
             autoWidth
-            onChange={handleChange}
+            onChange={handleChangeaccess}
             sx={{ gridColumn: "span 2" }}
           >
             <MenuItem value={"admin"}>Admin</MenuItem>
