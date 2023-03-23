@@ -68,6 +68,17 @@ const Form = () => {
       }
     })
   }
+  const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 50 + ITEM_PADDING_TOP,
+        width: 800,
+      },
+    },
+  };
+  
 
   return (
     <Box m="20px">
@@ -147,19 +158,19 @@ const Form = () => {
             display="flex"
             justifyContent="center"
             backgroundColor={
-              access === "admin"
+              data.access === "admin"
                 ? colors.greenAccent[600]
-                : access === "manager"
+                : data.access === "manager"
                 ? colors.greenAccent[700]
-                : colors.greenAccent[700]
+                : colors.greenAccent[800]
             }
             borderRadius="4px"
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
+            {data.access === "admin" && <AdminPanelSettingsOutlinedIcon />}
+            {data.access === "manager" && <SecurityOutlinedIcon />}
+            {data.access === "user" && <LockOpenOutlinedIcon />}
             <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
+              {data.access}
             </Typography>
           </Box>
           
@@ -167,12 +178,15 @@ const Form = () => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={access}
+            value={data.access} 
             label="Access"
             name="access"
             autoWidth
             onChange={handleChangeaccess}
             sx={{ gridColumn: "span 2" }}
+            MenuProps={MenuProps}
+            
+
           >
             <MenuItem value={"admin"}>Admin</MenuItem>
             <MenuItem value={"manager"}>Manager</MenuItem>
