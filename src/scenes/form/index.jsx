@@ -12,7 +12,7 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import React,{ useState } from "react"
 const Form = () => { 
-  const [access, setAccess] = React.useState('');
+  const [access, setAccess] = React.useState('user');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -33,9 +33,8 @@ const Form = () => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  // function handleSubmit() {
-  //   console.log(data)
-  // }
+    console.log(data)
+
   const handleChange = (event) => {
     setAccess(event.target.value);
   };
@@ -61,8 +60,8 @@ const Form = () => {
             type="text"
             label="First Name"
             // onBlur={handleBlur}
-            // onChange={handleChange}
-            value={setdata.name}
+            onChange={handleChange}
+            value={data.name}
             name="name"
             // error={!!touched.name && !!errors.name}
             // helperText={touched.name && errors.name}
@@ -74,8 +73,8 @@ const Form = () => {
             type="text"
             label="Age"
             // onBlur={handleBlur}
-            // onChange={handleChange}
-            value={setdata.age}
+            onChange={handleChange}
+            value={data.age}
             name="age"
             // error={!!touched.age && !!errors.age}
             // helperText={touched.age && errors.age}
@@ -87,8 +86,8 @@ const Form = () => {
             type="text"
             label="Email"
             // onBlur={handleBlur}
-            // onChange={handleChange}
-            value={setdata.email}
+            onChange={handleChange}
+            value={data.email}
             name="email"
             // error={!!touched.email && !!errors.email}
             // helperText={touched.email && errors.email}
@@ -100,8 +99,8 @@ const Form = () => {
             type="text"
             label="phone Number"
             // onBlur={handleBlur}
-            // onChange={handleChange}
-            value={setdata.phone}
+            onChange={handleChange}
+            value={data.phone}
             name="phone"
             // error={!!touched.phone && !!errors.phone}
             // helperText={touched.phone && errors.phone}
@@ -113,8 +112,8 @@ const Form = () => {
             type="text"
             label="Address 1"
             // onBlur={handleBlur}
-            // onChange={handleChange}
-            value={setdata.access}
+            onChange={handleChange}
+            value={data.access}
             name="access"
             // error={!!touched.access && !!errors.access}
             // helperText={touched.access && errors.access}
@@ -123,31 +122,35 @@ const Form = () => {
           <InputLabel 
           id="demo-simple-select-label"
           width="60%"
-          m="0 auto"
-          pt="25px"
-          p="5px"
-          display="flex"
-          justifyContent="center"
-          backgroundColor={
-            access === "admin"
-              ? colors.greenAccent[600]
-              : access === "manager"
-              ? colors.greenAccent[700]
-              : colors.greenAccent[700]
-          }
-          borderRadius="4px"
           >
-          {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-          {access === "manager" && <SecurityOutlinedIcon />}
-          {access === "user" && <LockOpenOutlinedIcon />}
-          <Typography color={colors.grey[100]} sx={{ ml: "5px"}} justifyContent="center" >
+           <Box
+            width="60%"
+            m="0 auto"
+            p="15px"
+            display="flex"
+            justifyContent="center"
+            backgroundColor={
+              access === "admin"
+                ? colors.greenAccent[600]
+                : access === "manager"
+                ? colors.greenAccent[700]
+                : colors.greenAccent[700]
+            }
+            borderRadius="4px"
+          >
+            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
+            {access === "manager" && <SecurityOutlinedIcon />}
+            {access === "user" && <LockOpenOutlinedIcon />}
+            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
               {access}
             </Typography>
+          </Box>
+          
             </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={setdata.access}
+            value={access}
             label="Access"
             autoWidth
             onChange={handleChange}
@@ -168,19 +171,8 @@ const Form = () => {
   );
 };
 
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
-const checkoutSchema = yup.object().shape({
-  name: yup.string().required("required"),
-  age: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  phone: yup
-    .string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
-  access: yup.string().required("required"),
-});
+
 
 
 export default Form;
