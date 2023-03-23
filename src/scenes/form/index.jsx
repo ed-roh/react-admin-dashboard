@@ -11,7 +11,7 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import React,{ useState } from "react"
-const Form = () => {
+const Form = () => { 
   const [access, setAccess] = React.useState('');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -23,9 +23,9 @@ const Form = () => {
   //   phone: "",
   //   access: "",
   // };
-  const [data, setdata] = useState({
-    name: "",
-    email: "",
+  const [data, setData] = useState({
+    name: "ubaidullah",
+    email: "ubaidullah@gmail.com",
     age: "",
     phone: "",
     access: ""
@@ -62,8 +62,8 @@ const Form = () => {
             label="First Name"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={setdata.name}
-            name="name"
+            value={setData.name}
+            // name="name"
             // error={!!touched.name && !!errors.name}
             // helperText={touched.name && errors.name}
             sx={{ gridColumn: "span 2" }}
@@ -75,7 +75,7 @@ const Form = () => {
             label="Age"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={setdata.age}
+            value={setData.age}
             name="age"
             // error={!!touched.age && !!errors.age}
             // helperText={touched.age && errors.age}
@@ -88,7 +88,7 @@ const Form = () => {
             label="Email"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={setdata.email}
+            value={setData.email}
             name="email"
             // error={!!touched.email && !!errors.email}
             // helperText={touched.email && errors.email}
@@ -101,7 +101,7 @@ const Form = () => {
             label="phone Number"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={setdata.phone}
+            value={setData.phone}
             name="phone"
             // error={!!touched.phone && !!errors.phone}
             // helperText={touched.phone && errors.phone}
@@ -114,13 +114,13 @@ const Form = () => {
             label="Address 1"
             // onBlur={handleBlur}
             // onChange={handleChange}
-            value={setdata.access}
+            value={setData.access}
             name="access"
             // error={!!touched.access && !!errors.access}
             // helperText={touched.access && errors.access}
             sx={{ gridColumn: "span 4" }}
           />
-          <Box 
+          <InputLabel 
           id="demo-simple-select-label"
           width="60%"
           m="0 auto"
@@ -143,11 +143,11 @@ const Form = () => {
           <Typography color={colors.grey[100]} sx={{ ml: "5px"}} justifyContent="center" >
               {access}
             </Typography>
-            </Box>
+            </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={setdata.access}
+            value={setData.access}
             label="Access"
             autoWidth
             onChange={handleChange}
