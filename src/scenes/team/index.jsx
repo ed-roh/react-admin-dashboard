@@ -7,6 +7,8 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import React, {useState, useEffect} from "react"
+// import * as React from "react";
+import { Link } from "react-router-dom";
 
 const Team = () => {
   const theme = useTheme();
@@ -77,11 +79,12 @@ const Team = () => {
 
   }, [])
 
-  console.log(tableData)
+  // console.log(tableData)
   return (
     <Box m="20px">
       <Header title="TEAM" subtitle="Managing the Team Members" />
-      <button  to="/form" >Add New</button>
+      {/* <button  to="/form"  >Add New</button> */}
+      <Link to="/form">Add New User</Link>
       <Box
         m="40px 0 0 0"
         height="75vh"

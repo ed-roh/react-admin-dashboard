@@ -1,35 +1,43 @@
-import { Box, Button, TextField,useTheme, Typography} from "@mui/material";
-// import { Formik } from "formik";
-import { tokens } from "../../theme";
-import * as yup from "yup";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "../../components/Header";
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
-import React,{ useState , useEffect} from "react"
-import { useNavigate } from "react-router-dom";
-const Form = () => { 
-
-  const [tableData, setTableData] = useState([])
-
+import { Box, Button, TextField,useTheme, Typography} from "@mui/material"; 
+// import { Formik } from "formik"; 
+import { tokens } from "../../theme"; 
+// import * as yup from "yup";
+import useMediaQuery from "@mui/material/useMediaQuery"; 
+import Header from "../../components/Header"; 
+import Select from '@mui/material/Select'; 
+import InputLabel from '@mui/material/InputLabel'; 
+import MenuItem from '@mui/material/MenuItem'; 
+import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined"; 
+import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined"; 
+import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined"; 
+import React,{ useState , useEffect} from "react" 
+import { useNavigate } from "react-router-dom"; 
+const Form = () => {  
+ 
+ 
+ 
+  // const [access, setAccess] = React.useState('user'); 
+  const theme = useTheme();  
+  const colors = tokens(theme.palette.mode); 
+  
+ 
+  const [tid, setTid] = useState()
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    age: "",
+    phone: "",
+    access: "user",
+    id:"2",
+  });
+  
+  
   useEffect(() => {
     fetch("http://localhost:3333/Team")
       .then((data) => data.json())
-      .then((data) => setTableData(data))
-
+      .then((data) => setTid(data.length+1))
+      
   }, [])
-
-  console.log(tableData.id)
-
-  // const [access, setAccess] = React.useState('user');
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-
-
 
 
   const navigate = useNavigate();
@@ -38,20 +46,16 @@ const Form = () => {
   //   email: "",
   //   age: "",
   //   phone: "",
-  //   access: "",
+  //   access: "", 
   // };
-  const [data, setData] = useState({
-    id:"",
-    name: "",
-    email: "",
-    age: "",
-    phone: "",
-    access: "user"
-  });
     // const [sdata, setSdata] = useState()
-
-
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  // setData((id)=>{return{
+  //   [id]:tid
+  // }
+  // })
+    
+    
+    const isNonMobile = useMediaQuery("(min-width:600px)");
 
 
   const handleChangeaccess = (e) => {
@@ -62,7 +66,9 @@ const Form = () => {
       return{
         ...prev,[name]:value
       }
+      
     })
+    
   };
   const handleChange = (e) => {
     handleNameChange(e);
@@ -76,7 +82,7 @@ const Form = () => {
     })
   }
   const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+  const ITEM_PADDING_TOP = 8;
   const MenuProps = {
     PaperProps: {
       style: {
@@ -87,37 +93,45 @@ const ITEM_PADDING_TOP = 8;
   };
   function Fromsubmit (e){
     e.preventDefault();
-console.log(data)
+    console.log(data)
     
-      fetch("http://localhost:3333/Team",{
-       method: 'post',
-       headers: {
-         "Content-type":'application/json; charset=UTF-8',
-       },
-       body: JSON.stringify(data)
-      })  
-        .then(response => response.json())
-        .then(response => {console.log(response)
-          });
-          navigate('/team')
-     
-   
-  
-   
+    fetch("http://localhost:3333/Team",{
+      method: 'post',
+      headers: {
+        "Content-type":'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify(data)
+    })  
+    .then(response => response.json())
+    .then(response => {console.log(response)
+    });
+    navigate('/team')
+    
+    
+    
+    
   }
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState(false);
-
+  
   const handleNameChange = (e) => {
     setName(e.target.value);
     setNameError(false);
   };
-
+  
   const handleBlur = () => {
     if (name === '') {
       setNameError(true);
     }
   };
+//   setData((prev) => [
+//     // ...prev,
+//     // {
+//     //     id: "30"
+//     // }, 
+// ]);
+
+  // console.log(data.id)
 
   return (
     <Box m="20px">
@@ -156,7 +170,7 @@ console.log(data)
             name="name"
             error={nameError}
             // helperText={touched.name && errors.name}
-            sx={{ gridColumn: "span 2" }}
+            sx={{ gridColumn: "span 4" }}
           />
           <TextField
             fullWidth
@@ -169,7 +183,7 @@ console.log(data)
             name="age"
             error={nameError}
             // helperText={touched.age && errors.age}
-            sx={{ gridColumn: "span 2" }}
+            sx={{ gridColumn: "span 4" }}
           />
           <TextField
             fullWidth

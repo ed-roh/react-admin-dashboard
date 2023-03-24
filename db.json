@@ -10,38 +10,6 @@
       "phone": "(665)121-5454",
       "access": "admin",
       "id": "1"
-    },
-    {
-      "id": "rGHirfq",
-      "name": "Ubaidullah",
-      "email": "ubaidullahu448@gmail.com",
-      "age": "23",
-      "phone": "0683012072481",
-      "access": "admin"
-    },
-    {
-      "id": "4LtdU10",
-      "name": "Ubaidullah",
-      "email": "researchfigma@gmail.com",
-      "age": "23",
-      "phone": "0683012072481",
-      "access": "user"
-    },
-    {
-      "id": "cX8S6vJ",
-      "name": "Ubaidullah",
-      "email": "researchfigma@gmail.com",
-      "age": "23",
-      "phone": "0683012072481",
-      "access": "user"
-    },
-    {
-      "id": "ijebwvg",
-      "name": "Ubaidullah",
-      "email": "ubaidullahu449@gmail.com",
-      "age": "23",
-      "phone": "0683012072481",
-      "access": "manager"
     }
   ],
   "contact": [
