@@ -38,7 +38,7 @@ const Form = () => {
       .then((data) => setTid(data.length+1))
       
   }, [])
-
+console.log(tid)
 
   const navigate = useNavigate();
   // const initialValues = {

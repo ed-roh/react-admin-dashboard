@@ -7,15 +7,15 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import React, {useState, useEffect} from "react"
-// import * as React from "react";
-import { Link } from "react-router-dom";
-
+// import * as React from "react"; 
+import { Link } from "react-router-dom"; 
+ 
 const Team = () => {
-  const theme = useTheme();
+  const theme = useTheme(); 
   const colors = tokens(theme.palette.mode);
   const columns = [
     { field: "id", headerName: "ID" },
-    {
+    { 
       field: "name",
       headerName: "Name",
       flex: 1,
@@ -25,18 +25,17 @@ const Team = () => {
       field: "age",
       headerName: "Age",
       type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
+      headerAlign: "left", 
+    }, 
     {
-      field: "phone",
+      field: "phone", 
       headerName: "Phone Number",
-      flex: 1,
+      flex: 1,  
     },
-    {
+    {  
       field: "email",
-      headerName: "Email",
-      flex: 1,
+      headerName: "Email", 
+      flex: 1, 
     },
     {
       field: "accessLevel",
