@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme,Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 // import { mockDataTeam } from "../../data/mockData";
@@ -14,7 +14,6 @@ const Team = () => {
   const theme = useTheme(); 
   const colors = tokens(theme.palette.mode);
   const columns = [
-    { field: "id", headerName: "ID" },
     { 
       field: "name",
       headerName: "Name",
@@ -24,8 +23,6 @@ const Team = () => {
     {
       field: "age",
       headerName: "Age",
-      type: "number",
-      headerAlign: "left", 
     }, 
     {
       field: "phone", 
@@ -68,6 +65,11 @@ const Team = () => {
         );
       },
     },
+      {
+        field: "action", 
+        headerName: "Action",
+        flex: 1,  
+      },
   ];
   const [tableData, setTableData] = useState([])
 
@@ -82,9 +84,12 @@ const Team = () => {
   return (
     <Box m="20px">
       <Header title="TEAM" subtitle="Managing the Team Members" />
-      {/* <button  to="/form"  >Add New</button> */}
-      <Link to="/form">Add New User</Link>
-      <Box
+      <div className="but" style={{textAlign:"centre"}}>
+      <Button style={{textAlign:"left",backgroundColor: "#3da58a",borderRadius:"4px"}}  to="/form"  >
+      <Link style={{textDecoration:" none",color: "#ffffff",margin:"5px"}} to="/form">Add New User</Link></Button>
+
+      </div>
+            <Box
         m="40px 0 0 0"
         height="75vh"
         sx={{

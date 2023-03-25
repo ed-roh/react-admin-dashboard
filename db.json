@@ -26,6 +26,14 @@
       "phone": "03012345678",
       "access": "user",
       "id": "i--TzIn"
+    },
+    {
+      "name": "name",
+      "email": "sadam2072481@gmail.com",
+      "age": "03",
+      "phone": "0683012072481",
+      "access": "manager",
+      "id": "kbtJ7lT"
     }
   ],
   "contact": [
