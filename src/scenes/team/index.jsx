@@ -84,7 +84,7 @@ const Team = () => {
     <Box m="20px">
       <Header title="TEAM" subtitle="Managing the Team Members" />
       {/* <button  to="/form"  >Add New</button> */}
-      <Link to="/form">Add New User</Link>
+      <Link style={{padding:"10px", border:"1px solid #3e4396", textDecoration:"none",backgroundColor:"#3e4396", color:"#fff",borderRadius:"5px"}} to="/form">Add New User</Link>
       <Box
         m="40px 0 0 0"
         height="75vh"
