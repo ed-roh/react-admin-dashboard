@@ -89,7 +89,7 @@
 //     </Box>
 //   );
 // };
-import * as React from 'react';
+import React,{useState,useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -176,7 +176,16 @@ EditToolbar.propTypes = {
 };
 
 function Invoices() {
-  const [rows, setRows] = React.useState(initialRows);
+    const [tableData, setTableData] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:3333/Invoices")
+      .then((data) => data.json())
+      .then((data) => setTableData(data))
+
+  }, [])
+
+  const [rows, setRows] = React.useState(tableData);
   const [rowModesModel, setRowModesModel] = React.useState({});
 
   const handleRowEditStart = (params, event) => {

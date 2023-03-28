@@ -18,6 +18,22 @@
       "phone": "5434646576",
       "access": "admin",
       "id": "RD5Qj_L"
+    },
+    {
+      "name": "name",
+      "email": "ubaidullah448@gmail.com",
+      "age": "03",
+      "phone": "5434646576",
+      "access": "manager",
+      "id": "-zquV5q"
+    },
+    {
+      "name": "ubaidullah",
+      "email": "ubaidullah448@gmail.com",
+      "age": "17",
+      "phone": "5434646576",
+      "access": "user",
+      "id": "i5Zkz97"
     }
   ],
   "contact": [
