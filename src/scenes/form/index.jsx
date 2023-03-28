@@ -11,11 +11,10 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined"; 
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined"; 
 import React,{ useState , useEffect} from "react" 
-import { useNavigate } from "react-router-dom"; 
-const Form = () => {  
- 
- 
- 
+import { useNavigate } from "react-router-dom";
+
+
+const Form = () => {
   // const [access, setAccess] = React.useState('user'); 
   const theme = useTheme();  
   const colors = tokens(theme.palette.mode); 
@@ -28,7 +27,7 @@ const Form = () => {
     age: "",
     phone: "",
     access: "user",
-    id:"2",
+    id:"",
   });
   
   
@@ -38,8 +37,8 @@ const Form = () => {
       .then((data) => setTid(data.length+1))
       
   }, [])
-
-
+ 
+ 
   const navigate = useNavigate();
   // const initialValues = {
   //   name: "",
@@ -50,14 +49,14 @@ const Form = () => {
   // };
     // const [sdata, setSdata] = useState()
   // setData((id)=>{return{
-  //   [id]:tid
-  // }
-  // })
-    
-    
-    const isNonMobile = useMediaQuery("(min-width:600px)");
-
-
+  //   [id]:tid 
+  // } 
+  // }) 
+     
+     
+  const isNonMobile = useMediaQuery("(min-width:600px)"); 
+ 
+ 
   const handleChangeaccess = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -81,8 +80,16 @@ const Form = () => {
       }
     })
   }
+  // function Id = (tid){
+  //   const name = tid;
+  //   setData((prev)=>{
+  //     return{
+        
+  //     }
+  //   })
+  // }
   const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
+  const ITEM_PADDING_TOP = 8; 
   const MenuProps = {
     PaperProps: {
       style: {
@@ -229,7 +236,9 @@ const Form = () => {
                 : colors.greenAccent[800]
             }
             borderRadius="4px"
+            
           >
+            
             {data.access === "admin" && <AdminPanelSettingsOutlinedIcon />}
             {data.access === "manager" && <SecurityOutlinedIcon />}
             {data.access === "user" && <LockOpenOutlinedIcon />}
