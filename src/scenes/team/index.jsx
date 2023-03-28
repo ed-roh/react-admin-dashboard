@@ -14,7 +14,6 @@ const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
-    { field: "id", headerName: "ID" },
     {
       field: "name",
       headerName: "Name",
@@ -83,8 +82,8 @@ const Team = () => {
   return (
     <Box m="20px">
       <Header title="TEAM" subtitle="Managing the Team Members" />
+      <Link style={{right:"0",padding:"15px", border:"1px solid #3e4396", textDecoration:"none",backgroundColor:"#3e4396", color:"#fff",borderRadius:"5px"}} to="/form">Add New User</Link>
       {/* <button  to="/form"  >Add New</button> */}
-      <Link style={{padding:"10px", border:"1px solid #3e4396", textDecoration:"none",backgroundColor:"#3e4396", color:"#fff",borderRadius:"5px"}} to="/form">Add New User</Link>
       <Box
         m="40px 0 0 0"
         height="75vh"

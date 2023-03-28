@@ -5,6 +5,8 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import React, {useState, useEffect} from "react"
+
+import { Link } from "react-router-dom";
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -69,6 +71,8 @@ const Contacts = () => {
         title="CONTACTS"
         subtitle="List of Contacts for Future Reference"
       />
+      <Link style={{right:"0",padding:"15px", border:"1px solid #3e4396", textDecoration:"none",backgroundColor:"#3e4396", color:"#fff",borderRadius:"5px"}} to="/FormContact">Add New User</Link>
+    
       <Box
         m="40px 0 0 0"
         height="75vh"
