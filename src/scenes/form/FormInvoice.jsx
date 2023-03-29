@@ -4,17 +4,49 @@ import { tokens } from "../../theme";
 import { Box, Button, TextField,useTheme, Typography} from "@mui/material"; 
 import Header from "../../components/Header";
 const FormInvoice = () =>{
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    age: "",
+    phone: "",
+    id:"",
+  });
+  
     const theme = useTheme();  
-    const [data, setData] = useState()
+    const [data1, setData1] = useState()
     const id = useLocation();
     const ii = id.state.id;
     console.log(ii)
     useEffect(() => {
         fetch(`http://localhost:3333/Invoices/${ii}`)
         .then((data) => data.json())
-        .then((data) => setData(data))
+        .then((data) => setData1(data))
       }, [])
-      console.log(data)
+      // console.log(data1.name)
+      const handleChange = (e) => {
+        handleNameChange(e);
+        const name = e.target.name;
+        const value = e.target.value;
+        
+        setData((prev)=>{
+          return{
+            ...prev,[name]:value
+          }
+        })
+      }
+      const [name, setName] = useState('');
+      const [nameError, setNameError] = useState(false);
+      
+      const handleNameChange = (e) => {
+        setName(e.target.value);
+        setNameError(false);
+      };    
+      const handleBlur = () => {
+        if (name === '') {
+          setNameError(true);
+        }
+      };
+
     return(
         <>
             <Box m="20px">
@@ -41,11 +73,11 @@ const FormInvoice = () =>{
             variant="filled"
             type="text"
             label="First Name"
-            // onBlur={handleBlur}
-            // onChange={handleChange}
-            // value={data.name}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            value={data1.name}
             name="name"
-            // error={nameError}
+            error={nameError}
             // helperText={touched.name && errors.name}
             sx={{ gridColumn: "span 4" }}
           />
@@ -53,12 +85,12 @@ const FormInvoice = () =>{
             fullWidth
             variant="filled"
             type="text"
-            label="Age"
-            // onBlur={handleBlur}
-            // onChange={handleChange}
-            // value={data.age}
+            label="cost"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            value={data1.cost}
             name="age"
-            // error={nameError}
+            error={nameError}
             // helperText={touched.age && errors.age}
             sx={{ gridColumn: "span 4" }}
           />
@@ -67,11 +99,11 @@ const FormInvoice = () =>{
             variant="filled"
             type="text"
             label="Email"
-            // onBlur={handleBlur}
-            // onChange={handleChange}
-            // value={data.email}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            value={data1.email}
             name="email"
-            // error={nameError}
+            error={nameError}
             // helperText={touched.email && errors.email}
             sx={{ gridColumn: "span 4" }}
           />
@@ -80,11 +112,11 @@ const FormInvoice = () =>{
             variant="filled"
             type="text"
             label="phone Number"
-            // onBlur={handleBlur}
-            // onChange={handleChange}
-            // value={data.phone}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            value={data1.phone}
             name="phone"
-            // error={nameError}
+            error={nameError}
             // helperText={touched.phone && errors.phone}
             sx={{ gridColumn: "span 4" }}
           />
