@@ -161,22 +161,6 @@
   ],
   "Invoices": [
     {
-      "id": "1",
-      "name": "Jon Snow",
-      "email": "jonsnow@gmail.com",
-      "cost": "21.24",
-      "phone": "(665)121-5454",
-      "date": "03/12/2022"
-    },
-    {
-      "id": "2",
-      "name": "Cersei Lannister",
-      "email": "cerseilannister@gmail.com",
-      "cost": "1.24",
-      "phone": "(421)314-2288",
-      "date": "06/15/2021"
-    },
-    {
       "id": "3",
       "name": "Jaime Lannister",
       "email": "jaimelannister@gmail.com",
