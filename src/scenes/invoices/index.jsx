@@ -86,7 +86,14 @@ const Invoices = () => {
       console.log("view")
       break;
       case 'Edit':
-      navigate("/form")
+      navigate(
+        '/FormContact',
+        {
+          state: {
+            id : itemrow.row.id
+          }
+        }
+      )      
       break;
       case 'Delete':
         setId(itemrow?.row?.id)

@@ -53,22 +53,22 @@ const Contacts = () => {
       flex: 1,
     },
   ];
-
-
-  const [tableData, setTableData] = useState([])
-
-  useEffect(() => {
-    fetch("http://localhost:3333/contact")
-      .then((data) => data.json())
-      .then((data) => setTableData(data))
-
-  }, [])
-
-  console.log(tableData)
-  return (
-    <Box m="20px">
-      <Header
-        title="CONTACTS"
+ 
+ 
+  const [tableData, setTableData] = useState([]) 
+ 
+  useEffect(() => { 
+    fetch("http://localhost:3333/contact") 
+      .then((data) => data.json()) 
+      .then((data) => setTableData(data)) 
+ 
+  }, []) 
+ 
+  console.log(tableData) 
+  return ( 
+    <Box m="20px"> 
+      <Header 
+        title="CONTACTS" 
         subtitle="List of Contacts for Future Reference"
       />
       <Link style={{right:"0",padding:"15px", border:"1px solid #3e4396", textDecoration:"none",backgroundColor:"#3e4396", color:"#fff",borderRadius:"5px"}} to="/FormContact">Add New User</Link>
