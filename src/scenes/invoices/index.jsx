@@ -87,7 +87,7 @@ const Invoices = () => {
       break;
       case 'Edit':
       navigate(
-        '/FormContact',
+        '/FormInvoice',
         {
           state: {
             id : itemrow.row.id

@@ -2,19 +2,23 @@ import React,{ useState , useEffect} from "react"
 import { useNavigate, useLocation } from "react-router-dom"; 
 import { tokens } from "../../theme"; 
 import { Box, Button, TextField,useTheme, Typography} from "@mui/material"; 
-
-const FormContact = () =>{
+import Header from "../../components/Header";
+const FormInvoice = () =>{
+    const theme = useTheme();  
+    const [data, setData] = useState()
     const id = useLocation();
-    console.log(id.state)
-      const theme = useTheme();  
-      const [data, setData] = useState()
-      useEffect(() => {
-        fetch("http://localhost:3333/Invoices")
+    const ii = id.state.id;
+    console.log(ii)
+    useEffect(() => {
+        fetch(`http://localhost:3333/Invoices/${ii}`)
         .then((data) => data.json())
         .then((data) => setData(data))
       }, [])
+      console.log(data)
     return(
         <>
+            <Box m="20px">
+      <Header title="CREATE USER" subtitle="Create a New User Profile" />
        <form>
         <Box
           display="grid"
@@ -91,7 +95,8 @@ const FormContact = () =>{
           </Button>
         </Box>
       </form>
+      </Box>
         </>
     )
 }
-export default FormContact;
+export default FormInvoice;

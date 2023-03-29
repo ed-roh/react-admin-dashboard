@@ -40,19 +40,6 @@ const Form = () => {
  
  
   const navigate = useNavigate();
-  // const initialValues = {
-  //   name: "",
-  //   email: "",
-  //   age: "",
-  //   phone: "",
-  //   access: "", 
-  // };
-    // const [sdata, setSdata] = useState()
-  // setData((id)=>{return{
-  //   [id]:tid 
-  // } 
-  // }) 
-     
      
   const isNonMobile = useMediaQuery("(min-width:600px)"); 
  
@@ -80,14 +67,7 @@ const Form = () => {
       }
     })
   }
-  // function Id = (tid){
-  //   const name = tid;
-  //   setData((prev)=>{
-  //     return{
-        
-  //     }
-  //   })
-  // }
+
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8; 
   const MenuProps = {
