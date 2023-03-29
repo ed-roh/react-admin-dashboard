@@ -199,14 +199,6 @@
       "cost": "52.42",
       "phone": "(543)124-0123",
       "date": "02/11/2022"
-    },
-    {
-      "id": "8",
-      "name": "Rossini Frances",
-      "email": "rossinifrances@gmail.com",
-      "cost": "21.24",
-      "phone": "(222)444-5555",
-      "date": "05/02/2021"
     }
   ],
   "Transactions": [

@@ -22,7 +22,7 @@ const FormInvoice = () =>{
         .then((data) => data.json())
         .then((data) => setData1(data))
       }, [])
-      // console.log(data1.name)
+      console.log(data1?.name)
       const handleChange = (e) => {
         handleNameChange(e);
         const name = e.target.name;
@@ -75,7 +75,7 @@ const FormInvoice = () =>{
             label="First Name"
             onBlur={handleBlur}
             onChange={handleChange}
-            value={data1.name}
+            value={data1?.name}
             name="name"
             error={nameError}
             // helperText={touched.name && errors.name}
@@ -85,10 +85,10 @@ const FormInvoice = () =>{
             fullWidth
             variant="filled"
             type="text"
-            label="cost"
+            label="Age"
             onBlur={handleBlur}
             onChange={handleChange}
-            value={data1.cost}
+            value={data.age}
             name="age"
             error={nameError}
             // helperText={touched.age && errors.age}
@@ -101,7 +101,7 @@ const FormInvoice = () =>{
             label="Email"
             onBlur={handleBlur}
             onChange={handleChange}
-            value={data1.email}
+            value={data1?.email}
             name="email"
             error={nameError}
             // helperText={touched.email && errors.email}
@@ -114,7 +114,7 @@ const FormInvoice = () =>{
             label="phone Number"
             onBlur={handleBlur}
             onChange={handleChange}
-            value={data1.phone}
+            value={data1?.phone}
             name="phone"
             error={nameError}
             // helperText={touched.phone && errors.phone}
