@@ -13,16 +13,16 @@ const FormInvoice = () =>{
   });
   
     const theme = useTheme();  
-    const [data1, setData1] = useState()
+    const [adata, setAdata] = useState()
     const id = useLocation();
     const ii = id.state.id;
     console.log(ii)
     useEffect(() => {
         fetch(`http://localhost:3333/Invoices/${ii}`)
         .then((data) => data.json())
-        .then((data) => setData1(data))
+        .then((data) => setAdata(data))
       }, [])
-      console.log(data1?.name)
+      console.log(adata?.name)
       const handleChange = (e) => {
         handleNameChange(e);
         const name = e.target.name;
@@ -75,7 +75,7 @@ const FormInvoice = () =>{
             label="First Name"
             onBlur={handleBlur}
             onChange={handleChange}
-            value={data1?.name}
+            value={adata?.name}
             name="name"
             error={nameError}
             // helperText={touched.name && errors.name}
@@ -101,7 +101,7 @@ const FormInvoice = () =>{
             label="Email"
             onBlur={handleBlur}
             onChange={handleChange}
-            value={data1?.email}
+            value={adata?.email}
             name="email"
             error={nameError}
             // helperText={touched.email && errors.email}
@@ -114,7 +114,7 @@ const FormInvoice = () =>{
             label="phone Number"
             onBlur={handleBlur}
             onChange={handleChange}
-            value={data1?.phone}
+            value={adata?.phone}
             name="phone"
             error={nameError}
             // helperText={touched.phone && errors.phone}
