@@ -118,7 +118,7 @@ const Form = () => {
 //     // }, 
 // ]);
 
-  // console.log(data.id)
+  console.log(tid)
 
   return (
     <Box m="20px">

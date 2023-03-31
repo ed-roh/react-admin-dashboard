@@ -16,6 +16,7 @@ import Slide from '@mui/material/Slide'
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom"; 
 
+import { Link } from "react-router-dom";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -83,7 +84,14 @@ const Invoices = () => {
   const handleItemAction=(itemrow)=>{
     switch(itemrow.title){
       case 'View':
-      console.log("view")
+      navigate(
+        '/InvoiceView',
+        {
+          state: {
+            id : itemrow.row.id
+          }
+        }
+      )
       break;
       case 'Edit':
       navigate(
@@ -136,6 +144,7 @@ const Invoices = () => {
 
     // delete dialog box
     <>
+         
     <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -186,6 +195,8 @@ const Invoices = () => {
         }}
       >
         {/* <DataGrid checkboxSelection rows={tableData} columns={columns} /> */}
+        <Link style={{right:"0",padding:"15px", border:"1px solid #3e4396", textDecoration:"none",backgroundColor:"#3e4396", color:"#fff",borderRadius:"5px"}} to="/FormInvoice">Add New User</Link>
+
         <DataGrid
               sx={{
                 '& .MuiDataGrid-toolbarContainer': {

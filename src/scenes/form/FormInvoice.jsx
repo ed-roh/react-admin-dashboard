@@ -1,28 +1,32 @@
 import React,{ useState , useEffect} from "react" 
 import { useNavigate, useLocation } from "react-router-dom"; 
 import { tokens } from "../../theme"; 
-import { Box, Button, TextField,useTheme, Typography} from "@mui/material"; 
+import { Box, Button, TextField,useTheme} from "@mui/material"; 
 import Header from "../../components/Header";
+
+// import { Link } from "react-router-dom";
 const FormInvoice = () =>{
   const [data, setData] = useState({
     name: "",
     email: "",
-    age: "",
     phone: "",
+    cost: "",
+    date: "",
     id:"",
   });
   
-    const theme = useTheme();  
-    const [adata, setAdata] = useState()
+  const navigate = useNavigate();
+    const theme = useTheme(); 
+    const colors = tokens(theme.palette.mode);  
     const id = useLocation();
-    const ii = id.state.id;
+    const ii = id?.state?.id;
     console.log(ii)
     useEffect(() => {
         fetch(`http://localhost:3333/Invoices/${ii}`)
-        .then((data) => data.json())
-        .then((data) => setAdata(data))
-      }, [])
-      console.log(adata?.name)
+        .then((data1) => data1.json())
+        .then((data1) => setData({...data1,name:data1.name,email:data1.email,phone:data1.phone,cost:data1.cost,date:data1.date}))
+      }, [ii])
+      
       const handleChange = (e) => {
         handleNameChange(e);
         const name = e.target.name;
@@ -46,12 +50,44 @@ const FormInvoice = () =>{
           setNameError(true);
         }
       };
-
+      function Fromsubmit (e){
+        e.preventDefault();
+        console.log(data)
+        if(ii){
+        fetch(`http://localhost:3333/Invoices/${ii}`,{
+          method: 'PUT',
+          headers: {
+            "Content-type":'application/json; charset=UTF-8',
+          },
+          body: JSON.stringify(data)
+        })  
+        .then(response => response.json())
+        .then(response => {console.log(response)
+        });
+      }
+      else{
+        fetch(`http://localhost:3333/Invoices`,{
+          method: 'POST',
+          headers: {
+            "Content-type":'application/json; charset=UTF-8',
+          },
+          body: JSON.stringify(data)
+        })  
+        .then(response => response.json())
+        .then(response => {console.log(response)
+        });
+      }
+        navigate('/invoices')
+        
+        
+        
+        
+      }
     return(
         <>
             <Box m="20px">
       <Header title="CREATE USER" subtitle="Create a New User Profile" />
-       <form>
+       <form onSubmit={Fromsubmit}>
         <Box
           display="grid"
           gap="30px"
@@ -75,7 +111,7 @@ const FormInvoice = () =>{
             label="First Name"
             onBlur={handleBlur}
             onChange={handleChange}
-            value={adata?.name}
+            value={data?.name}
             name="name"
             error={nameError}
             // helperText={touched.name && errors.name}
@@ -85,11 +121,11 @@ const FormInvoice = () =>{
             fullWidth
             variant="filled"
             type="text"
-            label="Age"
+            label="Cost"
             onBlur={handleBlur}
             onChange={handleChange}
-            value={data.age}
-            name="age"
+            value={data.cost}
+            name="cost"
             error={nameError}
             // helperText={touched.age && errors.age}
             sx={{ gridColumn: "span 4" }}
@@ -101,7 +137,7 @@ const FormInvoice = () =>{
             label="Email"
             onBlur={handleBlur}
             onChange={handleChange}
-            value={adata?.email}
+            value={data?.email}
             name="email"
             error={nameError}
             // helperText={touched.email && errors.email}
@@ -114,17 +150,32 @@ const FormInvoice = () =>{
             label="phone Number"
             onBlur={handleBlur}
             onChange={handleChange}
-            value={adata?.phone}
+            value={data?.phone}
             name="phone"
+            error={nameError}
+            // helperText={touched.phone && errors.phone}
+            sx={{ gridColumn: "span 4" }}
+          />
+           <TextField
+            fullWidth
+            variant="filled"
+            type="date"
+            label="Date"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            value={data?.date}
+            name="date"
             error={nameError}
             // helperText={touched.phone && errors.phone}
             sx={{ gridColumn: "span 4" }}
           />
           </Box>
         <Box display="flex" justifyContent="end" mt="20px">
-          <Button type="submit" color="secondary" variant="contained">
+          {ii?<Button type="submit" color="secondary" variant="contained">
+            Update User
+          </Button>:<Button type="submit" color="secondary" variant="contained">
             Create New User
-          </Button>
+          </Button>}
         </Box>
       </form>
       </Box>
