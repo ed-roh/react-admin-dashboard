@@ -34,6 +34,22 @@
       "phone": "5434646576",
       "access": "user",
       "id": "i5Zkz97"
+    },
+    {
+      "name": "userA",
+      "email": "ubaidullah448@gmail.com",
+      "age": "17",
+      "phone": "5434646576",
+      "access": "manager",
+      "id": "a5pHfjN"
+    },
+    {
+      "name": "asdfghjkl;",
+      "email": "ubaidullah448@gmail.com",
+      "age": "03",
+      "phone": "5434646576",
+      "access": "manager",
+      "id": "viTLILR"
     }
   ],
   "contact": [
@@ -187,7 +203,7 @@
     {
       "name": "UBAIDULLAH1",
       "email": "evermelisandre@gmail.com1",
-      "phone": "0683012072481df1",
+      "phone": "030326151122",
       "cost": "5451",
       "date": "2023-01-10",
       "id": "6"
