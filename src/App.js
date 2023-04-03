@@ -17,6 +17,7 @@ import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 import FormInvoice from "./scenes/form/FormInvoice"
 import InvoiceView from "./scenes/View/InvoiceView"
+import FormContact from "./scenes/form/FormContact"
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -43,6 +44,7 @@ function App() {
               <Route path="/geography" element={<Geography />} />
               <Route path="/FormInvoice" element={<FormInvoice/>} />
               <Route path="/InvoiceView" element={<InvoiceView/>} />
+              <Route path="/FormContact" element={<FormContact/>} />
             </Routes>
           </main>
         </div>

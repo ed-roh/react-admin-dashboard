@@ -5,11 +5,29 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import React, {useState, useEffect} from "react"
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide'
+import Button from '@mui/material/Button';
+import { useNavigate } from "react-router-dom"; 
 
 import { Link } from "react-router-dom";
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 const Contacts = () => {
+  
   const theme = useTheme();
+
   const colors = tokens(theme.palette.mode);
+
+  const navigate = useNavigate();
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -52,20 +70,106 @@ const Contacts = () => {
       headerName: "Zip Code",
       flex: 1,
     },
+    {
+      field: "action", headerName: "Actions", sortable: false, flex: 1, align: 'center', headerAlign: 'center',hide: false,
+      renderCell: (params) => {
+        const api = params.api;
+        const thisRow = {};
+        api.getAllColumns().filter((c) => c.field !== "check" && !!c).forEach((c) => (thisRow[c.field] = params.getValue(params.id, c.field)));
+        return (
+          <Box>
+             <VisibilityIcon onClick={() => handleItemAction({ title: "View", action: "view", row: thisRow })} />
+            <EditIcon onClick={() => handleItemAction({ title: "Edit", action: "edit", row: thisRow })} />
+            <DeleteIcon onClick={() => handleItemAction({ title: "Delete", action: "delete", row: thisRow,open:'true' })} />
+          </Box>
+        )
+      }
+    },
   ];
- 
- 
-  const [tableData, setTableData] = useState([]) 
- 
-  useEffect(() => { 
-    fetch("http://localhost:3333/contact") 
-      .then((data) => data.json()) 
-      .then((data) => setTableData(data)) 
- 
-  }, []) 
- 
-  console.log(tableData) 
-  return ( 
+
+  const handleItemAction=(itemrow)=>{
+    switch(itemrow.title){
+      case 'View':
+      navigate(
+        '/ContactView',
+        {
+          state: {
+            id : itemrow.row.id
+          }
+        }
+      )
+      break;
+      case 'Edit':
+      navigate(
+        '/FormContact',
+        {
+          state: {
+            id : itemrow.row.id
+          }
+        }
+      )      
+      break;
+      case 'Delete':
+        setId(itemrow?.row?.id)
+        setOpen(true);
+
+      break;
+    }
+
+  }
+
+  const [tableData, setTableData] = useState([])
+
+  const [open, setOpen] = React.useState(false);
+
+  const [id, setId] = React.useState(null);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    allData();
+
+  }, [])
+
+  const allData=()=>{
+    fetch("http://localhost:3333/contact")
+    .then((data) => data.json())
+    .then((data) => setTableData(data))
+  }
+
+  const deleteData=()=>{
+    fetch(`http://localhost:3333/contact/${id}`,{
+      method: 'delete',
+    })
+    .then((data) => data.json())
+    .then((data) => setOpen(false))
+    allData();
+  }
+
+  console.log(tableData)
+
+  return (
+    <>
+    <Dialog
+    open={open}
+    TransitionComponent={Transition}
+    keepMounted
+    onClose={handleClose}
+    aria-describedby="alert-dialog-slide-description"
+  >
+    <DialogTitle>{"Delete The Invoice Row?"}</DialogTitle>
+    <DialogContent>
+      <DialogContentText id="alert-dialog-slide-description">
+        Are You Sure You Want To Delete .
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={handleClose}>No</Button>
+      <Button onClick={deleteData}>Yes</Button>
+    </DialogActions>
+  </Dialog>
     <Box m="20px"> 
       <Header 
         title="CONTACTS" 
@@ -112,6 +216,7 @@ const Contacts = () => {
         />
       </Box>
     </Box>
+    </>
   );
 };
 
