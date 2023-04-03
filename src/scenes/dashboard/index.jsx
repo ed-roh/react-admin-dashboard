@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [tableData, setTableData] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:3333/Transactions")
+    fetch("http://localhost:3333/Invoices")
       .then((data) => data.json())
       .then((data) => setTableData(data))
 
@@ -193,7 +193,7 @@ const Dashboard = () => {
           </Box>
           {tableData.map((transaction, i) => (
             <Box
-              key={`${transaction.txId}-${i}`}
+              key={`${transaction.id}-${i}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
@@ -206,10 +206,10 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
+                  {transaction.id}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                  {transaction.name}
                 </Typography>
               </Box>
               <Box color={colors.grey[100]}>{transaction.date}</Box>
