@@ -15,6 +15,10 @@ const Team = () => {
   const colors = tokens(theme.palette.mode);
   const columns = [
     {
+      field: "id",
+      headerName: "Id",
+    },
+    {
       field: "name",
       headerName: "Name",
       flex: 1,

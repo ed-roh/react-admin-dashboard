@@ -74,9 +74,6 @@ const Invoices = () => {
             <EditIcon onClick={() => handleItemAction({ title: "Edit", action: "edit", row: thisRow })} />
             <DeleteIcon onClick={() => handleItemAction({ title: "Delete", action: "delete", row: thisRow,open:'true' })} />
           </Box>
-  
-  
-  
         )
       }
     },
