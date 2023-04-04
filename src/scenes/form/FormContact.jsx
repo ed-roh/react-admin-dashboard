@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { tokens } from "../../theme";
 import { Box, Button, TextField, useTheme } from "@mui/material";
-import Header from "../../components/Header";
-
-// import { Link } from "react-router-dom";
+import Header from "../../components/Header"; // import { Link } from "react-router-dom";
 const FormContact = () => {
   const [data, setData] = useState({
     id: "",
@@ -21,94 +19,59 @@ const FormContact = () => {
     /*  Registrar ID    Name     Age       Phone    Email     Address      City    zipcode */
   }
   const navigate = useNavigate();
-   
   const theme = useTheme();
-
   const colors = tokens(theme.palette.mode);
-
   const id = useLocation();
-
   const ii = id?.state?.id;
-
   console.log(ii);
-
   useEffect(() => {
-
     fetch(`http://localhost:3333/contact/${ii}`)
-
       .then((data1) => data1.json())
-
       .then((data1) =>
-      
         setData({
-
           ...data1,
           name: data1.name,
           email: data1.email,
           phone: data1.phone,
-
         })
       );
-
   }, [ii]);
-
   const handleChange = (e) => {
     handleNameChange(e);
     const name = e.target.name;
     const value = e.target.value;
-
     setData((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
+      return { ...prev, [name]: value };
     });
   };
-
   const [name, setName] = useState("");
-
   const [nameError, setNameError] = useState(false);
-
   const handleNameChange = (e) => {
-
     setName(e.target.value);
-
     setNameError(false);
-
   };
   const handleBlur = () => {
     if (name === "") {
       setNameError(true);
     }
   };
-
   function Fromsubmit(e) {
-
     e.preventDefault();
-
     console.log(data);
-
     if (ii) {
       fetch(`http://localhost:3333/contact/${ii}`, {
         method: "PUT",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
+        headers: { "Content-type": "application/json; charset=UTF-8" },
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
         .then((response) => {
           console.log(response);
         });
-    } 
-
-    else {
-
+    } else {
       fetch(`http://localhost:3333/contact`, {
         method: "POST",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
+        headers: { "Content-type": "application/json; charset=UTF-8" },
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
@@ -116,9 +79,7 @@ const FormContact = () => {
           console.log(response);
         });
     }
-
     navigate("/contacts");
-
   }
   return (
     <>

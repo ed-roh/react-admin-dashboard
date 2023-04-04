@@ -18,6 +18,7 @@ import Calendar from "./scenes/calendar/calendar";
 import FormInvoice from "./scenes/form/FormInvoice"
 import InvoiceView from "./scenes/View/InvoiceView"
 import FormContact from "./scenes/form/FormContact"
+import ContactView from "./scenes/View/ContactView"
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -45,6 +46,7 @@ function App() {
               <Route path="/FormInvoice" element={<FormInvoice/>} />
               <Route path="/InvoiceView" element={<InvoiceView/>} />
               <Route path="/FormContact" element={<FormContact/>} />
+              <Route path="/ContactView" element={<ContactView/>} />
             </Routes>
           </main>
         </div>

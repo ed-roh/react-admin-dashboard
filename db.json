@@ -34,6 +34,14 @@
       "phone": "5434646576",
       "access": "admin",
       "id": 4
+    },
+    {
+      "name": "Tariq",
+      "email": "Tariq@0022@gmail.com",
+      "age": "18",
+      "phone": "03004589340",
+      "access": "user",
+      "id": 5
     }
   ],
   "contact": [
@@ -101,7 +109,16 @@
       "email": "Asadullah@gmail.com",
       "phone": "5434646576",
       "cost": "457",
-      "id": 4
+      "id": 4,
+      "date": "2023-04-15"
+    },
+    {
+      "name": "Tariq",
+      "email": "Tariq@0022@gmail.com",
+      "phone": "03004589340",
+      "cost": "15",
+      "date": "2023-04-28",
+      "id": 5
     }
   ],
   "BarData": [

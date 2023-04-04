@@ -26,7 +26,6 @@ const Dashboard = () => {
   }, [])
   return (
     <Box m="20px">
-      <h1>My name is ubaidullah</h1>
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
