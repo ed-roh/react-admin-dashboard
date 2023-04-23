@@ -3,9 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
-import Team from "./scenes/team";
+import Users from "./scenes/users";
 import Invoices from "./scenes/invoices";
-import Contacts from "./scenes/contacts";
+import Categories from "./scenes/categories";
 import Bar from "./scenes/bar";
 import Form from "./scenes/form";
 import Line from "./scenes/line";
@@ -15,6 +15,7 @@ import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
+import CreateCategorie from "./components/CreateCategorie";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -30,8 +31,11 @@ function App() {
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/contacts" element={<Contacts />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/categories">
+                <Route index element={<Categories />} />
+                <Route path="create" element={<CreateCategorie />} />
+              </Route>
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
               <Route path="/bar" element={<Bar />} />
