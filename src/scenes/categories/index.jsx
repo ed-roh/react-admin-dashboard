@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
@@ -66,8 +66,8 @@ const Categories = () => {
   return (
     <Box m="20px">
       <Header
-        title="CATEGORIES"
-        subtitle="Gestion des Categories de l'application"
+        title="CATÉGORIES"
+        subtitle="Gestion des Catégories de l'application"
       />
       <Create link="create" name="categorie" />
       <Box

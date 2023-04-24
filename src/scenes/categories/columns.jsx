@@ -27,11 +27,13 @@ export const columns = [
     renderCell: ({ row: { image_categorie } }) => {
       return (
         <Box display="flex" justifyContent="center" alignItems="center">
-          {/* eslint-disable-next-line */}
-          <img
-            src={image_categorie}
-            style={{ borderRadius: "50%", width: "50px", height: "50px" }}
-          />
+          <a href={image_categorie} target="_blank" rel="noopener noreferrer">
+            {/* eslint-disable-next-line */}
+            <img
+              src={image_categorie}
+              style={{ borderRadius: "50%", width: "50px", height: "50px" }}
+            />
+          </a>
         </Box>
       );
     },

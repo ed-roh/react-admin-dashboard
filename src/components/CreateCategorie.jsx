@@ -48,16 +48,18 @@ const CreateCategorie = () => {
       clearInputs();
     } catch (error) {
       setError(true);
+      console.log(error);
     } finally {
       setLoading(false);
+      window.location.reload();
     }
   };
 
   return (
     <Box ml={5}>
       <Header
-        title={"Formulaire creation categorie"}
-        subtitle={"Veuillez remplez les champs"}
+        title={"Formulaire création catégorie"}
+        subtitle={"Veuillez remplir les champs"}
       />
       <Box>
         {/* Nom Categorie */}
