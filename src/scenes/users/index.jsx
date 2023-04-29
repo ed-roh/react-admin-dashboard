@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
@@ -15,7 +15,12 @@ const Users = () => {
   const getUsers = async () => {
     await axios.get("/admin/users").then((res) => {
       setUsers(res.data);
-      console.log(res.data);
+    });
+  };
+
+  const deleteUser = async (id) => {
+    await axios.delete(`/admin/users/${id}`).then((res) => {
+      setUsers((prev) => prev.filter((row) => row.id_utilisateur !== id));
     });
   };
 
@@ -53,7 +58,12 @@ const Users = () => {
             </div>
           </Link>
           <div>
-            <Typography color={colors.redAccent[500]}>Supprimer</Typography>
+            <Button
+              sx={{ color: colors.redAccent[500] }}
+              onClick={() => deleteUser(params.row.id_utilisateur)}
+            >
+              Supprimer
+            </Button>
           </div>
         </Box>
       );
@@ -96,6 +106,7 @@ const Users = () => {
         }}
       >
         <DataGrid
+          key={users.length}
           checkboxSelection
           rows={users}
           getRowId={getRowId}

@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 
 export const columns = [
-  { field: "id_utilisateur", headerName: "ID" },
+  { field: "id_utilisateur", headerName: "ID", flex: 0.25 },
   {
     field: "nom",
     headerName: "Nom",
@@ -24,12 +24,7 @@ export const columns = [
   {
     field: "sexe",
     headerName: "Sexe",
-    flex: 1,
-  },
-  {
-    field: "ville",
-    headerName: "Ville",
-    flex: 1,
+    flex: 0.7,
   },
   {
     field: "adresse",
@@ -70,7 +65,7 @@ export const columns = [
           <p style={{ fontWeight: "bold", color: "red" }}>{"Inactif"}</p>
         );
       } else {
-        return <p> / </p>;
+        return <p style={{ fontWeight: "bold", color: "green" }}>{"Actif"}</p>;
       }
     },
   },
@@ -105,7 +100,7 @@ export const columns = [
     headerName: "Exp",
     type: "number",
     headerAlign: "left",
-    flex: 1,
+    flex: 0.25,
     renderCell: (params) => {
       const artisan = params.row.Artisan;
       if (artisan) {

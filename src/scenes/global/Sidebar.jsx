@@ -41,7 +41,6 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  console.log(user);
 
   return (
     <Box
