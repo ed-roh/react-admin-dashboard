@@ -6,6 +6,7 @@ import axios from "../../axios/axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { columns } from "./columns";
+import Create from "../../components/Create";
 
 const Users = () => {
   const theme = useTheme();
@@ -76,6 +77,7 @@ const Users = () => {
         title="Utilisateurs"
         subtitle="Gestion des utilisateurs de l'application"
       />
+      <Create name="user" link="create" />
       <Box
         m="40px 0 0 0"
         height="75vh"

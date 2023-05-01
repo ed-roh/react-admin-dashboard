@@ -17,6 +17,7 @@ import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 import CreateCategorie from "./components/CreateCategorie";
 import Login from "./scenes/login/Login";
+import CreateUser from "./components/CreateUser";
 
 function AuthenticatedRoutes() {
   const [isSidebar, setIsSidebar] = useState(true);
@@ -27,7 +28,10 @@ function AuthenticatedRoutes() {
         <Topbar setIsSidebar={setIsSidebar} />
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/users" element={<Users />} />
+          <Route path="/users">
+            <Route index element={<Users />} />
+            <Route path="create" element={<CreateUser />} />
+          </Route>
           <Route path="/categories">
             <Route index element={<Categories />} />
             <Route path="create" element={<CreateCategorie />} />
