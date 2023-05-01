@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
@@ -8,6 +9,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import axios from "axios";
+import Axios from "../axios/axios";
 import Header from "./Header";
 import { tokens } from "../theme";
 
@@ -18,6 +20,7 @@ const CreateCategorie = () => {
   const [categorie, setCategorie] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const clearInputs = () => {
     setCategorie(null);
@@ -43,15 +46,17 @@ const CreateCategorie = () => {
     setLoading(true);
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}categorie`, categorie);
-
-      clearInputs();
+      await Axios.post(`categorie`, categorie).then(() => {
+        setError(false);
+        setSuccess(true);
+        clearInputs();
+      });
     } catch (error) {
-      setError(true);
       console.log(error);
+      setError(true);
+      setSuccess(false);
     } finally {
       setLoading(false);
-      window.location.reload();
     }
   };
 
@@ -70,6 +75,7 @@ const CreateCategorie = () => {
           required
           name="nom_categorie"
           value={categorie?.nom_categorie || ""}
+          variant="filled"
           onChange={(e) => {
             setCategorie((prev) => ({
               ...prev,
@@ -85,6 +91,7 @@ const CreateCategorie = () => {
           required
           name="description"
           value={categorie?.description || ""}
+          variant="filled"
           onChange={(e) => {
             setCategorie((prev) => ({
               ...prev,
@@ -126,12 +133,28 @@ const CreateCategorie = () => {
           </Button>
         </Box>
         {error && (
-          <Typography
-            variant="h4"
-            sx={{ margin: "15px 0px 5px 0", color: colors.redAccent[600] }}
+          <Alert
+            variant="outlined"
+            severity="error"
+            sx={{
+              marginTop: "10px",
+              width: "fit-content",
+            }}
           >
-            Problème dans la connexion, Veuillez réessayer.
-          </Typography>
+            <p>Vous avez des erreurs, veuillez vérifier les champs</p>
+          </Alert>
+        )}
+        {success && (
+          <Alert
+            variant="outlined"
+            severity="success"
+            sx={{
+              marginTop: "10px",
+              width: "fit-content",
+            }}
+          >
+            <p>Catégorie ajouté avec succès</p>
+          </Alert>
         )}
       </Box>
     </Box>
