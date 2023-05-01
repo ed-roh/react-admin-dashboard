@@ -7,7 +7,7 @@ export const columns = [
     headerName: "Nom Categorie",
     headerAlign: "left",
     align: "left",
-    flex: 1,
+    flex: 0.75,
     renderCell: ({ row: { nom_categorie } }) => {
       return <Typography>{nom_categorie}</Typography>;
     },
@@ -15,7 +15,7 @@ export const columns = [
   {
     field: "description",
     headerName: "Description",
-    flex: 1,
+    flex: 1.5,
     renderCell: ({ row: { description } }) => {
       return <Typography>{description}</Typography>;
     },

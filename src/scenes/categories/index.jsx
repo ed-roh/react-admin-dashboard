@@ -47,22 +47,22 @@ const Categories = () => {
         >
           <Link
             to={`/categorie/${params.row.id_categorie}`}
-            style={{ textDecoration: "none", margin: "20px" }}
+            style={{ textDecoration: "none", margin: 5 }}
           >
-            <div
+            <Button
+              variant="contained"
               style={{
-                backgroundColor: colors.grey[400],
-                color: colors.primary[700],
+                backgroundColor: colors.grey[600],
+                color: colors.primary[500],
               }}
             >
-              <Typography m={2} borderRadius="20%">
-                Modifier
-              </Typography>
-            </div>
+              Modifier
+            </Button>
           </Link>
           <div>
             <Button
-              sx={{ color: colors.redAccent[500] }}
+              variant="contained"
+              sx={{ color: colors.redAccent[400] }}
               onClick={() => deleteCategorie(params.row.id_categorie)}
             >
               Supprimer
