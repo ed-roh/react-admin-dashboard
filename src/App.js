@@ -7,7 +7,6 @@ import Users from "./scenes/users";
 import Invoices from "./scenes/invoices";
 import Categories from "./scenes/categories";
 import Bar from "./scenes/bar";
-import Form from "./scenes/form";
 import Line from "./scenes/line";
 import Pie from "./scenes/pie";
 import FAQ from "./scenes/faq";
@@ -18,6 +17,7 @@ import Calendar from "./scenes/calendar/calendar";
 import CreateCategorie from "./components/CreateCategorie";
 import Login from "./scenes/login/Login";
 import CreateUser from "./components/CreateUser";
+import SignalementProfile from "./scenes/signalementProfile/index";
 
 function AuthenticatedRoutes() {
   const [isSidebar, setIsSidebar] = useState(true);
@@ -37,7 +37,7 @@ function AuthenticatedRoutes() {
             <Route path="create" element={<CreateCategorie />} />
           </Route>
           <Route path="/invoices" element={<Invoices />} />
-          <Route path="/form" element={<Form />} />
+          <Route path="/signalement-profile" element={<SignalementProfile />} />
           <Route path="/bar" element={<Bar />} />
           <Route path="/pie" element={<Pie />} />
           <Route path="/line" element={<Line />} />

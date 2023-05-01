@@ -163,8 +163,8 @@ const Sidebar = () => {
               Pages
             </Typography>
             <Item
-              title="Profile Form"
-              to="/form"
+              title="Signalements Profiles"
+              to="/signalement-profile"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

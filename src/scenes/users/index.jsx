@@ -60,6 +60,7 @@ const Users = () => {
           </Link>
           <div>
             <Button
+              variant="contained"
               sx={{ color: colors.redAccent[500] }}
               onClick={() => deleteUser(params.row.id_utilisateur)}
             >
