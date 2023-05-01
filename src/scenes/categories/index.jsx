@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
@@ -16,8 +16,13 @@ const Categories = () => {
 
   const getCategories = async () => {
     await axios.get("categorie").then((res) => {
-      console.log(res.data);
       setCategories(res.data);
+    });
+  };
+
+  const deleteCategorie = async (id) => {
+    await axios.delete(`/categorie/${id}`).then((res) => {
+      setCategories((prev) => prev.filter((row) => row.id_categorie !== id));
     });
   };
 
@@ -56,7 +61,12 @@ const Categories = () => {
             </div>
           </Link>
           <div>
-            <Typography color={colors.redAccent[500]}>Supprimer</Typography>
+            <Button
+              sx={{ color: colors.redAccent[500] }}
+              onClick={() => deleteCategorie(params.row.id_categorie)}
+            >
+              Supprimer
+            </Button>
           </div>
         </Box>
       );
