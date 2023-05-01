@@ -566,16 +566,16 @@ const CreateUser = () => {
               width: "200px",
               height: "40px",
             }}
-            // disabled={
-            //   !user?.nom ||
-            //   !user?.prenom ||
-            //   !user?.date_de_naissance ||
-            //   !user?.Rue ||
-            //   !user?.email ||
-            //   !user?.password ||
-            //   !user?.telephone ||
-            //   !user?.photo
-            // }
+            disabled={
+              !user?.nom ||
+              !user?.prenom ||
+              !user?.date_de_naissance ||
+              !user?.Rue ||
+              !user?.email ||
+              !user?.password ||
+              !user?.telephone ||
+              !user?.photo
+            }
           >
             {loading ? <CircularProgress size={24} /> : "Enregistrer"}
           </Button>
