@@ -1,4 +1,4 @@
-import { Box, IconButton, useTheme } from "@mui/material";
+import { Box, Button, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
@@ -13,6 +13,13 @@ const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+
+    window.location.href = "/login";
+  };
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -46,6 +53,17 @@ const Topbar = () => {
         <IconButton>
           <PersonOutlinedIcon />
         </IconButton>
+        <Button
+          variant="contained"
+          sx={{
+            color: colors.greenAccent[500],
+            backgroundColor: colors.primary[400],
+            marginLeft: "20px",
+          }}
+          onClick={logout}
+        >
+          Logout
+        </Button>
       </Box>
     </Box>
   );
