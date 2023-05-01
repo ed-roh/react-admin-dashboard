@@ -1,5 +1,18 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import Axios from "../../axios/axios";
+import React, { useEffect, useState } from "react";
+
+function SpecialiteColumn({ specialite }) {
+  const [categorie, setCategorie] = useState("");
+
+  useEffect(() => {
+    Axios.get(`categorie/${specialite}`)
+      .then((res) => setCategorie(res.data.nom_categorie))
+      .catch((err) => console.log(err));
+  }, [specialite]);
+
+  return <Typography>{categorie}</Typography>;
+}
 
 export const columns = [
   { field: "id_utilisateur", headerName: "ID", flex: 0.25 },
@@ -73,10 +86,11 @@ export const columns = [
     field: "specialite",
     headerName: "Specialite",
     flex: 1,
-    renderCell: (params) => {
-      const artisan = params.row.Artisan || params.row.Fournisseur;
-      if (artisan) {
-        return <Typography>{artisan.specialite}</Typography>;
+    renderCell: ({ row }) => {
+      if (row.Artisan) {
+        return <SpecialiteColumn specialite={row.Artisan.specialite} />;
+      } else if (row.Client) {
+        return <SpecialiteColumn specialite={row.Client.preference_art} />;
       } else {
         return <p> / </p>;
       }

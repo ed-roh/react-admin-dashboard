@@ -45,18 +45,17 @@ const Users = () => {
         >
           <Link
             to={`/users/${params.row.id_utilisateur}`}
-            style={{ textDecoration: "none", margin: "20px" }}
+            style={{ textDecoration: "none", margin: 5 }}
           >
-            <div
+            <Button
+              variant="contained"
               style={{
                 backgroundColor: colors.grey[400],
                 color: colors.primary[700],
               }}
             >
-              <Typography m={2} borderRadius="20%">
-                Modifier
-              </Typography>
-            </div>
+              Modifier
+            </Button>
           </Link>
           <div>
             <Button
