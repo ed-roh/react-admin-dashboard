@@ -4,5 +4,9 @@ export const isValidEmail = (email) => {
 };
 
 export const isValidPassword = (password) => {
-  return password.length < 4 ? false : true;
+  return password?.length < 4 ? false : true;
+};
+
+export const isValidDate = (date) => {
+  return date < new Date();
 };

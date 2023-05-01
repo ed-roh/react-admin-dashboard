@@ -21,7 +21,7 @@ import Header from "./Header";
 import { tokens } from "../theme";
 import FormInput from "./FormInput";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { isValidEmail, isValidPassword } from "../common";
+import { isValidDate, isValidEmail, isValidPassword } from "../common";
 
 const CreateUser = () => {
   const theme = useTheme();
@@ -119,6 +119,12 @@ const CreateUser = () => {
     e.preventDefault();
     setLoading(true);
 
+    if (!isValidDate(user?.date_de_naissance)) {
+      setError(true);
+      setErrorMessage("La date de naissance doit être dans le passé");
+      return;
+    }
+
     if (!isValidPassword(user?.password)) {
       setError(true);
       setErrorMessage("Le mot de passe doit comporter au moins 4 caractères");
@@ -198,7 +204,7 @@ const CreateUser = () => {
                 onChange={(date) => {
                   setUser((prev) => ({
                     ...prev,
-                    date_de_naissance: date?.$d,
+                    date_de_naissance: new Date(date?.$d),
                   }));
                 }}
               />
@@ -560,16 +566,16 @@ const CreateUser = () => {
               width: "200px",
               height: "40px",
             }}
-            disabled={
-              !user?.nom ||
-              !user?.prenom ||
-              !user?.date_de_naissance ||
-              !user?.Rue ||
-              !user?.email ||
-              !user?.password ||
-              !user?.telephone ||
-              !user?.photo
-            }
+            // disabled={
+            //   !user?.nom ||
+            //   !user?.prenom ||
+            //   !user?.date_de_naissance ||
+            //   !user?.Rue ||
+            //   !user?.email ||
+            //   !user?.password ||
+            //   !user?.telephone ||
+            //   !user?.photo
+            // }
           >
             {loading ? <CircularProgress size={24} /> : "Enregistrer"}
           </Button>
