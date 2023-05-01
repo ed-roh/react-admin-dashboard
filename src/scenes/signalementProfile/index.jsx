@@ -23,29 +23,50 @@ const SignalementProfile = () => {
 
   const getRowId = (row) => row.id_signalement;
 
-  const validerSignalement = async (id_signalement) => {
-    await Axios.patch(`signalement-profile/${id_signalement}`).then((res) => {
-      getSignalements();
+  const traiteSignalement = async (id_signalement, resultat) => {
+    await Axios.patch(
+      `signalement-profile/${id_signalement}?resultat=${resultat}`
+    ).then((res) => {
+      setSignalements((prev) => {
+        const updatedSignalements = prev.map((signalement) => {
+          if (signalement.id_signalement === id_signalement) {
+            return { ...signalement, resultat };
+          } else {
+            return signalement;
+          }
+        });
+
+        return updatedSignalements;
+      });
     });
   };
 
   const actionColumn = {
     field: "action",
     headerName: "Action",
+    flex: 0.75,
     renderCell: (params) => {
       return (
         <Box
-          display={"flex"}
-          flexDirection={"row"}
+          display="flex"
+          flexDirection="row"
           justifyContent="space-between"
           alignItems="center"
         >
           <Button
             variant="contained"
-            sx={{ color: colors.greenAccent[500] }}
-            onClick={() => validerSignalement(params.row.id_signalement)}
+            sx={{ color: colors.redAccent[500] }}
+            onClick={() => traiteSignalement(params.row.id_signalement, false)}
           >
-            Valider
+            Réfusé
+          </Button>
+
+          <Button
+            variant="contained"
+            sx={{ color: colors.greenAccent[500] }}
+            onClick={() => traiteSignalement(params.row.id_signalement, true)}
+          >
+            Accepté
           </Button>
         </Box>
       );

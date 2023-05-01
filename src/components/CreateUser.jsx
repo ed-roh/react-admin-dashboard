@@ -122,6 +122,7 @@ const CreateUser = () => {
     if (!isValidDate(user?.date_de_naissance)) {
       setError(true);
       setErrorMessage("La date de naissance doit être dans le passé");
+      setLoading(false);
       return;
     }
 

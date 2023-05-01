@@ -15,12 +15,26 @@ export const columns = [
   {
     field: "id_signale",
     headerName: "Personne signalé",
-    flex: 0.5,
+    flex: 0.75,
+    renderCell: ({ row }) => {
+      return row.id_signale ? (
+        <Typography>{row.id_signale}</Typography>
+      ) : (
+        <Typography>{"Utilisateur supprimé"}</Typography>
+      );
+    },
   },
   {
     field: "id_rapporteur",
     headerName: "Rapporteur",
-    flex: 0.5,
+    flex: 0.75,
+    renderCell: ({ row }) => {
+      return row.id_rapporteur ? (
+        <Typography>{row.id_rapporteur}</Typography>
+      ) : (
+        <Typography>{"Utilisateur supprimé"}</Typography>
+      );
+    },
   },
   {
     field: "id_admin",
@@ -42,11 +56,36 @@ export const columns = [
       const etat = params.row.etatSignalement;
       if (!etat) {
         return (
-          <p style={{ fontWeight: "bold", color: "red" }}>{"Non-Traité"}</p>
+          <Typography style={{ fontWeight: "bold", color: "red" }}>
+            {"Non-Traité"}
+          </Typography>
         );
       } else {
-        return <p style={{ fontWeight: "bold", color: "green" }}>{"Traité"}</p>;
+        return (
+          <Typography style={{ fontWeight: "bold", color: "green" }}>
+            {"Traité"}
+          </Typography>
+        );
       }
+    },
+  },
+  {
+    field: "resultat",
+    headerName: "Resultat signalement",
+    flex: 1,
+    renderCell: ({ row }) => {
+      const status =
+        row.resultat === null
+          ? "Pas encore traité"
+          : row.resultat
+          ? "Accepté"
+          : "Réfusé";
+      const color = row.resultat === null ? "" : row.resultat ? "green" : "red";
+      return (
+        <Typography style={{ fontWeight: "bold", color }}>
+          {`Signalement ${status}`}
+        </Typography>
+      );
     },
   },
 ];
