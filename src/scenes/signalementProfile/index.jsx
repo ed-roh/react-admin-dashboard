@@ -1,20 +1,36 @@
 import { Box, Button, useTheme } from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Axios from "../../axios/axios";
 import { columns } from "./columns";
 import { tokens } from "../../theme";
+import UserCard from "../../components/SingleUser";
 
 const SignalementProfile = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [signalements, setSignalements] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [openUserCard, setOpenUserCard] = useState(false);
 
   const getSignalements = async () => {
     await Axios.get("signalement-profile").then((res) => {
       setSignalements(res.data);
     });
+  };
+
+  const getSelectedUser = async (id) => {
+    await Axios.get(`admin/userById/${id}`).then((res) => {
+      setSelectedUser(res.data);
+      console.log(res.data);
+    });
+  };
+
+  const handleCloseUserCard = () => {
+    setOpenUserCard(false);
+    setSelectedUser(null);
   };
 
   useEffect(() => {
@@ -106,15 +122,45 @@ const SignalementProfile = () => {
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
         }}
       >
-        <DataGrid
-          key={signalements.length}
-          checkboxSelection
-          rows={signalements}
-          getRowId={getRowId}
-          columns={columns.concat(actionColumn)}
-        />
+        {!selectedUser && (
+          <>
+            <RefreshIcon
+              style={{ marginBottom: 10, cursor: "pointer" }}
+              onClick={() => {
+                setSignalements([]);
+                getSignalements();
+              }}
+            />
+            <DataGrid
+              components={{ Toolbar: GridToolbar }}
+              key={signalements.length}
+              checkboxSelection
+              rows={signalements}
+              getRowId={getRowId}
+              // for each column, if we are modifying the `renderCell`, we pass getSelectedUser & setOpenUserCard,
+              // else we pass only the value
+              columns={columns.concat(actionColumn).map((column) => ({
+                ...column,
+                renderCell: (params) =>
+                  column.renderCell
+                    ? column.renderCell({
+                        ...params,
+                        getSelectedUser,
+                        setOpenUserCard,
+                      })
+                    : params.value,
+              }))}
+            />
+          </>
+        )}
+        {selectedUser && openUserCard && (
+          <UserCard user={selectedUser} onClose={handleCloseUserCard} />
+        )}
       </Box>
     </Box>
   );

@@ -1,4 +1,5 @@
-import { Typography } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { Button, Grid, Typography } from "@mui/material";
 
 export const columns = [
   { field: "id_signalement", headerName: "ID", flex: 0.25 },
@@ -10,15 +11,36 @@ export const columns = [
   {
     field: "date",
     headerName: "Date",
-    flex: 1,
+    flex: 0.5,
+    renderCell: ({ row: { date } }) => {
+      return (
+        <Typography>{new Date(date).toLocaleDateString("fr-FR")}</Typography>
+      );
+    },
   },
   {
     field: "id_signale",
     headerName: "Personne signalé",
     flex: 0.75,
-    renderCell: ({ row }) => {
+    renderCell: ({ row, getSelectedUser, setOpenUserCard }) => {
       return row.id_signale ? (
-        <Typography>{row.id_signale}</Typography>
+        <Grid container spacing={6} alignItems={"center"}>
+          <Grid item xs={3}>
+            <Typography>{row.id_signale}</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="contained"
+              sx={{ cursor: "pointer" }}
+              onClick={() => {
+                getSelectedUser(row.id_signale);
+                setOpenUserCard(true);
+              }}
+            >
+              <SearchIcon />
+            </Button>
+          </Grid>
+        </Grid>
       ) : (
         <Typography>{"Utilisateur supprimé"}</Typography>
       );
@@ -28,9 +50,25 @@ export const columns = [
     field: "id_rapporteur",
     headerName: "Rapporteur",
     flex: 0.75,
-    renderCell: ({ row }) => {
+    renderCell: ({ row, getSelectedUser, setOpenUserCard }) => {
       return row.id_rapporteur ? (
-        <Typography>{row.id_rapporteur}</Typography>
+        <Grid container spacing={6} alignItems={"center"}>
+          <Grid item xs={3}>
+            <Typography>{row.id_rapporteur}</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="contained"
+              sx={{ cursor: "pointer" }}
+              onClick={() => {
+                getSelectedUser(row.id_rapporteur);
+                setOpenUserCard(true);
+              }}
+            >
+              <SearchIcon />
+            </Button>
+          </Grid>
+        </Grid>
       ) : (
         <Typography>{"Utilisateur supprimé"}</Typography>
       );
@@ -51,7 +89,7 @@ export const columns = [
   {
     field: "etatSignalement",
     headerName: "état signalement",
-    flex: 1,
+    flex: 0.5,
     renderCell: (params) => {
       const etat = params.row.etatSignalement;
       if (!etat) {
