@@ -1,10 +1,10 @@
-import { Box, Button, Typography, useTheme } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { Box, Button, Grid, useTheme } from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import axios from "../../axios/axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { columns } from "./columns";
 import Create from "../../components/Create";
 
@@ -25,16 +25,67 @@ const Users = () => {
     });
   };
 
+  const ChangerStatutCompte = async (id, nouveauStatut) => {
+    await axios
+      .patch(`admin/users/${id}`, { statutCompte: nouveauStatut })
+      .catch((err) => console.log(err))
+      .then((res) => {
+        setUsers((prev) => {
+          const updatedUsers = prev.map((user) => {
+            if (user.id_utilisateur === id) {
+              if (user.Artisan) {
+                return {
+                  ...user,
+                  Artisan: {
+                    ...user.Artisan,
+                    statutCompte: nouveauStatut,
+                  },
+                };
+              } else if (user.Fournisseur) {
+                return {
+                  ...user,
+                  Fournisseur: {
+                    ...user.Fournisseur,
+                    statutCompte: nouveauStatut,
+                  },
+                };
+              }
+            } else {
+              return user;
+            }
+          });
+
+          return updatedUsers;
+        });
+      });
+  };
+
   useEffect(() => {
     getUsers();
   }, []);
 
   const getRowId = (row) => row.id_utilisateur;
 
+  const handleClickChangeStatus = (params) => {
+    if (params.row.Artisan) {
+      ChangerStatutCompte(
+        params.row.id_utilisateur,
+        !params.row.Artisan.statutCompte
+      );
+    } else if (params.row.Fournisseur) {
+      ChangerStatutCompte(
+        params.row.id_utilisateur,
+        !params.row.Fournisseur.statutCompte
+      );
+    } else {
+      return;
+    }
+  };
+
   const actionColumn = {
     field: "action",
     headerName: "Action",
-    width: 200,
+    flex: 1,
     renderCell: (params) => {
       return (
         <Box
@@ -43,24 +94,23 @@ const Users = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Link
-            to={`/users/${params.row.id_utilisateur}`}
-            style={{ textDecoration: "none", margin: 5 }}
-          >
+          <div>
             <Button
               variant="contained"
               style={{
                 backgroundColor: colors.grey[400],
                 color: colors.primary[700],
               }}
+              disabled={!params.row?.Artisan & !params.row?.Fournisseur}
+              onClick={() => handleClickChangeStatus(params)}
             >
-              Modifier
+              Changer Statut
             </Button>
-          </Link>
+          </div>
           <div>
             <Button
               variant="contained"
-              sx={{ color: colors.redAccent[500] }}
+              sx={{ color: colors.redAccent[500], margin: 1 }}
               onClick={() => deleteUser(params.row.id_utilisateur)}
             >
               Supprimer
@@ -105,11 +155,21 @@ const Users = () => {
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
         }}
       >
+        <RefreshIcon
+          style={{ marginBottom: 10, cursor: "pointer" }}
+          onClick={() => {
+            setUsers([]);
+            getUsers();
+          }}
+        />
         <DataGrid
+          components={{ Toolbar: GridToolbar }}
           key={users.length}
-          checkboxSelection
           rows={users}
           getRowId={getRowId}
           columns={columns.concat(actionColumn)}

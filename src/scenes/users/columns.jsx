@@ -19,7 +19,6 @@ export const columns = [
   {
     field: "nom",
     headerName: "Nom",
-    flex: 1,
     cellClassName: "name-column--cell",
   },
   {
@@ -33,42 +32,57 @@ export const columns = [
     headerName: "Date de naissance",
     headerAlign: "left",
     align: "left",
+    cellClassName: "name-column--cell",
+
+    renderCell: ({ row: { date_de_naissance } }) => {
+      return (
+        <Typography>
+          {new Date(date_de_naissance)?.toLocaleDateString("fr-FR")}
+        </Typography>
+      );
+    },
   },
   {
     field: "sexe",
     headerName: "Sexe",
-    flex: 0.7,
-  },
-  {
-    field: "adresse",
-    headerName: "Adresse",
-    flex: 1,
+    flex: 0.3,
   },
   {
     field: "email",
     headerName: "Email",
     flex: 1,
+    cellClassName: "name-column--cell",
   },
   {
     field: "telephone",
     headerName: "Telephone",
-    flex: 1,
+    flex: 0.4,
   },
   {
     field: "type",
     headerName: "Type",
-    flex: 1,
+    flex: 0.4,
+    cellClassName: "name-column--cell",
   },
   {
     field: "date_inscription",
     headerName: "Date inscription",
     headerAlign: "left",
     align: "left",
+    renderCell: ({ row: { date_inscription } }) => {
+      return (
+        <Typography>
+          {new Date(date_inscription)?.toLocaleDateString("fr-FR")}
+        </Typography>
+      );
+    },
   },
   {
     field: "Artisan.statutCompte",
     headerName: "Statut Compte",
-    flex: 1,
+    flex: 0.5,
+    cellClassName: "name-column--cell",
+
     renderCell: (params) => {
       const artisan = params.row.Artisan || params.row.Fournisseur;
       if (artisan) {
@@ -85,7 +99,6 @@ export const columns = [
   {
     field: "specialite",
     headerName: "Specialite",
-    flex: 1,
     renderCell: ({ row }) => {
       if (row.Artisan) {
         return <SpecialiteColumn specialite={row.Artisan.specialite} />;
@@ -96,38 +109,38 @@ export const columns = [
       }
     },
   },
-  {
-    field: "description",
-    headerName: "Description",
-    flex: 1,
-    renderCell: (params) => {
-      const artisan = params.row.Artisan;
-      if (artisan) {
-        return <Typography>{artisan.description}</Typography>;
-      } else {
-        return <p> / </p>;
-      }
-    },
-  },
-  {
-    field: "annee_experience",
-    headerName: "Exp",
-    type: "number",
-    headerAlign: "left",
-    flex: 0.25,
-    renderCell: (params) => {
-      const artisan = params.row.Artisan;
-      if (artisan) {
-        return artisan.annee_experience;
-      } else {
-        return <p> / </p>;
-      }
-    },
-  },
+  // {
+  //   field: "description",
+  //   headerName: "Description",
+  //   flex: 1,
+  //   renderCell: (params) => {
+  //     const artisan = params.row.Artisan;
+  //     if (artisan) {
+  //       return <Typography>{artisan.description}</Typography>;
+  //     } else {
+  //       return <p> / </p>;
+  //     }
+  //   },
+  // },
+  // {
+  //   field: "annee_experience",
+  //   headerName: "Exp",
+  //   type: "number",
+  //   headerAlign: "left",
+  //   flex: 0.25,
+  //   renderCell: (params) => {
+  //     const artisan = params.row.Artisan;
+  //     if (artisan) {
+  //       return artisan.annee_experience;
+  //     } else {
+  //       return <p> / </p>;
+  //     }
+  //   },
+  // },
   {
     field: "photo",
     headerName: "Photo",
-    flex: 1,
+    flex: 0.5,
     renderCell: ({ row: { photo } }) => {
       return (
         <Box display="flex" justifyContent="center" alignItems="center">
