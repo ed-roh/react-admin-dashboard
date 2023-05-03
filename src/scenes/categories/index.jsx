@@ -1,4 +1,5 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
@@ -112,11 +113,18 @@ const Categories = () => {
           },
         }}
       >
+        <RefreshIcon
+          style={{ marginBottom: 10, cursor: "pointer" }}
+          onClick={() => {
+            setCategories([]);
+            getCategories();
+          }}
+        />
         <DataGrid
+          components={{ Toolbar: GridToolbar }}
           rows={categories}
           columns={columns.concat(actionColumn)}
           getRowId={getRowId}
-          components={{ Toolbar: GridToolbar }}
         />
       </Box>
     </Box>
