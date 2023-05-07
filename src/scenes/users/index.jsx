@@ -101,7 +101,9 @@ const Users = () => {
                 backgroundColor: colors.grey[400],
                 color: colors.primary[700],
               }}
-              disabled={!params.row?.Artisan & !params.row?.Fournisseur}
+              disabled={
+                !params.row?.Artisan & !params.row?.Fournisseur ? false : true
+              }
               onClick={() => handleClickChangeStatus(params)}
             >
               Changer Statut
