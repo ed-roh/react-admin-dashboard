@@ -18,6 +18,7 @@ import CreateCategorie from "./components/CreateCategorie";
 import Login from "./scenes/login/Login";
 import CreateUser from "./components/CreateUser";
 import SignalementProfile from "./scenes/signalementProfile/index";
+import Oeuvres from "./scenes/oeuvres";
 
 function AuthenticatedRoutes() {
   const [isSidebar, setIsSidebar] = useState(true);
@@ -36,7 +37,7 @@ function AuthenticatedRoutes() {
             <Route index element={<Categories />} />
             <Route path="create" element={<CreateCategorie />} />
           </Route>
-          <Route path="/invoices" element={<Invoices />} />
+          <Route path="/oeuvres" element={<Oeuvres />} />
           <Route path="/signalement-profile" element={<SignalementProfile />} />
           <Route path="/bar" element={<Bar />} />
           <Route path="/pie" element={<Pie />} />
