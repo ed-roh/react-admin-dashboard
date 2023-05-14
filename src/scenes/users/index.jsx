@@ -1,4 +1,4 @@
-import { Box, Button, Grid, useTheme } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -97,13 +97,17 @@ const Users = () => {
           <div>
             <Button
               variant="contained"
-              style={{
-                backgroundColor: colors.grey[400],
-                color: colors.primary[700],
-              }}
-              disabled={
-                !params.row?.Artisan & !params.row?.Fournisseur ? false : true
+              style={
+                !(params.row?.Artisan || params.row?.Fournisseur)
+                  ? {
+                      backgroundColor: colors.grey[300],
+                    }
+                  : {
+                      backgroundColor: colors.grey[400],
+                      color: colors.primary[700],
+                    }
               }
+              disabled={!(params.row?.Artisan || params.row?.Fournisseur)}
               onClick={() => handleClickChangeStatus(params)}
             >
               Changer Statut
