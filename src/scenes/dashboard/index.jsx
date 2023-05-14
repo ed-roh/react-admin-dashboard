@@ -1,4 +1,11 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  IconButton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -12,16 +19,64 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import { useEffect, useState } from "react";
+import axios from "../../axios/axios";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [primaryStats, setPrimaryStats] = useState(undefined);
+  const [barChartData, setBarChartData] = useState(undefined);
+
+  const getStats = async () => {
+    try {
+      // Oeuvres
+      axios.get("admin/stats/oeuvres").then((res) =>
+        setPrimaryStats((prev) => ({
+          ...prev,
+          oeuvres: res.data,
+        }))
+      );
+
+      // Categories
+      axios.get("admin/stats/categories").then((res) =>
+        setPrimaryStats((prev) => ({
+          ...prev,
+          categories: res.data,
+        }))
+      );
+
+      // Users
+      axios.get("admin/stats/users").then((res) =>
+        setPrimaryStats((prev) => ({
+          ...prev,
+          users: res.data,
+        }))
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getBarChartData = async () => {
+    axios.get("admin/stats/usersPerType").then((res) => {
+      setBarChartData(res.data);
+    });
+  };
+
+  useEffect(() => {
+    getStats();
+    getBarChartData();
+  }, []);
 
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+        <Header
+          title="Tableau de bord"
+          subtitle="Bienvenue sur votre tableau de bord"
+        />
 
         <Box>
           <Button
@@ -55,10 +110,9 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
+            title={primaryStats?.oeuvres}
+            subtitle="Oeuvres existants"
             progress="0.75"
-            increase="+14%"
             icon={
               <EmailIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -74,10 +128,9 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
+            title={primaryStats?.categories}
+            subtitle="Categories existants"
             progress="0.50"
-            increase="+21%"
             icon={
               <PointOfSaleIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -93,10 +146,9 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
-            subtitle="New Clients"
+            title={primaryStats?.users}
+            subtitle="Utilisateurs existants"
             progress="0.30"
-            increase="+5%"
             icon={
               <PersonAddIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -253,10 +305,24 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Sales Quantity
+            Graph d'utilisateurs
           </Typography>
           <Box height="250px" mt="-20px">
-            <BarChart isDashboard={true} />
+            {!barChartData && (
+              <Box ml={20} mt={15}>
+                <CircularProgress color="success" />
+              </Box>
+            )}
+            {barChartData && (
+              <BarChart
+                isDashboard={true}
+                data={barChartData}
+                keys={["count"]}
+                indexBy={"type"}
+                axisBottomLegend={"Type"}
+                axisLeftLegend={"Nombre"}
+              />
+            )}
           </Box>
         </Box>
         <Box
