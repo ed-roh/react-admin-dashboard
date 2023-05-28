@@ -16,6 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -166,6 +167,13 @@ const Sidebar = () => {
               title="Signalements Profiles"
               to="/signalement-profile"
               icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Signalements Oeuvres"
+              to="/signalement-oeuvre"
+              icon={<ColorLensOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

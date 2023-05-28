@@ -62,7 +62,7 @@ const Topbar = () => {
           }}
           onClick={logout}
         >
-          Logout
+          Se déconnecter
         </Button>
       </Box>
     </Box>

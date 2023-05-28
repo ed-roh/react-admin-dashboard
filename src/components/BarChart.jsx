@@ -93,6 +93,8 @@ const BarChart = ({
         legend: isDashboard ? undefined : axisLeftLegend, // changed
         legendPosition: "middle",
         legendOffset: -40,
+        // tickValues: data.reduce((set, { y }) => set.add(y), new Set()).size,
+        format: (e) => Math.floor(e) === e && e,
       }}
       enableLabel={false}
       labelSkipWidth={12}

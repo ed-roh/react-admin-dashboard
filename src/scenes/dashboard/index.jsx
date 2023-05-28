@@ -77,21 +77,6 @@ const Dashboard = () => {
           title="Tableau de bord"
           subtitle="Bienvenue sur votre tableau de bord"
         />
-
-        <Box>
-          <Button
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
-        </Box>
       </Box>
 
       {/* GRID & CHARTS */}
@@ -109,16 +94,23 @@ const Dashboard = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <StatBox
-            title={primaryStats?.oeuvres}
-            subtitle="Oeuvres existants"
-            progress="0.75"
-            icon={
-              <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
+          {!primaryStats?.oeuvres && (
+            <Box>
+              <CircularProgress color="success" />
+            </Box>
+          )}
+          {primaryStats?.oeuvres && (
+            <StatBox
+              title={primaryStats?.oeuvres}
+              subtitle="Oeuvres existants"
+              progress="0.75"
+              icon={
+                <EmailIcon
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                />
+              }
+            />
+          )}
         </Box>
         <Box
           gridColumn="span 3"
@@ -127,16 +119,23 @@ const Dashboard = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <StatBox
-            title={primaryStats?.categories}
-            subtitle="Categories existants"
-            progress="0.50"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
+          {!primaryStats?.categories && (
+            <Box>
+              <CircularProgress color="success" />
+            </Box>
+          )}
+          {primaryStats?.categories && (
+            <StatBox
+              title={primaryStats?.categories}
+              subtitle="Categories existants"
+              progress="0.50"
+              icon={
+                <PointOfSaleIcon
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                />
+              }
+            />
+          )}
         </Box>
         <Box
           gridColumn="span 3"
@@ -145,18 +144,25 @@ const Dashboard = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <StatBox
-            title={primaryStats?.users}
-            subtitle="Utilisateurs existants"
-            progress="0.30"
-            icon={
-              <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
+          {!primaryStats?.users && (
+            <Box>
+              <CircularProgress color="success" />
+            </Box>
+          )}
+          {primaryStats?.users && (
+            <StatBox
+              title={primaryStats?.users}
+              subtitle="Utilisateurs existants"
+              progress="0.30"
+              icon={
+                <PersonAddIcon
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                />
+              }
+            />
+          )}
         </Box>
-        <Box
+        {/* <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
@@ -174,7 +180,7 @@ const Dashboard = () => {
               />
             }
           />
-        </Box>
+        </Box> */}
 
         {/* ROW 2 */}
         <Box
@@ -195,7 +201,7 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Revenue Generated
+                Nombre d'utilisateur inscrit par mois
               </Typography>
               <Typography
                 variant="h3"

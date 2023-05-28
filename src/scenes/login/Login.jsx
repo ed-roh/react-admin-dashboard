@@ -135,6 +135,7 @@ const Login = () => {
             </Button>
           </Box>
         </Box>
+        Mot de passe oublié?
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>

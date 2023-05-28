@@ -14,13 +14,7 @@ import axios from "../axios/axios";
 import { tokens } from "../theme";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import Carousel from "react-material-ui-carousel";
-import {
-  forwardRef,
-  useRef,
-  useImperativeHandle,
-  useState,
-  useEffect,
-} from "react";
+import { useRef, useImperativeHandle, useState, useEffect } from "react";
 import { getCategorieByID } from "../utils/categorie";
 
 const useStyles = makeStyles({
@@ -40,10 +34,10 @@ const useStyles = makeStyles({
   },
 });
 
-const OeuvreCard = forwardRef(({ oeuvre, onClose }, ref) => {
+const OeuvreCard = ({ oeuvre, onClose }) => {
   const carouselRef = useRef(null);
 
-  useImperativeHandle(ref, () => ({
+  useImperativeHandle(null, () => ({
     slidePrev: () => carouselRef.current?.slidePrev(),
     slideNext: () => carouselRef.current?.slideNext(),
   }));
@@ -93,7 +87,7 @@ const OeuvreCard = forwardRef(({ oeuvre, onClose }, ref) => {
   }, []);
 
   return (
-    <Card ref={ref}>
+    <Card>
       <CardHeader
         title={titre_oeuvre}
         action={
@@ -107,23 +101,22 @@ const OeuvreCard = forwardRef(({ oeuvre, onClose }, ref) => {
           width: "50%",
           height: "50%",
         }}
-        autoPlay={false}
-        indicators={false}
+        autoPlay={true}
+        indicators={true}
         navButtonsAlwaysVisible={true}
         navButtonsProps={{
           className: classes.carouselButton,
         }}
         PrevIcon={
-          <IconButton onClick={handleCarouselPrev}>
+          <div role="button" onClick={handleCarouselPrev}>
             <NavigateBefore />
-          </IconButton>
+          </div>
         }
         NextIcon={
-          <IconButton onClick={handleCarouselNext}>
+          <div role="button" onClick={handleCarouselNext}>
             <NavigateNext />
-          </IconButton>
+          </div>
         }
-        ref={carouselRef}
       >
         {images_oeuvre?.map((image) => (
           <CardMedia
@@ -177,6 +170,6 @@ const OeuvreCard = forwardRef(({ oeuvre, onClose }, ref) => {
       </CardContent>
     </Card>
   );
-});
+};
 
 export default OeuvreCard;

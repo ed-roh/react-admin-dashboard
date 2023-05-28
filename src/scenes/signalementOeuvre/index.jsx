@@ -6,18 +6,28 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Axios from "../../axios/axios";
 import { columns } from "./columns";
 import { tokens } from "../../theme";
+import OeuvreCard from "../../components/OeuvreCard";
 import UserCard from "../../components/SingleUser";
 
-const SignalementProfile = () => {
+const SignalementOeuvre = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [signalements, setSignalements] = useState([]);
+  const [selectedOeuvre, setSelectedOeuvre] = useState(null);
+  const [openOeuvreCard, setOpenOeuvreCard] = useState(false);
+
   const [selectedUser, setSelectedUser] = useState(null);
   const [openUserCard, setOpenUserCard] = useState(false);
 
   const getSignalements = async () => {
-    await Axios.get("signalement-profile").then((res) => {
+    await Axios.get("signalement-oeuvre").then((res) => {
       setSignalements(res.data);
+    });
+  };
+
+  const getSelectedOeuvre = async (id) => {
+    await Axios.get(`oeuvre/${id}`).then((res) => {
+      setSelectedOeuvre(res.data);
     });
   };
 
@@ -25,6 +35,11 @@ const SignalementProfile = () => {
     await Axios.get(`admin/userById/${id}`).then((res) => {
       setSelectedUser(res.data);
     });
+  };
+
+  const handleCloseOeuvreCard = () => {
+    setOpenOeuvreCard(false);
+    setSelectedOeuvre(null);
   };
 
   const handleCloseUserCard = () => {
@@ -40,7 +55,7 @@ const SignalementProfile = () => {
 
   const traiteSignalement = async (id_signalement, resultat) => {
     await Axios.patch(
-      `signalement-profile/${id_signalement}?resultat=${resultat}`
+      `signalement-oeuvre/${id_signalement}?resultat=${resultat}`
     ).then((res) => {
       setSignalements((prev) => {
         const updatedSignalements = prev.map((signalement) => {
@@ -126,7 +141,7 @@ const SignalementProfile = () => {
           },
         }}
       >
-        {!selectedUser && (
+        {!selectedOeuvre && !selectedUser && (
           <>
             <RefreshIcon
               style={{ marginBottom: 10, cursor: "pointer" }}
@@ -141,7 +156,7 @@ const SignalementProfile = () => {
               checkboxSelection
               rows={signalements}
               getRowId={getRowId}
-              // for each column, if we are modifying the `renderCell`, we pass getSelectedUser & setOpenUserCard,
+              // for each column, if we are modifying the `renderCell`, we pass getSelectedOeuvre & setOpenOeuvreCard,
               // else we pass only the value
               columns={columns.concat(actionColumn).map((column) => ({
                 ...column,
@@ -149,6 +164,8 @@ const SignalementProfile = () => {
                   column.renderCell
                     ? column.renderCell({
                         ...params,
+                        getSelectedOeuvre,
+                        setOpenOeuvreCard,
                         getSelectedUser,
                         setOpenUserCard,
                       })
@@ -156,6 +173,9 @@ const SignalementProfile = () => {
               }))}
             />
           </>
+        )}
+        {selectedOeuvre && openOeuvreCard && (
+          <OeuvreCard oeuvre={selectedOeuvre} onClose={handleCloseOeuvreCard} />
         )}
         {selectedUser && openUserCard && (
           <UserCard user={selectedUser} onClose={handleCloseUserCard} />
@@ -165,4 +185,4 @@ const SignalementProfile = () => {
   );
 };
 
-export default SignalementProfile;
+export default SignalementOeuvre;

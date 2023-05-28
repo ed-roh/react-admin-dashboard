@@ -19,6 +19,7 @@ import Login from "./scenes/login/Login";
 import CreateUser from "./components/CreateUser";
 import SignalementProfile from "./scenes/signalementProfile/index";
 import Oeuvres from "./scenes/oeuvres";
+import SignalementOeuvre from "./scenes/signalementOeuvre";
 
 function AuthenticatedRoutes() {
   const [isSidebar, setIsSidebar] = useState(true);
@@ -39,6 +40,7 @@ function AuthenticatedRoutes() {
           </Route>
           <Route path="/oeuvres" element={<Oeuvres />} />
           <Route path="/signalement-profile" element={<SignalementProfile />} />
+          <Route path="/signalement-oeuvre" element={<SignalementOeuvre />} />
           <Route path="/bar" element={<Bar />} />
           <Route path="/pie" element={<Pie />} />
           <Route path="/line" element={<Line />} />
