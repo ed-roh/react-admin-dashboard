@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -40,27 +40,24 @@ const Categories = () => {
     flex: 1,
     renderCell: (params) => {
       return (
-        <Box
-          display={"flex"}
-          flexDirection={"row"}
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Link
-            to={`/categorie/${params.row.id_categorie}`}
-            style={{ textDecoration: "none", margin: 5 }}
-          >
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: colors.grey[600],
-                color: colors.primary[500],
-              }}
+        <Grid container justifyContent={"space-around"}>
+          <Grid item>
+            <Link
+              to={`/categorie/${params.row.id_categorie}`}
+              style={{ textDecoration: "none" }}
             >
-              Modifier
-            </Button>
-          </Link>
-          <div>
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: colors.grey[400],
+                }}
+              >
+                Modifier
+              </Button>
+            </Link>
+          </Grid>
+
+          <Grid item>
             <Button
               variant="contained"
               sx={{ color: colors.redAccent[400] }}
@@ -68,8 +65,8 @@ const Categories = () => {
             >
               Supprimer
             </Button>
-          </div>
-        </Box>
+          </Grid>
+        </Grid>
       );
     },
   };

@@ -94,15 +94,27 @@ export const columns = [
       const etat = params.row.etatSignalement;
       if (!etat) {
         return (
-          <Typography style={{ fontWeight: "bold", color: "red" }}>
+          <p
+            style={{
+              fontWeight: "bold",
+              color: "#E74646",
+              fontSize: "1.05rem",
+            }}
+          >
             {"Non-Traité"}
-          </Typography>
+          </p>
         );
       } else {
         return (
-          <Typography style={{ fontWeight: "bold", color: "green" }}>
+          <p
+            style={{
+              fontWeight: "bold",
+              color: "#009900",
+              fontSize: "1.05rem",
+            }}
+          >
             {"Traité"}
-          </Typography>
+          </p>
         );
       }
     },
@@ -118,11 +130,12 @@ export const columns = [
           : row.resultat
           ? "Accepté"
           : "Réfusé";
-      const color = row.resultat === null ? "" : row.resultat ? "green" : "red";
+      const color =
+        row.resultat === null ? "" : row.resultat ? "#009900" : "#E74646";
       return (
-        <Typography style={{ fontWeight: "bold", color }}>
+        <p style={{ fontWeight: "bold", color, fontSize: "1.05rem" }}>
           {`Signalement ${status}`}
-        </Typography>
+        </p>
       );
     },
   },

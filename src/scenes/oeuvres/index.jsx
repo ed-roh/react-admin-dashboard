@@ -42,6 +42,7 @@ const Oeuvres = () => {
     setOpenUserCard(false);
     setSelectedUser(null);
   };
+
   const handleOnCloseOeuvreCard = () => {
     setOpenOeuvreCard(false);
     setSelectedOeuvre(null);
@@ -59,13 +60,12 @@ const Oeuvres = () => {
     flex: 1,
     renderCell: (params) => {
       return (
-        <Grid container spacing={4} alignItems={"center"}>
-          <Grid item xs={6}>
+        <Grid container justifyContent={"space-between"}>
+          <Grid item>
             <Button
               variant="contained"
               style={{
                 backgroundColor: colors.grey[400],
-                color: colors.primary[700],
               }}
               onClick={() => {
                 setOpenOeuvreCard(true);
@@ -75,7 +75,7 @@ const Oeuvres = () => {
               Consulter
             </Button>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item>
             <Button
               variant="contained"
               sx={{ color: colors.redAccent[500] }}

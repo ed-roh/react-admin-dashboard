@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { tokens } from "../theme";
 
-const Create = ({ name, link }) => {
+const Create = ({ genre, name, link }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -16,7 +16,7 @@ const Create = ({ name, link }) => {
       }}
     >
       <Link to={link}>
-        <Button sx={{ fontSize: "16px" }}>Crée une {name}</Button>
+        <Button sx={{ fontSize: "16px" }}>Créer {name}</Button>
       </Link>
     </Box>
   );

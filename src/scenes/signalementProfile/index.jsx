@@ -1,4 +1,4 @@
-import { Box, Button, useTheme } from "@mui/material";
+import { Box, Button, Grid, useTheme } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
@@ -62,28 +62,27 @@ const SignalementProfile = () => {
     flex: 0.75,
     renderCell: (params) => {
       return (
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Button
-            variant="contained"
-            sx={{ color: colors.redAccent[500] }}
-            onClick={() => traiteSignalement(params.row.id_signalement, false)}
-          >
-            Réfusé
-          </Button>
+        <Grid container justifyContent="space-between">
+          <Grid item>
+            <Button
+              variant="contained"
+              onClick={() =>
+                traiteSignalement(params.row.id_signalement, false)
+              }
+            >
+              Réfusé
+            </Button>
+          </Grid>
 
-          <Button
-            variant="contained"
-            sx={{ color: colors.greenAccent[500] }}
-            onClick={() => traiteSignalement(params.row.id_signalement, true)}
-          >
-            Accepté
-          </Button>
-        </Box>
+          <Grid item>
+            <Button
+              variant="contained"
+              onClick={() => traiteSignalement(params.row.id_signalement, true)}
+            >
+              Accepté
+            </Button>
+          </Grid>
+        </Grid>
       );
     },
   };

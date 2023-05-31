@@ -23,7 +23,6 @@ export const columns = [
   {
     field: "titre_oeuvre",
     headerName: "Titre",
-    cellClassName: "name-column--cell",
     flex: 1,
   },
   {
@@ -31,8 +30,6 @@ export const columns = [
     headerName: "Date réalisation",
     headerAlign: "left",
     align: "left",
-    cellClassName: "name-column--cell",
-
     renderCell: ({ row: { date_realisation } }) => {
       return (
         <Typography>
@@ -50,7 +47,6 @@ export const columns = [
     field: "dimensions",
     headerName: "Dimentions",
     flex: 0.5,
-    cellClassName: "name-column--cell",
   },
   {
     field: "prix",
@@ -62,7 +58,6 @@ export const columns = [
     headerName: "Date publication",
     headerAlign: "left",
     align: "left",
-    cellClassName: "name-column--cell",
     renderCell: ({ row: { date_publication } }) => {
       return (
         <Typography>
@@ -82,7 +77,6 @@ export const columns = [
     field: "id_artisan",
     headerName: "Artisan",
     headerAlign: "left",
-    cellClassName: "name-column--cell",
     flex: 1,
     renderCell: ({ row, setOpenUserCard, getSelectedUser }) => {
       return (

@@ -1,4 +1,4 @@
-import { Box, Button, useTheme } from "@mui/material";
+import { Box, Button, Grid, useTheme } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -88,23 +88,17 @@ const Users = () => {
     flex: 1,
     renderCell: (params) => {
       return (
-        <Box
-          display={"flex"}
-          flexDirection={"row"}
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <div>
+        <Grid container justifyContent="space-between">
+          <Grid item>
             <Button
               variant="contained"
               style={
                 !(params.row?.Artisan || params.row?.Fournisseur)
                   ? {
-                      backgroundColor: colors.grey[300],
+                      backgroundColor: colors.grey[400],
                     }
                   : {
                       backgroundColor: colors.grey[400],
-                      color: colors.primary[700],
                     }
               }
               disabled={!(params.row?.Artisan || params.row?.Fournisseur)}
@@ -112,17 +106,17 @@ const Users = () => {
             >
               Changer Statut
             </Button>
-          </div>
-          <div>
+          </Grid>
+          <Grid item>
             <Button
               variant="contained"
-              sx={{ color: colors.redAccent[500], margin: 1 }}
+              sx={{ color: colors.redAccent[500] }}
               onClick={() => deleteUser(params.row.id_utilisateur)}
             >
               Supprimer
             </Button>
-          </div>
-        </Box>
+          </Grid>
+        </Grid>
       );
     },
   };
@@ -133,7 +127,7 @@ const Users = () => {
         title="Utilisateurs"
         subtitle="Gestion des utilisateurs de l'application"
       />
-      <Create name="user" link="create" />
+      <Create name="utilisateur" link="create" />
       <Box
         m="40px 0 0 0"
         height="75vh"

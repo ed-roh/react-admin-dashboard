@@ -19,7 +19,6 @@ export const columns = [
   {
     field: "nom",
     headerName: "Nom",
-    cellClassName: "name-column--cell",
   },
   {
     field: "prenom",
@@ -32,7 +31,6 @@ export const columns = [
     headerName: "Date de naissance",
     headerAlign: "left",
     align: "left",
-    cellClassName: "name-column--cell",
 
     renderCell: ({ row: { date_de_naissance } }) => {
       return (
@@ -51,22 +49,20 @@ export const columns = [
     field: "email",
     headerName: "Email",
     flex: 1,
-    cellClassName: "name-column--cell",
   },
   {
     field: "telephone",
-    headerName: "Telephone",
+    headerName: "Téléphone",
     flex: 0.4,
   },
   {
     field: "type",
     headerName: "Type",
     flex: 0.4,
-    cellClassName: "name-column--cell",
   },
   {
     field: "date_inscription",
-    headerName: "Date inscription",
+    headerName: "Date d'inscription",
     headerAlign: "left",
     align: "left",
     renderCell: ({ row: { date_inscription } }) => {
@@ -81,24 +77,41 @@ export const columns = [
     field: "Artisan.statutCompte",
     headerName: "Statut Compte",
     flex: 0.5,
-    cellClassName: "name-column--cell",
 
     renderCell: (params) => {
       const artisan = params.row.Artisan || params.row.Fournisseur;
       if (artisan) {
         return artisan.statutCompte ? (
-          <p style={{ fontWeight: "bold", color: "green" }}>{"Actif"}</p>
+          <p
+            style={{ fontWeight: "bold", color: "#009900", fontSize: "1.2rem" }}
+          >
+            {"Actif"}
+          </p>
         ) : (
-          <p style={{ fontWeight: "bold", color: "red" }}>{"Inactif"}</p>
+          <p
+            style={{
+              fontWeight: "bold",
+              color: "#E74646",
+              fontSize: "1.2rem",
+            }}
+          >
+            {"Inactif"}
+          </p>
         );
       } else {
-        return <p style={{ fontWeight: "bold", color: "green" }}>{"Actif"}</p>;
+        return (
+          <p
+            style={{ fontWeight: "bold", color: "#009900", fontSize: "1.2rem" }}
+          >
+            {"Actif"}
+          </p>
+        );
       }
     },
   },
   {
     field: "specialite",
-    headerName: "Specialite",
+    headerName: "Spécialité",
     renderCell: ({ row }) => {
       if (row.Artisan) {
         return <SpecialiteColumn specialite={row.Artisan.specialite} />;
