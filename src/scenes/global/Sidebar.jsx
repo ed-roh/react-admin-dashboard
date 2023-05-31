@@ -17,6 +17,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import ReportGmailerrorredOutlinedIcon from "@mui/icons-material/ReportGmailerrorredOutlined";
+import CommentsDisabledOutlinedIcon from "@mui/icons-material/CommentsDisabledOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -174,6 +175,13 @@ const Sidebar = () => {
               title="Signalements Oeuvres"
               to="/signalement-oeuvre"
               icon={<ReportGmailerrorredOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Signalements Avis"
+              to="/signalement-avis"
+              icon={<CommentsDisabledOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

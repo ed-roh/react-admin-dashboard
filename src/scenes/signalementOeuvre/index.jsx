@@ -7,7 +7,7 @@ import Axios from "../../axios/axios";
 import { columns } from "./columns";
 import { tokens } from "../../theme";
 import OeuvreCard from "../../components/OeuvreCard";
-import UserCard from "../../components/SingleUser";
+import UserCard from "../../components/UserCard";
 
 const SignalementOeuvre = () => {
   const theme = useTheme();

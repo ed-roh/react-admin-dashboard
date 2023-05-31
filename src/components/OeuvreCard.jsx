@@ -1,9 +1,12 @@
 import {
+  Box,
   Button,
   Card,
   CardContent,
   CardHeader,
   CardMedia,
+  CircularProgress,
+  Grid,
   IconButton,
   Typography,
   useTheme,
@@ -24,7 +27,7 @@ const useStyles = makeStyles({
   },
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "100%", // 16:9
   },
   carousel: {
     position: "relative",
@@ -96,78 +99,76 @@ const OeuvreCard = ({ oeuvre, onClose }) => {
           </IconButton>
         }
       />
-      <Carousel
-        sx={{
-          width: "50%",
-          height: "50%",
-        }}
-        autoPlay={true}
-        indicators={true}
-        navButtonsAlwaysVisible={true}
-        navButtonsProps={{
-          className: classes.carouselButton,
-        }}
-        PrevIcon={
-          <div role="button" onClick={handleCarouselPrev}>
-            <NavigateBefore />
-          </div>
-        }
-        NextIcon={
-          <div role="button" onClick={handleCarouselNext}>
-            <NavigateNext />
-          </div>
-        }
-      >
-        {images_oeuvre?.map((image) => (
-          <CardMedia
-            key={image}
-            className={classes.media}
-            image={image}
-            title={titre_oeuvre}
-          />
-        ))}
-      </Carousel>
+      <Grid container justifyContent="space-between">
+        <Grid item xs={12} sm={4}>
+          <Carousel
+            sx={{
+              width: "100%",
+              height: "100%",
+            }}
+            autoPlay={true}
+            indicators={true}
+            navButtonsAlwaysVisible={true}
+            navButtonsProps={{
+              className: classes.carouselButton,
+            }}
+            PrevIcon={<NavigateBefore />}
+            NextIcon={<NavigateNext />}
+          >
+            {images_oeuvre?.map((image) => (
+              <CardMedia
+                key={image}
+                className={classes.media}
+                image={image}
+                title={titre_oeuvre}
+              />
+            ))}
+          </Carousel>
+        </Grid>
+        <Grid item xs={12} sm={8}>
+          <CardContent>
+            <Typography variant="body1" gutterBottom>
+              <strong>Titre:</strong> {titre_oeuvre}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              <strong>Categorie:</strong> {categorie}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              <strong>Contexte réalisation:</strong> {contexte_realisation}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              <strong>Date réalisation:</strong>{" "}
+              {new Date(date_realisation).toLocaleDateString("fr-FR")}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              <strong>Date publication:</strong>{" "}
+              {new Date(date_publication).toLocaleDateString("fr-FR")}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              <strong>Description:</strong> {description}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              <strong>Dimensions:</strong> {dimensions}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              <strong>Techniques et materiaux:</strong>{" "}
+              {techniques_et_materiaux}
+            </Typography>
+            <hr style={{ width: "50%" }} />
+            <Typography variant="h3" gutterBottom>
+              <strong>Prix:</strong> {prix} {"DA"}
+            </Typography>
 
-      <CardContent>
-        <Typography variant="body1" gutterBottom>
-          <strong>Titre:</strong> {titre_oeuvre}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Categorie:</strong> {categorie}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Contexte réalisation:</strong> {contexte_realisation}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Date réalisation:</strong>{" "}
-          {new Date(date_realisation).toLocaleDateString("fr-FR")}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Date publication:</strong>{" "}
-          {new Date(date_publication).toLocaleDateString("fr-FR")}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Description:</strong> {description}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Dimensions:</strong> {dimensions}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Techniques et materiaux:</strong> {techniques_et_materiaux}
-        </Typography>
-        <hr style={{ width: "50%" }} />
-        <Typography variant="h3" gutterBottom>
-          <strong>Prix:</strong> {prix} {"DA"}
-        </Typography>
-
-        <Button
-          variant="contained"
-          sx={{ mt: 5, color: colors.redAccent[500] }}
-          onClick={() => deleteOeuvre(id_oeuvre)}
-        >
-          Supprimer
-        </Button>
-      </CardContent>
+            <Button
+              variant="contained"
+              sx={{ mt: 5, color: colors.redAccent[500] }}
+              onClick={() => deleteOeuvre(id_oeuvre)}
+            >
+              Supprimer
+            </Button>
+          </CardContent>
+        </Grid>
+      </Grid>
     </Card>
   );
 };

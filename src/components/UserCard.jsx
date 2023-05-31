@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  CircularProgress,
   IconButton,
   Typography,
   useTheme,
@@ -43,11 +44,15 @@ const UserCard = ({ user, onClose }) => {
         }
       />
       <CardContent>
-        <img
-          src={photo}
-          alt={`${nom} ${prenom}`}
-          style={{ maxWidth: "100%", marginBottom: "16px" }}
-        />
+        {!photo && <CircularProgress color="success" />}
+        {photo && (
+          <img
+            src={photo}
+            alt={`${nom} ${prenom}`}
+            style={{ maxWidth: "100%", marginBottom: "16px" }}
+          />
+        )}
+
         <Typography variant="subtitle1" gutterBottom>
           {type}
         </Typography>

@@ -7,17 +7,27 @@ import Axios from "../../axios/axios";
 import { columns } from "./columns";
 import { tokens } from "../../theme";
 import UserCard from "../../components/UserCard";
+import AvisCard from "../../components/AvisCard";
 
-const SignalementProfile = () => {
+const SignalementAvis = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [signalements, setSignalements] = useState([]);
+  const [selectedAvis, setSelectedAvis] = useState(null);
+  const [openAvisCard, setOpenAvisCard] = useState(false);
+
   const [selectedUser, setSelectedUser] = useState(null);
   const [openUserCard, setOpenUserCard] = useState(false);
 
   const getSignalements = async () => {
-    await Axios.get("signalement-profile").then((res) => {
+    await Axios.get("signalement-avis").then((res) => {
       setSignalements(res.data);
+    });
+  };
+
+  const getSelectedAvis = async (id) => {
+    await Axios.get(`avis/${id}`).then((res) => {
+      setSelectedAvis(res.data);
     });
   };
 
@@ -25,6 +35,11 @@ const SignalementProfile = () => {
     await Axios.get(`admin/userById/${id}`).then((res) => {
       setSelectedUser(res.data);
     });
+  };
+
+  const handleCloseAvisCard = () => {
+    setOpenAvisCard(false);
+    setSelectedAvis(null);
   };
 
   const handleCloseUserCard = () => {
@@ -40,7 +55,7 @@ const SignalementProfile = () => {
 
   const traiteSignalement = async (id_signalement, resultat) => {
     await Axios.patch(
-      `signalement-profile/${id_signalement}?resultat=${resultat}`
+      `signalement-avis/${id_signalement}?resultat=${resultat}`
     ).then((res) => {
       setSignalements((prev) => {
         const updatedSignalements = prev.map((signalement) => {
@@ -59,7 +74,7 @@ const SignalementProfile = () => {
   const actionColumn = {
     field: "action",
     headerName: "Action",
-    flex: 0.75,
+    flex: 0.8,
     renderCell: (params) => {
       return (
         <Grid container justifyContent="space-between">
@@ -70,16 +85,15 @@ const SignalementProfile = () => {
                 traiteSignalement(params.row.id_signalement, false)
               }
             >
-              Réfusé
+              Réfuser
             </Button>
           </Grid>
-
           <Grid item>
             <Button
               variant="contained"
               onClick={() => traiteSignalement(params.row.id_signalement, true)}
             >
-              Accepté
+              Accepter
             </Button>
           </Grid>
         </Grid>
@@ -90,8 +104,8 @@ const SignalementProfile = () => {
   return (
     <Box m="20px">
       <Header
-        title="Signalements profiles"
-        subtitle="Gestion des Profiles signalé"
+        title="Signalements Avis sur les oeuvres"
+        subtitle="Gestion des Avis signalé"
       />
       <Box
         m="40px 0 0 0"
@@ -125,7 +139,7 @@ const SignalementProfile = () => {
           },
         }}
       >
-        {!selectedUser && (
+        {!selectedAvis && !selectedUser && (
           <>
             <RefreshIcon
               style={{ marginBottom: 10, cursor: "pointer" }}
@@ -140,7 +154,7 @@ const SignalementProfile = () => {
               checkboxSelection
               rows={signalements}
               getRowId={getRowId}
-              // for each column, if we are modifying the `renderCell`, we pass getSelectedUser & setOpenUserCard,
+              // for each column, if we are modifying the `renderCell`, we pass getselectedAvis & setOpenAvisCard,
               // else we pass only the value
               columns={columns.concat(actionColumn).map((column) => ({
                 ...column,
@@ -148,6 +162,8 @@ const SignalementProfile = () => {
                   column.renderCell
                     ? column.renderCell({
                         ...params,
+                        getSelectedAvis,
+                        setOpenAvisCard,
                         getSelectedUser,
                         setOpenUserCard,
                       })
@@ -155,6 +171,9 @@ const SignalementProfile = () => {
               }))}
             />
           </>
+        )}
+        {selectedAvis && openAvisCard && (
+          <AvisCard avis={selectedAvis} onClose={handleCloseAvisCard} />
         )}
         {selectedUser && openUserCard && (
           <UserCard user={selectedUser} onClose={handleCloseUserCard} />
@@ -164,4 +183,4 @@ const SignalementProfile = () => {
   );
 };
 
-export default SignalementProfile;
+export default SignalementAvis;

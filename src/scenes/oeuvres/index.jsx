@@ -6,8 +6,7 @@ import Header from "../../components/Header";
 import axios from "../../axios/axios";
 import { useEffect, useState } from "react";
 import { columns } from "./columns";
-import Create from "../../components/Create";
-import UserCard from "../../components/SingleUser";
+import UserCard from "../../components/UserCard";
 import OeuvreCard from "../../components/OeuvreCard";
 
 const Oeuvres = () => {
