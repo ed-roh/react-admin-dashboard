@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Card,
@@ -6,8 +7,10 @@ import {
   CardHeader,
   CardMedia,
   CircularProgress,
+  Divider,
   Grid,
   IconButton,
+  Paper,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -21,12 +24,9 @@ import { useRef, useImperativeHandle, useState, useEffect } from "react";
 import { getCategorieByID } from "../utils/categorie";
 
 const useStyles = makeStyles({
-  card: {
-    maxWidth: 300,
-    margin: "auto",
-  },
   media: {
     height: 0,
+    maxWidth: "100%",
     paddingTop: "100%", // 16:9
   },
   carousel: {
@@ -45,19 +45,12 @@ const OeuvreCard = ({ oeuvre, onClose }) => {
     slideNext: () => carouselRef.current?.slideNext(),
   }));
 
-  const handleCarouselPrev = () => {
-    carouselRef?.current?.slidePrev();
-  };
-
-  const handleCarouselNext = () => {
-    carouselRef?.current?.slideNext();
-  };
-
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const classes = useStyles();
 
   const [categorie, setCategorie] = useState("");
+  const [avis, setAvis] = useState(null);
 
   const {
     id_oeuvre,
@@ -85,12 +78,19 @@ const OeuvreCard = ({ oeuvre, onClose }) => {
     setCategorie(categorie.nom_categorie);
   };
 
+  const getAvis = async () => {
+    await axios.get(`avis/?id_oeuvre=${id_oeuvre}`).then((res) => {
+      setAvis(res.data);
+    });
+  };
+
   useEffect(() => {
     handleGetCategorie();
+    getAvis();
   }, []);
 
   return (
-    <Card>
+    <Card sx={{ height: "fit-content" }}>
       <CardHeader
         title={titre_oeuvre}
         action={
@@ -100,12 +100,14 @@ const OeuvreCard = ({ oeuvre, onClose }) => {
         }
       />
       <Grid container justifyContent="space-between">
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={5} sx={{ padding: "0 0.7rem" }}>
           <Carousel
-            sx={{
-              width: "100%",
-              height: "100%",
-            }}
+            sx={
+              {
+                // width: "100%",
+                // height: "fit-content",
+              }
+            }
             autoPlay={true}
             indicators={true}
             navButtonsAlwaysVisible={true}
@@ -124,8 +126,6 @@ const OeuvreCard = ({ oeuvre, onClose }) => {
               />
             ))}
           </Carousel>
-        </Grid>
-        <Grid item xs={12} sm={8}>
           <CardContent>
             <Typography variant="body1" gutterBottom>
               <strong>Titre:</strong> {titre_oeuvre}
@@ -167,6 +167,51 @@ const OeuvreCard = ({ oeuvre, onClose }) => {
               Supprimer
             </Button>
           </CardContent>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={7}
+          sx={{ padding: "0 1.5rem", height: "fit-content" }}
+        >
+          {avis && (
+            <>
+              <Typography variant="h2">Les avis:</Typography>
+              <Paper
+                sx={{
+                  padding: "1.2rem 0",
+                  mb: 5,
+                  maxHeight: "35rem",
+                  overflowY: "auto",
+                }}
+              >
+                {avis?.map((avis, index) => {
+                  return (
+                    <span key={index}>
+                      <Grid container wrap="nowrap" spacing={2}>
+                        <Grid item>
+                          <Avatar alt="photo" src={avis.user.photo} />
+                        </Grid>
+                        <Grid justifyContent="left" item xs zeroMinWidth>
+                          <h4 style={{ margin: 0, textAlign: "left" }}>
+                            {avis.user.nom} {avis.user.prenom}
+                          </h4>
+                          <p style={{ textAlign: "left" }}>{avis.contenu}</p>
+                          <p style={{ textAlign: "left", color: "gray" }}>
+                            posted 1 minute ago
+                          </p>
+                        </Grid>
+                      </Grid>
+                      <Divider
+                        variant="fullWidth"
+                        style={{ margin: "10px 0" }}
+                      />
+                    </span>
+                  );
+                })}
+              </Paper>
+            </>
+          )}
         </Grid>
       </Grid>
     </Card>

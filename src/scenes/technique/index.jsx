@@ -10,40 +10,40 @@ import axios from "../../axios/axios";
 import { Link } from "react-router-dom";
 import Create from "../../components/Create";
 
-const Categories = () => {
+const Techniques = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [categories, setCategories] = useState([]);
+  const [techniques, setTechniques] = useState([]);
 
-  const getCategories = async () => {
-    await axios.get("categorie").then((res) => {
-      setCategories(res.data);
+  const getTechniques = async () => {
+    await axios.get("technique").then((res) => {
+      setTechniques(res.data);
     });
   };
 
-  const deleteCategorie = async (id) => {
-    await axios.delete(`/categorie/${id}`).then((res) => {
-      setCategories((prev) => prev.filter((row) => row.id_categorie !== id));
+  const deletetechnique = async (id) => {
+    await axios.delete(`/technique/${id}`).then((res) => {
+      setTechniques((prev) => prev.filter((row) => row.id !== id));
     });
   };
 
-  const getRowId = (row) => row.id_categorie;
+  const getRowId = (row) => row.id;
 
   useEffect(() => {
-    getCategories();
+    getTechniques();
   }, []);
 
   const actionColumn = {
     field: "action",
     headerName: "Action",
     width: 200,
-    flex: 1,
+    flex: 0.75,
     renderCell: (params) => {
       return (
-        <Grid container justifyContent={"space-around"}>
+        <Grid container justifyContent={"space-between"}>
           <Grid item>
             <Link
-              to={`/categories/${params.row.id_categorie}`}
+              to={`/techniques/${params.row.id}`}
               style={{ textDecoration: "none" }}
             >
               <Button
@@ -61,7 +61,7 @@ const Categories = () => {
             <Button
               variant="contained"
               sx={{ color: colors.redAccent[400] }}
-              onClick={() => deleteCategorie(params.row.id_categorie)}
+              onClick={() => deletetechnique(params.row.id)}
             >
               Supprimer
             </Button>
@@ -73,11 +73,8 @@ const Categories = () => {
 
   return (
     <Box m="20px">
-      <Header
-        title="CATÉGORIES"
-        subtitle="Gestion des Catégories de l'application"
-      />
-      <Create link="create" name="categorie" />
+      <Header title="Techniques" subtitle="Gestion des Techniques" />
+      <Create link="create" name="technique" />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -113,13 +110,13 @@ const Categories = () => {
         <RefreshIcon
           style={{ marginBottom: 10, cursor: "pointer" }}
           onClick={() => {
-            setCategories([]);
-            getCategories();
+            setTechniques([]);
+            getTechniques();
           }}
         />
         <DataGrid
           components={{ Toolbar: GridToolbar }}
-          rows={categories}
+          rows={techniques}
           columns={columns.concat(actionColumn)}
           getRowId={getRowId}
         />
@@ -128,4 +125,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default Techniques;

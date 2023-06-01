@@ -8,40 +8,24 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Axios from "../axios/axios";
 import Header from "./Header";
 import { tokens } from "../theme";
 import { useParams } from "react-router-dom";
 
-const CreateCategorie = () => {
+const CreateTechnique = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const { id } = useParams();
 
-  const [categorie, setCategorie] = useState(null);
+  const [technique, setTechnique] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const clearInputs = () => {
-    setCategorie(null);
-  };
-
-  const uploadImage = (image) => {
-    const formData = new FormData();
-    formData.append("file", image[0]);
-    formData.append("upload_preset", "qbftnsbx");
-
-    axios
-      .post("https://api.cloudinary.com/v1_1/dgk4dzdqu/image/upload", formData)
-      .then((res) => {
-        setCategorie((prev) => ({
-          ...prev,
-          image_categorie: res.data.secure_url,
-        }));
-      });
+    setTechnique(null);
   };
 
   const handleSubmit = async (e) => {
@@ -50,12 +34,12 @@ const CreateCategorie = () => {
 
     try {
       if (id) {
-        await Axios.patch(`categorie/${id}`, categorie).then(() => {
+        await Axios.patch(`technique/${id}`, technique).then(() => {
           setError(false);
           setSuccess(true);
         });
       } else {
-        await Axios.post(`categorie`, categorie).then(() => {
+        await Axios.post(`technique`, technique).then(() => {
           setError(false);
           setSuccess(true);
           clearInputs();
@@ -70,15 +54,15 @@ const CreateCategorie = () => {
     }
   };
 
-  const getCategorie = async (id) => {
-    await Axios.get(`categorie/${id}`).then((res) => {
-      setCategorie(res.data);
+  const getTechnique = async (id) => {
+    await Axios.get(`technique/${id}`).then((res) => {
+      setTechnique(res.data);
     });
   };
 
   useEffect(() => {
     if (id) {
-      getCategorie(id);
+      getTechnique(id);
     }
   }, []);
 
@@ -87,67 +71,27 @@ const CreateCategorie = () => {
       <Header
         title={
           id
-            ? `Formulaire modification catégorie`
-            : `Formulaire création catégorie`
+            ? `Formulaire modification d'une Technique`
+            : `Formulaire création d'une Technique`
         }
         subtitle={"Veuillez remplir les champs"}
       />
       <Box>
-        {/* Nom Categorie */}
+        {/* Nom technique */}
         <Typography variant="h3" sx={{ margin: "15px 0px 5px 0" }}>
-          Nom Categorie
+          Nom technique
         </Typography>
         <TextField
           required
-          name="nom_categorie"
-          value={categorie?.nom_categorie || ""}
+          name="nom"
+          value={technique?.nom || ""}
           variant="filled"
           onChange={(e) => {
-            setCategorie((prev) => ({
+            setTechnique((prev) => ({
               ...prev,
               [e.target.name]: e.target.value,
             }));
           }}
-        />
-        {/* Description */}
-        <Typography variant="h3" sx={{ margin: "15px 0px 5px 0  " }}>
-          Description
-        </Typography>
-        <TextField
-          required
-          name="description"
-          value={categorie?.description || ""}
-          variant="filled"
-          onChange={(e) => {
-            setCategorie((prev) => ({
-              ...prev,
-              [e.target.name]: e.target.value,
-            }));
-          }}
-        />
-        {/* Image */}
-        <Typography variant="h3" sx={{ margin: "15px 0px 5px 0  " }}>
-          Image
-        </Typography>
-        {id && (
-          <img
-            src={categorie?.image_categorie}
-            style={{
-              borderRadius: "5%",
-              maxWidth: "300px",
-              maxHeight: "300px",
-            }}
-          />
-        )}
-
-        <TextField
-          type="file"
-          sx={{ display: "block" }}
-          onChange={(e) => {
-            uploadImage(e.target.files);
-          }}
-          InputLabelProps={{ shrink: true }}
-          variant="outlined"
         />
 
         <Box
@@ -161,11 +105,7 @@ const CreateCategorie = () => {
             type="submit"
             onClick={handleSubmit}
             sx={{ fontSize: "16px", width: "200px", height: "40px" }}
-            disabled={
-              !categorie?.image_categorie ||
-              !categorie?.nom_categorie ||
-              !categorie?.description
-            }
+            disabled={!technique?.nom}
           >
             {loading ? <CircularProgress size={24} /> : "Enregistrer"}
           </Button>
@@ -192,9 +132,9 @@ const CreateCategorie = () => {
             }}
           >
             {id ? (
-              <p>Catégorie modifié avec succès</p>
+              <p>Technique modifié avec succès</p>
             ) : (
-              <p>Catégorie ajouté avec succès</p>
+              <p>Technique ajouté avec succès</p>
             )}
           </Alert>
         )}
@@ -203,4 +143,4 @@ const CreateCategorie = () => {
   );
 };
 
-export default CreateCategorie;
+export default CreateTechnique;

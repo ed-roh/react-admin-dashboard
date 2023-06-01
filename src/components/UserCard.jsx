@@ -4,6 +4,7 @@ import {
   CardContent,
   CardHeader,
   CircularProgress,
+  Grid,
   IconButton,
   Typography,
   useTheme,
@@ -34,56 +35,63 @@ const UserCard = ({ user, onClose }) => {
   };
 
   return (
-    <Card>
-      <CardHeader
-        title={`${nom} ${prenom}`}
-        action={
-          <IconButton onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
-        }
-      />
-      <CardContent>
-        {!photo && <CircularProgress color="success" />}
-        {photo && (
-          <img
-            src={photo}
-            alt={`${nom} ${prenom}`}
-            style={{ maxWidth: "100%", marginBottom: "16px" }}
-          />
-        )}
+    <>
+      <Card>
+        <CardHeader
+          title={`${nom} ${prenom}`}
+          action={
+            <IconButton onClick={onClose}>
+              <CloseIcon />
+            </IconButton>
+          }
+        />
+        <CardContent>
+          <Grid container justifyContent={"space-around"}>
+            <Grid item xs={12} sm={5}>
+              {!photo && <CircularProgress color="success" />}
+              {photo && (
+                <img
+                  src={photo}
+                  alt={`${nom} ${prenom}`}
+                  style={{ maxWidth: "100%", marginBottom: "16px" }}
+                />
+              )}
+            </Grid>
 
-        <Typography variant="subtitle1" gutterBottom>
-          {type}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Email:</strong> {email}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Téléphone:</strong> {telephone}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Date de naissance:</strong>{" "}
-          {new Date(date_de_naissance)?.toLocaleDateString("fr-FR")}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <strong>Sexe:</strong> {sexe}
-        </Typography>
-        {user?.Artisan && (
-          <Typography variant="body1" gutterBottom>
-            <strong>Description:</strong> {user?.Artisan?.description}
-          </Typography>
-        )}
-
-        <Button
-          variant="contained"
-          sx={{ mt: 5, color: colors.redAccent[500] }}
-          onClick={() => deleteUser(user?.id_utilisateur)}
-        >
-          Supprimer
-        </Button>
-      </CardContent>
-    </Card>
+            <Grid item xs={12} sm={7}>
+              <Typography variant="subtitle1" gutterBottom>
+                {type}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                <strong>Email:</strong> {email}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                <strong>Téléphone:</strong> {telephone}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                <strong>Date de naissance:</strong>{" "}
+                {new Date(date_de_naissance)?.toLocaleDateString("fr-FR")}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                <strong>Sexe:</strong> {sexe}
+              </Typography>
+              {user?.Artisan && (
+                <Typography variant="body1" gutterBottom>
+                  <strong>Description:</strong> {user?.Artisan?.description}
+                </Typography>
+              )}
+            </Grid>
+          </Grid>
+          <Button
+            variant="contained"
+            sx={{ mt: 5, color: colors.redAccent[500] }}
+            onClick={() => deleteUser(user?.id_utilisateur)}
+          >
+            Supprimer
+          </Button>
+        </CardContent>
+      </Card>
+    </>
   );
 };
 
