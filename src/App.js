@@ -23,6 +23,8 @@ import SignalementOeuvre from "./scenes/signalementOeuvre";
 import SignalementAvis from "./scenes/signalementAvis";
 import Techniques from "./scenes/technique";
 import CreateTechnique from "./components/CreateTechnique";
+import Materiaux from "./scenes/materiaux";
+import CreateMateriau from "./components/CreateMateriau";
 
 function AuthenticatedRoutes() {
   const [isSidebar, setIsSidebar] = useState(true);
@@ -50,6 +52,11 @@ function AuthenticatedRoutes() {
             <Route index element={<Techniques />} />
             <Route path="create" element={<CreateTechnique />} />
             <Route path=":id" element={<CreateTechnique />} />
+          </Route>
+          <Route path="/materiaux">
+            <Route index element={<Materiaux />} />
+            <Route path="create" element={<CreateMateriau />} />
+            <Route path=":id" element={<CreateMateriau />} />
           </Route>
           <Route path="/bar" element={<Bar />} />
           <Route path="/pie" element={<Pie />} />

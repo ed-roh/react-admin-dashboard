@@ -15,6 +15,8 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ReportGmailerrorredOutlinedIcon from "@mui/icons-material/ReportGmailerrorredOutlined";
 import CommentsDisabledOutlinedIcon from "@mui/icons-material/CommentsDisabledOutlined";
+import BiotechOutlinedIcon from "@mui/icons-material/BiotechOutlined";
+import HandymanOutlinedIcon from "@mui/icons-material/HandymanOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -156,7 +158,14 @@ const Sidebar = () => {
             <Item
               title="Gestion des Techniques"
               to="/techniques"
-              icon={<ContactsOutlinedIcon />}
+              icon={<BiotechOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Gestion des Matériaux"
+              to="/materiaux"
+              icon={<HandymanOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -166,7 +175,7 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Pages
+              Signals
             </Typography>
             <Item
               title="Signalements Profiles"
@@ -202,7 +211,7 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Statistiques
+              Stats
             </Typography>
             <Item
               title="Histogramme"
