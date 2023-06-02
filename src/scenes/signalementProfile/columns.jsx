@@ -139,4 +139,14 @@ export const columns = [
       );
     },
   },
+  {
+    field: "date_resultat",
+    headerName: "Date réponse",
+    flex: 0.75,
+    renderCell: ({ row: { date_resultat } }) => {
+      return (
+        <Typography>{date_resultat ? `${date_resultat}` : `/`}</Typography>
+      );
+    },
+  },
 ];
