@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import Header from "../../components/Header";
 import BarChart from "../../components/BarChart";
 import { useEffect, useState } from "react";
@@ -24,6 +24,11 @@ const Bar = () => {
         subtitle="Histogramme simple montrant les utilisateurs par type"
       />
       <Box height="75vh">
+        {!data && (
+          <Box>
+            <CircularProgress color="success" />
+          </Box>
+        )}
         {data && (
           <BarChart
             data={data}
