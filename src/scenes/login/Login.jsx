@@ -129,7 +129,7 @@ const Login = () => {
               style={{ backgroundColor: "#00917C" }}
               type="submit"
               onClick={handleLogin}
-              disabled={!(email && password)}
+              disabled={!(email && password) || userData?.password?.length < 6}
             >
               Se connecter
             </Button>

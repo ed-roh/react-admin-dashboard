@@ -4,7 +4,6 @@ import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Users from "./scenes/users";
-import Invoices from "./scenes/invoices";
 import Categories from "./scenes/categories";
 import Bar from "./scenes/bar";
 import Line from "./scenes/line";
@@ -25,6 +24,7 @@ import Techniques from "./scenes/technique";
 import CreateTechnique from "./components/CreateTechnique";
 import Materiaux from "./scenes/materiaux";
 import CreateMateriau from "./components/CreateMateriau";
+import Settings from "./scenes/settings/index";
 
 function AuthenticatedRoutes() {
   const [isSidebar, setIsSidebar] = useState(true);
@@ -64,6 +64,8 @@ function AuthenticatedRoutes() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/geography" element={<Geography />} />
+          <Route path="/settings" element={<Settings />} />
+          {/* // TODO: */}
           <Route path="/*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

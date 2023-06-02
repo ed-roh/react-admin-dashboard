@@ -122,7 +122,7 @@ const Dashboard = () => {
           >
             {!primaryStats?.oeuvres && (
               <Box>
-                <CircularProgress color="success" />
+                <CircularProgress m={10} color="success" />
               </Box>
             )}
             {primaryStats?.oeuvres && (
@@ -149,7 +149,7 @@ const Dashboard = () => {
           >
             {!primaryStats?.categories && (
               <Box>
-                <CircularProgress color="success" />
+                <CircularProgress m={10} color="success" />
               </Box>
             )}
             {primaryStats?.categories && (
@@ -176,7 +176,7 @@ const Dashboard = () => {
           >
             {!primaryStats?.users && (
               <Box>
-                <CircularProgress color="success" />
+                <CircularProgress m={10} color="success" />
               </Box>
             )}
             {primaryStats?.users && (
@@ -203,7 +203,7 @@ const Dashboard = () => {
           >
             {!primaryStats?.signalementsTraite && (
               <Box>
-                <CircularProgress color="success" />
+                <CircularProgress m={10} color="success" />
               </Box>
             )}
             {primaryStats?.signalementsTraite && (
@@ -230,7 +230,7 @@ const Dashboard = () => {
           >
             {!primaryStats?.signalementsNonTraite && (
               <Box>
-                <CircularProgress color="success" />
+                <CircularProgress m={10} color="success" />
               </Box>
             )}
             {primaryStats?.signalementsNonTraite && (
@@ -278,7 +278,7 @@ const Dashboard = () => {
             <Box height="350px" m="0">
               {!data && (
                 <Box ml={20} mt={15}>
-                  <CircularProgress color="success" />
+                  <CircularProgress m={10} color="success" />
                 </Box>
               )}
               {data && <LineChart isDashboard={true} data={data} />}
@@ -316,7 +316,7 @@ const Dashboard = () => {
             <Box height="350px">
               {!barChartData && (
                 <Box ml={20} mt={15}>
-                  <CircularProgress color="success" />
+                  <CircularProgress m={10} color="success" />
                 </Box>
               )}
               {barChartData && (
