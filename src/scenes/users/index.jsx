@@ -7,11 +7,14 @@ import axios from "../../axios/axios";
 import { useEffect, useState } from "react";
 import { columns } from "./columns";
 import Create from "../../components/Create";
+import UserCard from "../../components/UserCard";
 
 const Users = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [openUserCard, setOpenUserCard] = useState(false);
 
   const getUsers = async () => {
     await axios.get("/admin/users").then((res) => {
@@ -80,6 +83,17 @@ const Users = () => {
     } else {
       return;
     }
+  };
+
+  const getSelectedUser = async (id) => {
+    await axios.get(`admin/userById/${id}`).then((res) => {
+      setSelectedUser(res.data);
+    });
+  };
+
+  const handleCloseUserCard = () => {
+    setOpenUserCard(false);
+    setSelectedUser(null);
   };
 
   const actionColumn = {
@@ -160,20 +174,37 @@ const Users = () => {
           },
         }}
       >
-        <RefreshIcon
-          style={{ marginBottom: 10, cursor: "pointer" }}
-          onClick={() => {
-            setUsers([]);
-            getUsers();
-          }}
-        />
-        <DataGrid
-          components={{ Toolbar: GridToolbar }}
-          key={users.length}
-          rows={users}
-          getRowId={getRowId}
-          columns={columns.concat(actionColumn)}
-        />
+        {!selectedUser && (
+          <>
+            <RefreshIcon
+              style={{ marginBottom: 10, cursor: "pointer" }}
+              onClick={() => {
+                setUsers([]);
+                getUsers();
+              }}
+            />
+            <DataGrid
+              components={{ Toolbar: GridToolbar }}
+              key={users.length}
+              rows={users}
+              getRowId={getRowId}
+              columns={columns.concat(actionColumn).map((column) => ({
+                ...column,
+                renderCell: (params) =>
+                  column.renderCell
+                    ? column.renderCell({
+                        ...params,
+                        getSelectedUser,
+                        setOpenUserCard,
+                      })
+                    : params.value,
+              }))}
+            />
+          </>
+        )}
+        {selectedUser && openUserCard && (
+          <UserCard user={selectedUser} onClose={handleCloseUserCard} />
+        )}
       </Box>
     </Box>
   );

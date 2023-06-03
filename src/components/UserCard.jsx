@@ -21,6 +21,7 @@ const UserCard = ({ user, onClose }) => {
     nom,
     prenom,
     date_de_naissance,
+    date_inscription,
     sexe,
     email,
     telephone,
@@ -46,14 +47,18 @@ const UserCard = ({ user, onClose }) => {
           }
         />
         <CardContent>
-          <Grid container justifyContent={"space-around"}>
+          <Grid container justifyContent={"space-around"} spacing={2}>
             <Grid item xs={12} sm={5}>
               {!photo && <CircularProgress color="success" />}
               {photo && (
                 <img
                   src={photo}
                   alt={`${nom} ${prenom}`}
-                  style={{ maxWidth: "100%", marginBottom: "16px" }}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "600px",
+                    marginBottom: "16px",
+                  }}
                 />
               )}
             </Grid>
@@ -75,13 +80,63 @@ const UserCard = ({ user, onClose }) => {
               <Typography variant="body1" gutterBottom>
                 <strong>Sexe:</strong> {sexe}
               </Typography>
+              <Typography variant="body1" gutterBottom>
+                <strong>Date d'inscription:</strong>{" "}
+                {new Date(date_inscription)?.toLocaleDateString("fr-FR")}
+              </Typography>
               {user?.Artisan && (
-                <Typography variant="body1" gutterBottom>
-                  <strong>Description:</strong> {user?.Artisan?.description}
-                </Typography>
+                <>
+                  <Typography variant="body1" gutterBottom>
+                    <strong>Description:</strong> {user?.Artisan?.description}
+                  </Typography>
+
+                  <Typography variant="body1" gutterBottom>
+                    <strong>Année début d'expérience:</strong>{" "}
+                    {user?.Artisan?.annee_debut_experience}
+                  </Typography>
+
+                  <Typography variant="body1" gutterBottom>
+                    <strong>Spécialité:</strong> {user?.Artisan?.specialite}
+                  </Typography>
+                </>
+              )}
+              {user?.Fournisseur && (
+                <>
+                  <Typography variant="body1" gutterBottom>
+                    <strong>Raison social:</strong>{" "}
+                    {user?.Fournisseur?.raison_social}
+                  </Typography>
+                </>
+              )}
+
+              {(user?.Artisan || user?.Fournisseur) && (
+                <>
+                  <Typography variant="body1" gutterBottom>
+                    <strong>Statut compte:</strong>{" "}
+                    <Typography
+                      style={{
+                        display: "inline",
+                        color: user?.Artisan?.statusCompte ? `green` : `red`,
+                      }}
+                    >
+                      {user?.Artisan?.statusCompte ? `True` : `False`}
+                    </Typography>
+                  </Typography>
+                  {(user?.Artisan?.document || user?.Fournisseur?.document) && (
+                    <Typography variant="body1" gutterBottom>
+                      <strong>Document:</strong>
+                      <img
+                        style={{ display: "block" }}
+                        src={user?.Artisan?.document}
+                        alt="ID"
+                      />
+                    </Typography>
+                  )}
+                </>
               )}
             </Grid>
           </Grid>
+
           <Button
             variant="contained"
             sx={{ mt: 5, color: colors.redAccent[500] }}

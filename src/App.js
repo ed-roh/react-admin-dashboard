@@ -65,7 +65,6 @@ function AuthenticatedRoutes() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/geography" element={<Geography />} />
           <Route path="/settings" element={<Settings />} />
-          {/* // TODO: */}
           <Route path="/*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

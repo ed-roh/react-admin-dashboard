@@ -154,14 +154,24 @@ export const columns = [
     field: "photo",
     headerName: "Photo",
     flex: 0.5,
-    renderCell: ({ row: { photo } }) => {
+    renderCell: ({ row, getSelectedUser, setOpenUserCard }) => {
       return (
         <Box display="flex" justifyContent="center" alignItems="center">
           {/* eslint-disable-next-line */}
+
           <img
-            src={photo}
+            onClick={() => {
+              setOpenUserCard(true);
+              getSelectedUser(row.id_utilisateur);
+            }}
+            src={row?.photo}
             alt="photo de profile"
-            style={{ borderRadius: "50%", width: "50px", height: "50px" }}
+            style={{
+              borderRadius: "50%",
+              width: "50px",
+              height: "50px",
+              cursor: "pointer",
+            }}
           />
         </Box>
       );
