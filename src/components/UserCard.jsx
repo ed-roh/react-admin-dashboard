@@ -113,14 +113,18 @@ const UserCard = ({ user, onClose }) => {
                 <>
                   <Typography variant="body1" gutterBottom>
                     <strong>Statut compte:</strong>{" "}
-                    <Typography
-                      style={{
-                        display: "inline",
-                        color: user?.Artisan?.statusCompte ? `green` : `red`,
-                      }}
-                    >
-                      {user?.Artisan?.statusCompte ? `True` : `False`}
-                    </Typography>
+                  </Typography>
+                  <Typography
+                    variant="h3"
+                    style={{
+                      display: "inline",
+                      color: user?.Artisan?.statutCompte ? `green` : `red`,
+                    }}
+                  >
+                    {user?.Artisan?.statutCompte ||
+                    user?.Fournisseur?.statutCompte
+                      ? `Actif`
+                      : `Inactif`}
                   </Typography>
                   {(user?.Artisan?.document || user?.Fournisseur?.document) && (
                     <Typography variant="body1" gutterBottom>
