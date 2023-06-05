@@ -284,7 +284,7 @@ const CreateUser = () => {
               <Select
                 required
                 fullWidth
-                value={user?.type || "CLIENT"}
+                value={user?.type || "ADMIN"}
                 onChange={(e) => {
                   setUser((prev) => ({
                     ...prev,
@@ -293,9 +293,6 @@ const CreateUser = () => {
                 }}
               >
                 <MenuItem value={"ADMIN"}>Administrateur</MenuItem>
-                <MenuItem value={"ARTISAN"}>Artisan</MenuItem>
-                <MenuItem value={"FOURNISSEUR"}>Fournisseur</MenuItem>
-                <MenuItem value={"CLIENT"}>Client</MenuItem>
               </Select>
             </FormControl>
           </Grid>
