@@ -105,7 +105,7 @@ const Sidebar = () => {
                   sx={{ m: "10px 0 0 0" }}
                   fontSize={'35px'}
                 >
-                  Avinash
+                  sagar bhati
                 </Typography>
                 <Typography variant="h5" color={colors.primary[500]} fontSize={'20px'}>
                   Full Stack Web Development
