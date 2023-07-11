@@ -10,7 +10,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
 
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, to, icon, selected, setSelected }) => {}
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
