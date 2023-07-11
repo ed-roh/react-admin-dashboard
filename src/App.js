@@ -11,6 +11,7 @@ import ResponsiveTable from "./scenes/report/Report";
 
 
 
+
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -20,9 +21,10 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
+        <Topbar setIsSidebar={setIsSidebar} />
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
+            
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path='/analytics' element={<Analytics/>} />

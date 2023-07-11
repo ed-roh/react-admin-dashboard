@@ -40,11 +40,13 @@ const Sidebar = () => {
         "& .pro-sidebar-inner": {
           // background: `${colors.primary[400]} !important`,
 
-          background: `${colors.primary[400]} !important`,
+          // background: `${colors.primary[400]} !important`,
+          backgroundColor: 'white',
 
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
+          // backgroundColor:"white",
         },
         "& .pro-inner-item": {
           padding: "5px 35px 5px 20px !important",
