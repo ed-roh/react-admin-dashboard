@@ -60,16 +60,9 @@ const Dashboard = () => {
   const limitedRecords = record.slice(0, 10);
 
   return (
+    <div className="content" style={{backgroundColor:"white"}}>
     <div style={{backgroundColor: "white"}}>
    <div className="col main pt-5 mt-3 container">
-         {/* <button type="button" className="btn btn-primary" onClick={fetchData}>Fetch Data</button> */}
-       <nav aria-label="breadcrumb">
-        {/* <ol className="breadcrumb">
-          <li className="breadcrumb-item"><a href="#">Home</a></li>
-          <li className="breadcrumb-item"><a href="./Dashboard">Dashboard</a></li>
-          <li className="breadcrumb-item active" aria-current="page">Data</li>
-        </ol> */}
-      </nav>
       <p className="lead d-none d-sm-block">Welcome to your Dashboard</p>
 
       <div className="alert alert-warning fade collapse" role="alert" id="myAlert">
@@ -92,17 +85,6 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        {/* <div className="col-xl-3 col-sm-6 py-2">
-          <div className="card text-white bg-danger h-100">
-            <div className="card-body bg-danger">
-              <div className="rotate">
-                <i className="fa fa-podcast fa-4x" aria-hidden="true"></i>
-              </div>
-              <h6 className="text-uppercase">Communication</h6>
-              <h1 className="display-4">{maxCommunicationScore}</h1>
-            </div>
-          </div>
-        </div> */}
         <div className="col-xl-4 col-sm-6 py-2">
           <div className="card text-white bg-info h-100">
             <div className="card-body bg-info">
@@ -195,6 +177,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

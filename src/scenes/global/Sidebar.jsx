@@ -17,7 +17,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     <MenuItem
       active={selected === title}
       style={{
-        color: colors.grey[100],
+        color: selected===title? "white" : colors.grey[100],
       }}
       onClick={() => setSelected(title)}
       icon={icon}
@@ -35,12 +35,11 @@ const Sidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
 
   return (
+    <box style={{backgroundColor:"white"}}>
     <Box
       sx={{
         "& .pro-sidebar-inner": {
-          // background: `${colors.primary[400]} !important`,
-
-          // background: `${colors.primary[400]} !important`,
+          
           backgroundColor: 'white',
 
         },
@@ -78,14 +77,6 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <h3 style={{color:"#008000"}}>Hoping Minds</h3>
-                 {/* <img 
-                   alt="profile-user"
-                   width="140px"
-                   height="100px"
-                   src={`https://hopingminds.com/wp-content/uploads/2023/01/Asset-5.png`}
-                   style={{ cursor: "pointer" }}
-                  
-                   /> */}
                 <Typography variant="h3" color={colors.grey[100]}>
                  
                 </Typography>
@@ -104,13 +95,7 @@ const Sidebar = () => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                {/* <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={`../../assets/user.png`}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
-                /> */}
+                
               </Box>
               <Box textAlign="center">
                 <Typography
@@ -123,42 +108,44 @@ const Sidebar = () => {
                   Avinash
                 </Typography>
                 <Typography variant="h5" color={colors.primary[500]} fontSize={'20px'}>
-                  Student
+                  Full Stack Web Development
                 </Typography>
               </Box>
             </Box>
           )}
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
-              title="Dashboard"
-              to="/"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-              
-            />
+<Box paddingLeft={isCollapsed ? undefined : "10%"}
+style={{ color: 'white' }}>
+  <Item
+    title="Dashboard"
+    to="/"
+    icon={<HomeOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
 
-            <Item
-              title="Analytics"
-              to="/analytics"
-              icon={<ReportGmailerrorredOutlinedIcon/>}
-              selected={selected}
-              setSelected={setSelected}
-            />
+  <Item
+    title="Analytics"
+    to="/analytics"
+    icon={<ReportGmailerrorredOutlinedIcon/>}
+    selected={selected}
+    setSelected={setSelected}
+  />
 
-            <Item
-              title="Report"
-              to="/report"
-              icon={<AnalyticsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+  <Item
+    title="Report"
+    to="/report"
+    icon={<AnalyticsOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+
 
           </Box>
         </Menu>
       </ProSidebar>
     </Box>
+    </box>
   );
 };
 

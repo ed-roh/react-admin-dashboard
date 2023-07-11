@@ -41,6 +41,7 @@ const options = {
 };
 
 const Analytics = () => {
+
   const [data, setData] = useState({
     labels: ['Week-1', 'Week-2', 'Week-3', 'Week-4', 'Week-5'],
     datasets: [
@@ -105,8 +106,10 @@ const Analytics = () => {
     }, []);
   
     return (
+      <div className="content" style={{backgroundColor:"white"}}>
       <div style={{ width: '80%', height: '400px', margin: '40px auto' }}>
         <Bar data={data} options={options} />
+      </div>
       </div>
     );
   };
