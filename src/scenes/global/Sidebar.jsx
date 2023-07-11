@@ -10,7 +10,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
 
 
-const Item = ({ title, to, icon, selected, setSelected }) => {}
+const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -105,7 +105,7 @@ const Sidebar = () => {
                   sx={{ m: "10px 0 0 0" }}
                   fontSize={'35px'}
                 >
-                  sagar bhati
+                  Avinash
                 </Typography>
                 <Typography variant="h5" color={colors.primary[500]} fontSize={'20px'}>
                   Full Stack Web Development
