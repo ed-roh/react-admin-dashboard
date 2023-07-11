@@ -60,10 +60,10 @@ const Dashboard = () => {
   const limitedRecords = record.slice(0, 10);
 
   return (
-    <div className="content" style={{backgroundColor:"white"}}>
+    <div className="content" style={{backgroundColor:"white", marginTop:'40px'}}>
     <div style={{backgroundColor: "white"}}>
    <div className="col main pt-5 mt-3 container">
-      <p className="lead d-none d-sm-block">Welcome to your Dashboard</p>
+      <h2 className="d-sm-block" style={{color:"blue", textAlign:'center', padding:'0'}}>Welcome to your Dashboard</h2>
 
       <div className="alert alert-warning fade collapse" role="alert" id="myAlert">
         <button type="button" className="close" data-dismiss="alert" aria-label="Close">
@@ -169,7 +169,7 @@ const Dashboard = () => {
                     <small>1 week ago</small>
                   </div>
                   <p className="mb-1">Ut enim ad minima veniam, quis nostrum exercitationem ullamco laboriosam.</p>
-                  <small>Author: James Johnson</small>
+                  <small>Author: Avinash</small>
                 </a>
               </div>
             </div>

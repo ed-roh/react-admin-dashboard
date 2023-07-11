@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import { Chart as ChartJS, CategoryScale, LinearScale, Title, Tooltip, Legend, BarElement } from 'chart.js';
+import './Analytics.css'
 
 ChartJS.register(CategoryScale, LinearScale, Title, Tooltip, Legend, BarElement);
 
@@ -39,6 +40,9 @@ const options = {
     },
   },
 };
+
+
+
 
 const Analytics = () => {
 
@@ -106,9 +110,29 @@ const Analytics = () => {
     }, []);
   
     return (
+      <div className='main-chart'>
+      <div className="card-1">
+	 <div className='text'>
+    <p>Your Attempt  <span>80</span></p>
+    <p>Attempted On  <span>2023/04/30</span></p>
+    <p>Time Taken  <span>45m</span></p>
+    <p>Bank  <span>1/5</span></p>
+    <p>Correct  <span>30%</span></p>
+    <p>Marks Obtained  <span>68.00/80</span></p>
+    <p>Shipped  <span></span></p>
+    <p>Time Taken  <span>46m</span></p>
+    <p>Correct Questions  <span>36</span></p>
+    <p>Incorrect Questions  <span></span></p>
+    <p>Skipped Question  <span></span></p>
+    </div>
+  </div>
+  
+
+
       <div className="content" style={{backgroundColor:"white"}}>
-      <div style={{ width: '80%', height: '400px', margin: '40px auto' }}>
+      <div className='chart' style={{ width: '82%', height: '400px', marginLeft: '35px auto' }}>
         <Bar data={data} options={options} />
+      </div>
       </div>
       </div>
     );

@@ -9,6 +9,9 @@ body,
   width: 100%;
   font-family: "Source Sans Pro", sans-serif;
 }
+*{
+  margin-top: 0;
+}
 
 .app {
   display: flex;
@@ -26,10 +29,10 @@ body,
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #fbf9f9;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #fbfafa;
 }

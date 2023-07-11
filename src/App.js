@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Analytics from "./scenes/analytics/Analytics";
 import Report from "./scenes/report/Report";
-import ResponsiveTable from "./scenes/report/Report";
+import Navigation from './scenes/nav/Navigation';
+
 
 
 
@@ -21,14 +21,14 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-        <Topbar setIsSidebar={setIsSidebar} />
+        <Navigation setIsSidebar={setIsSidebar} />
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
             
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path='/analytics' element={<Analytics/>} />
-              <Route path="/report" element={<ResponsiveTable/>}/>
+              <Route path="/report" element={<Report/>}/>
              
             </Routes>
           </main>
