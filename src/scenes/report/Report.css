@@ -1,33 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Lexend+Deca:wght@100;200;300;400;500;600;700&family=Poppins:wght@300;400;600&display=swap');
+
 *{
-    padding: 0;
-    margin: 0;
-}
-.mainClass{
-    margin: 6%;
-}
-.heading{
-    margin-top: 5rem;
-    text-align: center;
-    width: 100%;
-      height: auto;
-      background-color: #bdb8b8;
-      border-radius: 10px;
-      
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-.SELECT{
-    background-color: #c8c0c0;
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    
-}
-.SELECT label{
-    padding: 3%;
-}
-select{
-    background-color: #bdb8b8;
-    border-radius: 10px;
-    width: 80px;
+html{
+  font-size: 62.5%;
 }
 
+table {
+  margin: 5rem auto;
+  border-radius: 2rem;
+  border: 1rem hidden #443C68;
+  border-collapse: collapse;
+  box-shadow: 0 0 0 1px black;
+  overflow: hidden;
+  max-width: 40rem;
+}
+
+li, p, a, td{
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+thead {
+  font-size: 1.8rem;
+  background-color: #443C68;
+  color: #fff;
+}
+
+th,
+td {
+  border: 1px solid #4b3d88;
+  min-width: 30rem;
+  padding: 1.5rem;
+  line-height: 1.7;
+}
+
+td {
+  font-size: 1.4rem;
+}

@@ -1,24 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, IconButton, Typography, useMediaQuery } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
-import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
+import ReportGmailerrorredOutlinedIcon from "@mui/icons-material/ReportGmailerrorredOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
-
+import AnalyticsOutlinedIcon from "@mui/icons-material/AnalyticsOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   return (
     <MenuItem
       active={selected === title}
-      style={{
-        color: selected===title? "white" : colors.grey[100],
-      }}
+      style={{ color: "rgb(120, 144, 156)" }}
       onClick={() => setSelected(title)}
       icon={icon}
     >
@@ -29,123 +23,147 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Sidebar = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const location = useLocation();
+
+  const isMobile = useMediaQuery("(max-width: 960px)");
+
+  useEffect(() => {
+    setIsCollapsed(isMobile);
+  }, [isMobile]);
+
+  useEffect(() => {
+    const path = location.pathname;
+    if (path === "/") {
+      setSelected("Dashboard");
+    } else if (path === "/analytics") {
+      setSelected("Analytics");
+    } else if (path === "/report") {
+      setSelected("Report");
+    }
+  }, [location]);
 
   return (
-    <box style={{backgroundColor:"white"}}>
-    <Box
-      sx={{
-        "& .pro-sidebar-inner": {
-          
-          backgroundColor: 'white',
-
-        },
-        "& .pro-icon-wrapper": {
-          backgroundColor: "transparent !important",
-          // backgroundColor:"white",
-        },
-        "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
-        },
-        "& .pro-inner-item:hover": {
-          color: "#3d85c6 !important",
-        },
-        "& .pro-menu-item.active": {
-          color: "#3d85c6 !important",
-        },
-      }}
-    >
-      <ProSidebar collapsed={isCollapsed}>
-        <Menu iconShape="square">
-          {/* LOGO AND MENU ICON */}
-          <MenuItem
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-            style={{
-              margin: "10px 0 20px 0",
-              color: colors.grey[400],
-            }}
-          >
-            {!isCollapsed && (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                ml="15px"
-              >
-                <h3 style={{color:"#008000"}}>Hoping Minds</h3>
-                <Typography variant="h3" color={colors.grey[100]}>
-                 
-                </Typography>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                <MenuOutlinedIcon
+    <Box style={{ backgroundColor: "white" }}>
+      <Box
+        sx={{
+          "& .pro-sidebar-inner": {
+            backgroundColor: "white",
+          },
+          "& .pro-icon-wrapper": {
+            backgroundColor: "transparent !important",
+          },
+          "& .pro-inner-item": {
+            padding: "5px 35px 5px 20px !important",
+          },
+          "& .pro-inner-item:hover": {
+            color: "#3d85c6 !important",
+          },
+          "& .pro-menu-item.active": {
+            color: "#3d85c6 !important",
+          },
+        }}
+      >
+        <ProSidebar collapsed={isCollapsed}>
+          <Menu iconShape="square">
+            <MenuItem
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+              style={{
+                margin: "10px 0 20px 0",
+                color: "rgb(120, 144, 156)",
+              }}
+            >
+              {!isCollapsed && (
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  ml="15px"
+                >
+                  <h3
                     style={{
-                      color: 'black',
+                      backgroundImage: "linear-gradient( #008000, #00FF00)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
                     }}
-                  />
-                  
-                </IconButton>
+                  >
+                    Hoping Minds
+                  </h3>
+
+                  <Typography variant="h3"></Typography>
+                  <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                    <MenuOutlinedIcon
+                      style={{
+                        color: "black",
+                      }}
+                    />
+                  </IconButton>
+                </Box>
+              )}
+            </MenuItem>
+
+            {!isCollapsed && (
+              <Box mb="25px">
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                ></Box>
+                <Box textAlign="center">
+                  <Typography
+                    variant="h2"
+                    fontWeight="bold"
+                    sx={{ m: "10px 0 0 0" }}
+                    fontSize={"30px"}
+                    style={{ color: "rgb(120, 144, 156)" }}
+                  >
+                    Avinash
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    fontSize={"19px"}
+                    style={{ color: "rgb(120, 144, 156)" }}
+                  >
+                    FSD
+                  </Typography>
+                </Box>
               </Box>
             )}
-          </MenuItem>
 
-          {!isCollapsed && (
-            <Box mb="25px">
-              <Box display="flex" justifyContent="center" alignItems="center">
-                
-              </Box>
-              <Box textAlign="center">
-                <Typography
-                  variant="h2"
-                  color={colors.grey[100]}
-                  fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
-                  fontSize={'35px'}
-                >
-                  Avinash
-                </Typography>
-                <Typography variant="h5" color={colors.primary[500]} fontSize={'20px'}>
-                  Full Stack Web Development
-                </Typography>
-              </Box>
+            <Box
+              paddingLeft={isCollapsed ? undefined : "10%"}
+              style={{ color: "white" }}
+            >
+              <Item
+                title="Dashboard"
+                to="/"
+                icon={<HomeOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+
+              <Item
+                title="Analytics"
+                to="/analytics"
+                icon={<ReportGmailerrorredOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+
+              <Item
+                title="Report"
+                to="/report"
+                icon={<AnalyticsOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
             </Box>
-          )}
-
-<Box paddingLeft={isCollapsed ? undefined : "10%"}
-style={{ color: 'white' }}>
-  <Item
-    title="Dashboard"
-    to="/"
-    icon={<HomeOutlinedIcon />}
-    selected={selected}
-    setSelected={setSelected}
-  />
-
-  <Item
-    title="Analytics"
-    to="/analytics"
-    icon={<ReportGmailerrorredOutlinedIcon/>}
-    selected={selected}
-    setSelected={setSelected}
-  />
-
-  <Item
-    title="Report"
-    to="/report"
-    icon={<AnalyticsOutlinedIcon />}
-    selected={selected}
-    setSelected={setSelected}
-  />
-
-
-          </Box>
-        </Menu>
-      </ProSidebar>
+          </Menu>
+        </ProSidebar>
+      </Box>
     </Box>
-    </box>
   );
 };
 
