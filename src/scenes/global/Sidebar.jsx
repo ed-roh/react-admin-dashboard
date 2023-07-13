@@ -77,6 +77,7 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
+                {/* <img src="https://hopingminds.com/wp-content/uploads/2023/01/Asset-5.png" alt="" /> */}
                 <h3 style={{color:"#008000"}}>Hoping Minds</h3>
                 <Typography variant="h3" color={colors.grey[100]}>
                  

@@ -12,6 +12,8 @@ import Navigation from './scenes/nav/Navigation';
 
 
 
+
+
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -24,17 +26,18 @@ function App() {
         <Navigation setIsSidebar={setIsSidebar} />
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
-            
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path='/analytics' element={<Analytics/>} />
               <Route path="/report" element={<Report/>}/>
-             
             </Routes>
           </main>
+          
         </div>
+       
       </ThemeProvider>
     </ColorModeContext.Provider>
+    
   );
 }
 
