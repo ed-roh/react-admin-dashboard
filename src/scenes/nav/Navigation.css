@@ -6,16 +6,14 @@
 
 .img {
     display: block;
-    margin-left: 68px;
+    margin-left: 70px;
     margin-right: auto;
     width: 15%;
-    max-height: 140px;
+    max-height: 150px;
 }
 .navbar{
     position: fixed;
     z-index: 100;
     top: 0;
     width: 100%;
-    display: flex;
-    
 }

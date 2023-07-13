@@ -5,7 +5,7 @@ import "./Report.css"
 function Report() {
   return (
 
-    <div className='mainClass'>
+    <div className='mainClass container'>
         <div className='heading'>
             <h2>Total Questions <span>40</span> <span>Maximum Time <span>60 Minutes</span></span></h2>
         </div>

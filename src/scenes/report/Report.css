@@ -3,7 +3,8 @@
     margin: 0;
 }
 .mainClass{
-    margin: 6%;
+    margin-top: 40px;
+    padding-top: 1px;
 }
 .heading{
     margin-top: 5rem;
