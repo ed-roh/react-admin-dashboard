@@ -63,7 +63,7 @@ const Pdp = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+        const response = await axios.get('http://192.168.0.152:3000/getCourseData');
         const dataSet1 = response.data.map((val) => val.id);
 
         setData((prevState) => ({
