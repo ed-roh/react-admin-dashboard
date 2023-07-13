@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MyCarousel from "../global/Slider2";
 import Nortification from "../nortification/Nortification";
+import Navigation from "../nav/Navigation";
 // import SliderData from "../global/SliderData";
 
 
@@ -127,7 +128,7 @@ const Dashboard = () => {
                 
               </div>
             </div> */}
-                  
+
             <div className="col-lg-12 col-md-12 col-sm-12">
               <div className="card">
                 <div className="card-header">
@@ -135,41 +136,17 @@ const Dashboard = () => {
                 </div>
                 <div className="card-body">
                   <div className="list-group">
-                    {/* <a href="https://fontawesome.com/icons/check?f=classic&s=solid" className="list-group-item list-group-item-action flex-column align-items-start">
-                      <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">Post 1</h5>
-                        <small>3 days ago</small>
-                      </div>
-                      <p className="mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      <small>Author: John Doe</small>
-                    </a>
-                    <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
-                      <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">Post 2</h5>
-                        <small>5 days ago</small>
-                      </div>
-                      <p className="mb-1">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
-                      <small>Author: Jane Smith</small>
-                    </a>
-                    <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
-                      <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">Post 3</h5>
-                        <small>1 week ago</small>
-                      </div>
-                      <p className="mb-1">Ut enim ad minima veniam, quis nostrum exercitationem ullamco laboriosam.</p>
-                      <small>Author: Avinash</small>
-                    </a> */}
-                    <Nortification/>
-                    <Nortification/>
-                    <Nortification/>
-                    <Nortification/>
+                    <nav className=" navbar-light bg-light" style={{textAlign:"center"}}>
+                      <a className="navbar-brand"   href="#">Nortification</a>
+                    </nav>
+
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <MyCarousel/>
+        <MyCarousel />
       </div>
     </div>
   );
