@@ -80,7 +80,6 @@ const Total = () => {
 
             setData((prevState) => ({
               ...prevState,
-              labels: ['Total marks of student'],
               datasets: [
                 {
                   ...prevState.datasets[0],
