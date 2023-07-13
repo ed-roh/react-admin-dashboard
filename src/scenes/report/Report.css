@@ -1,0 +1,34 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.mainClass{
+    margin-top: 40px;
+    padding-top: 1px;
+}
+.heading{
+    margin-top: 5rem;
+    text-align: center;
+    width: 100%;
+      height: auto;
+      background-color: #bdb8b8;
+      border-radius: 10px;
+      
+}
+
+.SELECT{
+    background-color: #c8c0c0;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    
+}
+.SELECT label{
+    padding: 3%;
+}
+select{
+    background-color: #bdb8b8;
+    border-radius: 10px;
+    width: 80px;
+}
+

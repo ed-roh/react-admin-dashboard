@@ -1,0 +1,29 @@
+.card-1 {
+    margin-top: 40px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+    width: 100%;
+    height: auto;
+    background-color: rgb(32, 115, 84);
+    border-radius: 35px;
+    width: 80%;
+    margin: 20px ;
+    /* margin-left: 40px; */
+    /* padding: 2%; */
+    
+   }
+  .text {
+    padding: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    white-space: 5rem;
+    
+  }
+
+  .chart{
+    background-color: rgb(202, 213, 213);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+  }
+  .main-chart{
+    padding: 20px;
+    padding-top: 8%;
+  }

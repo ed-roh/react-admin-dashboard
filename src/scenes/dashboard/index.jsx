@@ -1,283 +1,156 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
-import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
-import StatBox from "../../components/StatBox";
-import ProgressCircle from "../../components/ProgressCircle";
+import './index.css'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import MyCarousel from "../global/Slider2";
+import Nortification from "../nortification/Nortification";
+import Navigation from "../nav/Navigation";
+// import SliderData from "../global/SliderData";
+
+
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [record, setRecord] = useState([]);
+  const [marks, setMarks] = useState([]);
+
+
+
+  //   const fetchData = (async () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/student');
+        setRecord(response.data.data);
+        console.log(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [])
+  useEffect(() => {
+    const fetchMarks = async () => {
+      try {
+        const response = await axios.get('/data');
+        setMarks(response.data.data);
+        console.log(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchMarks();
+  }, []);
+
+  // ...
+
+  const fetchMaxScore = (category) => {
+    if (marks.length > 0) {
+      const categoryScores = marks.map((entry) => entry.scores[category].score);
+      const maxScore = Math.max(...categoryScores);
+      return maxScore;
+    }
+    return 0;
+  };
+
+  const maxAptitudeScore = fetchMaxScore('aptitude');
+  const maxCommunicationScore = fetchMaxScore('verbal');
+
+  const maxTechnicalScore = fetchMaxScore('technical');
+  // Display only the first 10 records
+  const limitedRecords = record.slice(0, 10);
 
   return (
-    <Box m="20px">
-      {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+    <div className="content" style={{ backgroundColor: "white", marginTop: '40px' }}>
+      <div style={{ backgroundColor: "white" }}>
+        <div className="col main pt-5 mt-3 container">
+          <h2 className="d-sm-block" style={{ color: "blue", textAlign: 'center', padding: '0' }}>Welcome to your Dashboard</h2>
 
-        <Box>
-          <Button
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
-        </Box>
-      </Box>
+          <div className="alert alert-warning fade collapse" role="alert" id="myAlert">
+            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              <span className="sr-only">Close</span>
+            </button>
 
-      {/* GRID & CHARTS */}
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="140px"
-        gap="20px"
-      >
-        {/* ROW 1 */}
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
-            increase="+14%"
-            icon={
-              <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
-            progress="0.50"
-            increase="+21%"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="32,441"
-            subtitle="New Clients"
-            progress="0.30"
-            increase="+5%"
-            icon={
-              <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
-            icon={
-              <TrafficIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
+          </div>
 
-        {/* ROW 2 */}
-        <Box
-          gridColumn="span 8"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.grey[100]}
-              >
-                Revenue Generated
-              </Typography>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={colors.greenAccent[500]}
-              >
-                $59,342.32
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                />
-              </IconButton>
-            </Box>
-          </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
-          </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          overflow="auto"
-        >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
-            colors={colors.grey[100]}
-            p="15px"
-          >
-            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
-            </Typography>
-          </Box>
-          {mockTransactions.map((transaction, i) => (
-            <Box
-              key={`${transaction.txId}-${i}`}
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
-              p="15px"
-            >
-              <Box>
-                <Typography
-                  color={colors.greenAccent[500]}
-                  variant="h5"
-                  fontWeight="600"
-                >
-                  {transaction.txId}
-                </Typography>
-                <Typography color={colors.grey[100]}>
-                  {transaction.user}
-                </Typography>
-              </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
-              <Box
-                backgroundColor={colors.greenAccent[500]}
-                p="5px 10px"
-                borderRadius="4px"
-              >
-                ${transaction.cost}
-              </Box>
-            </Box>
-          ))}
-        </Box>
+          <div className="row mb-3">
+            <div className="col-xl-4 col-sm-6 py-2">
+              <div className="card bg-success text-white h-100">
+                <div className="card-body bg-success" style={{ backgroundColor: "#57b960" }}>
+                  <div className="rotate">
+                    <i className="fa fa-code fa-4x"></i>
+                  </div>
+                  <h6 className="text-uppercase">Technical</h6>
+                  <h1 className="display-4">{maxTechnicalScore}</h1>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-4 col-sm-6 py-2">
+              <div className="card text-white bg-info h-100">
+                <div className="card-body bg-info">
+                  <div className="rotate">
+                    <i className="fa fa-cubes fa-4x" aria-hidden="true"></i>
+                  </div>
+                  <h6 className="text-uppercase">Aptitude</h6>
+                  <h1 className="display-4">125</h1>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-4 col-sm-6 py-2">
+              <div className="card text-white bg-primary h-100">
+                <div className="card-body">
+                  <div className="rotate">
+                    <i className="fa fa-info fa-4x" aria-hidden="true"></i>
+                  </div>
+                  <h6 className="text-uppercase">Test Shares</h6>
+                  <h1 className="display-4">36</h1>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        {/* ROW 3 */}
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          p="30px"
-        >
-          <Typography variant="h5" fontWeight="600">
-            Campaign
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt="25px"
-          >
-            <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              $48,352 revenue generated
-            </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
-          </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
-          >
-            Sales Quantity
-          </Typography>
-          <Box height="250px" mt="-20px">
-            <BarChart isDashboard={true} />
-          </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          padding="30px"
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ marginBottom: "15px" }}
-          >
-            Geography Based Traffic
-          </Typography>
-          <Box height="200px">
-            <GeographyChart isDashboard={true} />
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+          <hr />
+
+          <div className="row">
+            {/* <div className="col-lg-7 col-md-6 col-sm-5 col-xs-12">
+              <div className="card">
+                 <div className="card-header">
+                  <h2><i className="fa fa-hand-pointer-o" aria-hidden="true"></i> Test Information</h2>
+                </div> 
+                <div className="card-body">
+                  
+                </div>
+                
+              </div>
+            </div> */}
+
+            <div className="col-lg-12 col-md-12 col-sm-12">
+              <div className="card">
+                <div className="card-header">
+                  <h2><i className="fa fa-file-alt"></i> Notifications</h2>
+                </div>
+                <div className="card-body">
+                  <div className="list-group">
+                    <nav className=" navbar-light bg-light" style={{textAlign:"center"}}>
+                      <a className="navbar-brand"   href="#"></a>
+
+                      
+                    </nav>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <MyCarousel />
+      </div>
+    </div>
   );
 };
 

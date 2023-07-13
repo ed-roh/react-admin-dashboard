@@ -1,0 +1,31 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+/* Slider */
+
+.slider-container {
+    margin-bottom: 20px;
+  }
+  
+  input[type="range"] {
+    width: 200px;
+  }
+  
+  span {
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  /* .card-body{
+    background-color: rgb(48, 184, 168);
+  } */
+  .card{
+    height: 500px;
+  }
+  .list-group{
+    height: 370px;
+    width: 100%;
+  }
+  
+  
