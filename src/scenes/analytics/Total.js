@@ -72,7 +72,7 @@ const Total = () => {
         console.log(res);
 
         if (Array.isArray(res) && res.length > 0) {
-          const studentData = res.find((student) => student.crmId === 'HM1');
+          const studentData = res.find((student) => student.CRMId === 'HM1');
           console.log(studentData);
 
           if (studentData) {

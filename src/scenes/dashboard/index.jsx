@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import './index.css'
+import MyCarousel from "../global/Slider2";
+import Notification from "../notification/Notification";
 const Dashboard = () => {
   const [record, setRecord] = useState([]);
   const [marks, setMarks] = useState([]);
 
-  useEffect(() => {
+ // useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("/student");
@@ -44,7 +46,7 @@ const Dashboard = () => {
   const maxAptitudeScore = fetchMaxScore("aptitude");
   const maxCommunicationScore = fetchMaxScore("verbal");
 
-  const maxTechnicalScore = fetchMaxScore("technical");
+  //const maxTechnicalScore = fetchMaxScore("technical"); 
   const limitedRecords = record.slice(0, 10);
 
   return (
