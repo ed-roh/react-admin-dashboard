@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import './index.css'
-import MyCarousel from "../global/Slider2";
-import Notification from "../notification/Notification";
+
 const Dashboard = () => {
   const [record, setRecord] = useState([]);
   const [marks, setMarks] = useState([]);
 
- // useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("/student");
@@ -46,7 +44,7 @@ const Dashboard = () => {
   const maxAptitudeScore = fetchMaxScore("aptitude");
   const maxCommunicationScore = fetchMaxScore("verbal");
 
-  //const maxTechnicalScore = fetchMaxScore("technical"); 
+  const maxTechnicalScore = fetchMaxScore("technical");
   const limitedRecords = record.slice(0, 10);
 
   return (
@@ -92,7 +90,7 @@ const Dashboard = () => {
 
             <div className="col-xl-4 col-sm-6 py-2">
               <div className="card text-white ">
-                <div
+              <div
                   className="card-body bg-info rounded"
                   style={{
                     background: "linear-gradient(to right, #007bff, #090979)",
@@ -104,6 +102,7 @@ const Dashboard = () => {
                   <h6 className="text-uppercase">Test Shares</h6>
                   <h1 className="display-4">36</h1>
                 </div>
+              </div>
               </div>
             </div>
           </div>
@@ -199,7 +198,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

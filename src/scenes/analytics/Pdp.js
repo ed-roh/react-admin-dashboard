@@ -79,7 +79,7 @@ const Pdp = () => {
   }, []);
 
   return (
-    <div style={{ width: '100%', maxWidth: '500px', height: '400px', margin: '60px auto' }}>
+    <div className='Pgraph' style={{ width: '100%', maxWidth: '500px', height: '400px', margin: '60px auto' }}>
       <Line data={data} options={options} />
     </div>
   );

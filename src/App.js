@@ -8,7 +8,7 @@ import Analytics from "./scenes/analytics/Analytics";
 import Report from "./scenes/report/Report";
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://192.168.0.152:3000';
+axios.defaults.baseURL = 'http://192.168.0.112:3000';
 function App() {
   const [isSidebar, setIsSidebar] = useState(true);
 

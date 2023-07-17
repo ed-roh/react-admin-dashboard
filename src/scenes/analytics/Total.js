@@ -42,7 +42,7 @@ const options = {
 
 const Total = () => {
   const [data, setData] = useState({
-    labels: [],
+    // labels: [],
     datasets: [
       {
         label: 'Marks obtained',
@@ -62,50 +62,32 @@ const Total = () => {
     ],
   });
 
+  const [data1,setData1] = useState()
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async() => {
       const url = 'http://192.168.0.112:3000/getCourseData';
 
-      try {
-        const response = await axios.get(url);
-        const res = response.data;
-        console.log(res);
+   let data = await axios.get(url);
 
-        if (Array.isArray(res) && res.length > 0) {
-          const studentData = res.find((student) => student.CRMId === 'HM1');
-          console.log(studentData);
+   console.log(data.data[0].Name);
 
-          if (studentData) {
-            const marks = studentData.Total_Marks_opt;
+   if(data){
 
-            setData((prevState) => ({
-              ...prevState,
-              datasets: [
-                {
-                  ...prevState.datasets[0],
-                  data: [marks],
-                },
-              ],
-            }));
-          } else {
-            console.log('Student data not found.');
-          }
-        } else {
-          console.log('No data available.');
-        }
-      } catch (error) {
-        console.log('Error:', error);
-      }
-    };
+    setData1(data.data[0])
 
+   }
+        
+           
+  }
     fetchData();
   }, []);
 
+  console.log(data1,"data1")
   return (
-    <div style={{ width: '100%', maxWidth: '500px', height: '400px', margin: '60px auto' }}>
-      <Bar data={data} options={options} />
-    </div>
+    <div className="graph"style={{ width: '100%', maxWidth: '500px', height: '400px', margin: '60px auto' }}>
+          <Bar data={data} options={options} />
+        </div>
   );
-};
-
+}
+  
 export default Total;
