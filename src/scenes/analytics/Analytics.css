@@ -1,0 +1,28 @@
+.analytics-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .content-container {
+    display: flex;
+   
+    align-items:start;
+  }
+  
+  @media (min-width: 768px) {
+    .analytics-container {
+      justify-content: flex-end;
+    }
+  
+    .content-container {
+      align-items: flex-end;
+    }
+  }
+  
+  .total,
+  .apti,
+  .pdp {
+    margin-bottom: 20px;
+  }
+  
+  
