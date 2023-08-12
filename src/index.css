@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;400&display=swap');
 
 html,
 body,
@@ -7,7 +7,7 @@ body,
 .content {
   height: 100%;
   width: 100%;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans 3', sans-serif;
 }
 
 .app {
@@ -27,9 +27,10 @@ body,
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888;
+  border-radius: 10px;
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+/* Handle Hover */
+::-webkit-scrollbar-track:hover {
   background: #555;
 }
