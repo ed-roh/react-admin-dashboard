@@ -3,46 +3,114 @@ import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
-import Team from "./scenes/team";
-import Invoices from "./scenes/invoices";
-import Contacts from "./scenes/contacts";
-import Bar from "./scenes/bar";
-import Form from "./scenes/form";
-import Line from "./scenes/line";
-import Pie from "./scenes/pie";
-import FAQ from "./scenes/faq";
-import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import Calendar from "./scenes/calendar/calendar";
+import { supabase } from "./supabase";
+import AuthUI from "./components/AuthUI";
+import { useEffect } from "react";
+import FirstLogin from "./components/FirstLogin";
+import SimpleBackDrop from "./components/SimpleBackDrop";
 
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
+  const [session, setSession] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [firstTime, setfirstTime] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
+  const [domainInfo, setDomainInfo] = useState(null);  
+
+  useEffect(() => {
+    setSession(supabase.auth.getSession());
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      if (_event === "SIGNED_OUT") {
+        setSession(null);
+      }
+      if (_event === "PASSWORD_RECOVERY") {
+        setSession(null);
+      }
+    });
+
+  }, []);
+
+
+    useEffect(() => {
+      getUserInfo();
+      getDomainInfo();
+    }, [session]);
+  
+    async function getUserInfo() {
+      setIsLoading(true);
+      try {
+        let { data, error, status } = await supabase
+          .from('users')
+          .select(`*`)
+          .eq('id',  session.user.id)
+          .single();
+  
+        if (error && status !== 406) {
+          throw error;
+        }
+  
+        if (data) {
+          setUserInfo(data);
+        }
+      } catch (error) {
+        console.log(error);      
+      }
+      setIsLoading(false);
+    }
+
+    async function getDomainInfo() {
+      setIsLoading(true);
+      try {
+        let { data, error, status } = await supabase
+          .from('domains')
+          .select(`*`)
+          .eq('domain',session.user.email.split("@")[1])
+          .single();
+  
+        if (error && status !== 406) {
+          throw error;
+        }
+  
+        if (data) {
+          setDomainInfo(data);
+          setfirstTime(false);
+        } else {
+          setfirstTime(true);
+        }
+      } catch (error) {
+        setfirstTime(true);
+        console.log(error);
+      }
+      setIsLoading(false);
+    }
+
+    
+
+  if (isLoading) {
+    return <SimpleBackDrop text="&nbsp;&nbsp;Gathering Information" />;
+  }
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app">
-          <Sidebar isSidebar={isSidebar} />
+        {!session ? <AuthUI /> : (
+          <div className="app">
+          <Sidebar userInfo={userInfo} isSidebar={isSidebar} />
           <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
+            <Topbar userInfo={userInfo} setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/invoices" element={<Invoices />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/geography" element={<Geography />} />
             </Routes>
+            {firstTime ? <FirstLogin user={session.user} /> : <></>}
           </main>
         </div>
+        )}
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
