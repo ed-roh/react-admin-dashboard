@@ -19,7 +19,7 @@ return (
           faded: { innerRadius: 30, additionalRadius: -30 },
         }
         ]}
-        margin={ {right: 200 } }
+        margin={ {right: 125 } }
         
     />
 );
