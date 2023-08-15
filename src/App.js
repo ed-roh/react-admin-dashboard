@@ -4,15 +4,15 @@ import { Routes, Route } from "react-router-dom";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import { supabase } from "./supabase";
 import AuthUI from "./components/AuthUI";
 import { useEffect } from "react";
 import FirstLogin from "./components/FirstLogin";
 import SimpleBackDrop from "./components/SimpleBackDrop";
+import { supabase } from "./supabase";
 import { useUser } from "@supabase/auth-helpers-react";
 
-import Topbar from "./scenes/global/Topbar";
-import Sidebar from "./scenes/global/Sidebar";
+import Topbar from "./components/Topbar";
+import Sidebar from "./components/Sidebar";
 
 import Dashboard from "./scenes/dashboard";
 import PolicyandProcedure from "./scenes/policyandprocedure";
@@ -21,7 +21,6 @@ import RiskScorecard from "./scenes/riskscorecard";
 import RiskRegister from "./scenes/riskregister";
 import Assessments from "./scenes/assessments";
 import Meetings from "./scenes/meetings";
-import FocusGroups from "./scenes/focusgroups";
 import Training from "./scenes/training";
 import Company from "./scenes/company";
 import People from "./scenes/people";
@@ -31,6 +30,8 @@ import Software from "./scenes/software";
 import Settings from "./scenes/settings";
 import Billing from "./scenes/billing";
 import Probes from "./scenes/probes";
+import Notifications from "./scenes/notifications";
+import Profile from "./scenes/profile";
 
 
 
@@ -119,7 +120,6 @@ function App() {
               <Route path="/riskregister" element={<RiskRegister />} />
               <Route path="/policyandprocedure" element={<PolicyandProcedure />} />
               <Route path="/meetings" element={<Meetings />} />
-              <Route path="/focusgroups" element={<FocusGroups />} />
               <Route path="/training" element={<Training />} />
               <Route path="/company" element={<Company />} />
               <Route path="/people" element={<People />} />
@@ -130,6 +130,9 @@ function App() {
               <Route path="/settings" element={<Settings />} />
               <Route path="/billing" element={<Billing />} />
               <Route path="/probes" element={<Probes />} />
+              <Route path="/notifications" element={<Notifications />} />
+              <Route path="/profile" element={<Profile />} />
+
             </Routes>
             {firstTime ? <FirstLogin user={user} /> : <></>}
           </main>

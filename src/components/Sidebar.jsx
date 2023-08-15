@@ -3,25 +3,26 @@ import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
-import { tokens } from "../../theme";
+import { tokens } from "../theme";
 import HomeOutlined from "@mui/icons-material/HomeOutlined";
 import MenuOutlined from "@mui/icons-material/MenuOutlined";
 import KeyboardDoubleArrowLeft from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import ListAltOutlined from "@mui/icons-material/ListAltOutlined";
-import EventOutlined from '@mui/icons-material/EventOutlined';
+import EventOutlined from "@mui/icons-material/EventOutlined";
 import SchoolOutlined from "@mui/icons-material/SchoolOutlined";
 import { TerminalOutlined } from "@mui/icons-material";
 import { DevicesOutlined } from "@mui/icons-material";
 import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
 import PeopleOutlined from "@mui/icons-material/PeopleOutlined";
-import SourceOutlined from '@mui/icons-material/SourceOutlined';
-import ApartmentOutlined from '@mui/icons-material/ApartmentOutlined';
-import MoneyOutlined from '@mui/icons-material/MoneyOutlined';
+import SourceOutlined from "@mui/icons-material/SourceOutlined";
+import ApartmentOutlined from "@mui/icons-material/ApartmentOutlined";
+import MoneyOutlined from "@mui/icons-material/MoneyOutlined";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
-import AttachMoneyOutlined from '@mui/icons-material/AttachMoneyOutlined';
-import CloudSyncOutlined from '@mui/icons-material/CloudSyncOutlined';
-import VerifiedUserOutlined from '@mui/icons-material/VerifiedUserOutlined';
+import AttachMoneyOutlined from "@mui/icons-material/AttachMoneyOutlined";
+import CloudSyncOutlined from "@mui/icons-material/CloudSyncOutlined";
+import VerifiedUserOutlined from "@mui/icons-material/VerifiedUserOutlined";
 import { useUser } from "@supabase/auth-helpers-react";
+import ScoreBox from "./ScoreBox";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -41,7 +42,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = ({userInfo, isSidebar}) => {
+const Sidebar = ({ userInfo, isSidebar }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -80,32 +81,34 @@ const Sidebar = ({userInfo, isSidebar}) => {
             }}
           >
             {!isCollapsed && (
+              <>
               <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
                 ml="5px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  Clearisk Portal
+                <Typography variant="h5" color={colors.grey[100]}>
+                  KnowByte Solutions
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <KeyboardDoubleArrowLeft />
                 </IconButton>
               </Box>
+              <Box>
+                <Typography variant="h3" color={colors.grey[100]}>
+                  CleaRisk&reg; Portal
+                </Typography>
+                
+              </Box>
+              </>
             )}
           </MenuItem>
 
-            {!isCollapsed && (
+          {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={`../../assets/user.jpg`}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
+                <ScoreBox score={25} />
               </Box>
               <Box textAlign="center">
                 <Typography
@@ -121,7 +124,7 @@ const Sidebar = ({userInfo, isSidebar}) => {
                 </Typography>
               </Box>
             </Box>
-          )} 
+          )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
@@ -132,7 +135,7 @@ const Sidebar = ({userInfo, isSidebar}) => {
               setSelected={setSelected}
             />
 
-             <Typography
+            <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
@@ -161,23 +164,16 @@ const Sidebar = ({userInfo, isSidebar}) => {
               setSelected={setSelected}
             />
             <Item
-            title="Policy and Procedure"
-            to="/policyandprocedure"
-            icon={<SourceOutlined />}
-            selected={selected}
-            setSelected={setSelected}
-          />
+              title="Policy and Procedure"
+              to="/policyandprocedure"
+              icon={<SourceOutlined />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <Item
               title="Meetings"
               to="/meetings"
               icon={<EventOutlined />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-           <Item
-              title="Focus Groups"
-              to="/focusgroups"
-              icon={<PeopleOutlined />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -225,12 +221,12 @@ const Sidebar = ({userInfo, isSidebar}) => {
             />
             <Item
               title="Software"
-              to="/hardware"
+              to="/software"
               icon={<TerminalOutlined />}
               selected={selected}
               setSelected={setSelected}
             />
-           <Item
+            <Item
               title="Document Library"
               to="/documents"
               icon={<SourceOutlined />}
