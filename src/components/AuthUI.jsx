@@ -10,6 +10,7 @@ import {
 
 export default function AuthUI() {
   return (
+    <div style={{ backgroundImage: "url(/loginbg.jpg)" }}>
       <Dialog maxWidth="sm" fullWidth open='true'>
       <DialogTitle>KnowByte Solutions CleaRisk&reg; Portal</DialogTitle>
       <Box sx={{ m: 4 }}>
@@ -33,5 +34,6 @@ export default function AuthUI() {
       />
       </Box>
       </Dialog>
+      </div>
   );
 }
