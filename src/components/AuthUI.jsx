@@ -1,13 +1,21 @@
 import { supabase } from "../supabase";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import {
+  Dialog,
+  DialogTitle,
+  Box,
+} from "@mui/material";
+
 
 export default function AuthUI() {
   return (
-    <div className="flex flex-col space-y-4">
-      <Auth
+      <Dialog maxWidth="sm" fullWidth open='true'>
+      <DialogTitle>KnowByte Solutions CleaRisk&reg; Portal</DialogTitle>
+      <Box sx={{ m: 4 }}>
+      <Auth 
         supabaseClient={supabase}
-        providers={["google"]}
+        providers={[]}
         view="sign_in"
         magicLink={true}
         appearance={{
@@ -23,6 +31,7 @@ export default function AuthUI() {
         }}
         theme="default"
       />
-    </div>
+      </Box>
+      </Dialog>
   );
 }
