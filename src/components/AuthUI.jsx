@@ -6,12 +6,12 @@ import {
   DialogTitle,
   Box,
 } from "@mui/material";
-
+import background from "../loginbg.jpg"
 
 export default function AuthUI() {
   return (
-    <div style={{ backgroundImage: "url(/loginbg.jpg)" }}>
-      <Dialog maxWidth="sm" fullWidth open='true'>
+    <div style={{ backgroundImage:`url(${background})`,width:'100vw',height:'100vh' }}>      
+ <Dialog maxWidth="sm" fullWidth open='true'>
       <DialogTitle>KnowByte Solutions CleaRisk&reg; Portal</DialogTitle>
       <Box sx={{ m: 4 }}>
       <Auth 
@@ -33,7 +33,7 @@ export default function AuthUI() {
         theme="default"
       />
       </Box>
-      </Dialog>
-      </div>
+      </Dialog> 
+    </div>
   );
 }
