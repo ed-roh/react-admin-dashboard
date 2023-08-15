@@ -1,5 +1,4 @@
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { supabase } from "../../supabase";
@@ -7,8 +6,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 
 import { Box, Button, IconButton } from "@mui/material";
-import { alpha, styled } from '@mui/material/styles';
-import { DataGrid, gridClasses } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import {
   EditOutlined,
   PreviewOutlined,
