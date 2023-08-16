@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Sidebar as ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
-//import "react-pro-sidebar/dist/css/styles.css";
-import { tokens } from "../theme";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ColorModeContext, tokens } from "../theme";
 import HomeOutlined from "@mui/icons-material/HomeOutlined";
 import MenuOutlined from "@mui/icons-material/MenuOutlined";
 import KeyboardDoubleArrowLeft from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -24,54 +24,58 @@ import VerifiedUserOutlined from "@mui/icons-material/VerifiedUserOutlined";
 import { useUser } from "@supabase/auth-helpers-react";
 import ScoreBox from "./ScoreBox";
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  return (
-    <MenuItem
-      active={selected === title}
-      style={{
-        color: colors.grey[100],
-      }}
-      onClick={() => setSelected(title)}
-      icon={icon}
-    >
-      <Typography>{title}</Typography>
-      <Link to={to} />
-    </MenuItem>
-  );
-};
-
 const Sidebar = ({ userInfo, isSidebar }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const colorMode = useContext(ColorModeContext);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
   const user = useUser();
 
+  const navigate = useNavigate();
+
+  const handleClick = (title, to) => {
+    setSelected(title);
+    navigate(to);
+  };
+
+  const Item = ({ title, to, icon, selected, setSelected }) => {
+    return (
+      <MenuItem
+        active={selected === title}
+        onClick={() => {
+          handleClick(title, to);
+        }}
+        icon={icon}
+      >
+        <Typography>{title}</Typography>
+      </MenuItem>
+    );
+  };
+
   return (
     <Box
       sx={{
-        "& .pro-sidebar-inner": {
-          background: `${colors.primary[400]} !important`,
+        "& .ps-sidebar-container": {
+          background: "transparent !important",
         },
-        "& .pro-icon-wrapper": {
+        "& .ps-menu-icon": {
           backgroundColor: "transparent !important",
         },
-        "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
+        "& .ps-menuitem-root": {
+          color: colors.primary.main,
+          padding: "0px 0px 0px 0px !important",
         },
-        "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
-        },
-        "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+        "& .ps-menuitem-root:hover": {
+          color: colors.greenAccent[500],
+         },
+        "& .ps-active": {
+          color: colors.blueAccent[400],
         },
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
-          {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlined /> : undefined}
@@ -82,25 +86,24 @@ const Sidebar = ({ userInfo, isSidebar }) => {
           >
             {!isCollapsed && (
               <>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                ml="5px"
-              >
-                <Typography variant="h5" color={colors.grey[100]}>
-                  KnowByte Solutions
-                </Typography>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <KeyboardDoubleArrowLeft />
-                </IconButton>
-              </Box>
-              <Box>
-                <Typography variant="h3" color={colors.grey[100]}>
-                  CleaRisk&reg; Portal
-                </Typography>
-                
-              </Box>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  ml="0px"
+                >
+                  <Typography variant="h5" color={colors.grey[100]}>
+                    KnowByte Solutions
+                  </Typography>
+                  <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                    <KeyboardDoubleArrowLeft />
+                  </IconButton>
+                </Box>
+                <Box>
+                  <Typography variant="h3" color={colors.grey[100]}>
+                    CleaRisk&reg; Portal
+                  </Typography>
+                </Box>
               </>
             )}
           </MenuItem>
@@ -126,7 +129,7 @@ const Sidebar = ({ userInfo, isSidebar }) => {
             </Box>
           )}
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+          <Box>
             <Item
               title="Dashboard"
               to="/"
@@ -142,6 +145,7 @@ const Sidebar = ({ userInfo, isSidebar }) => {
             >
               GRC
             </Typography>
+
             <Item
               title="Risk Scorecard"
               to="/scorecard"
@@ -184,6 +188,7 @@ const Sidebar = ({ userInfo, isSidebar }) => {
               selected={selected}
               setSelected={setSelected}
             />
+
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -191,6 +196,7 @@ const Sidebar = ({ userInfo, isSidebar }) => {
             >
               Data
             </Typography>
+
             <Item
               title="Company"
               to="/company"

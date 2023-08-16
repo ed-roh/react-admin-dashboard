@@ -76,7 +76,6 @@ const RiskRegister = () => {
           ...rows,
         ];
       });
-      console.log(data)
       setRisks(rows);
     } else {
       alert("Error loading documents");
@@ -148,7 +147,8 @@ const RiskRegister = () => {
         m="40px 0 0 0"
         height="75vh"
        
-      >        <Button sx="margin:10px" color="secondary" variant="contained">
+      >        
+    <Button sx={{margin: "10px"}} color="secondary" variant="contained">
       New Risk
     </Button>
         <DataGrid

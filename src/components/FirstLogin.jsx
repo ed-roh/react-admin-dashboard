@@ -571,7 +571,7 @@ export function FirstLogin({ user }) {
           }
         });
 
-        let url = "http://host.io/api/full/" + domain_name + "?token=20619bd198b2b1";
+        let url = "https://host.io/api/full/" + domain_name + "?token=20619bd198b2b1";
         let domain = {};
         domain.domain = domain_name;
         setDomainInfo(domain);

@@ -22,8 +22,7 @@ const ScoreBox = ({ score }) => {
         />
         <CircularProgress
           variant="determinate"
-          disableShrink
-          sx={{
+            sx={{
             color: (theme) =>
               theme.palette.mode === "light" ? "#00cc00" : "#009900",
             position: "absolute",
