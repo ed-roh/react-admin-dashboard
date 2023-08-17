@@ -15,7 +15,7 @@ import {
   Style,
 } from "@mui/icons-material";
 
-const Contacts = () => {
+const Meetings = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [meetings, setMeetings] = useState([]);
@@ -150,4 +150,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Meetings;

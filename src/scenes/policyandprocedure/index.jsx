@@ -12,7 +12,7 @@ import {
   PreviewOutlined,
 } from "@mui/icons-material";
 
-export default function DocumentLibrary() {
+export default function PolicyandProcedure() {
   const [documents, setDocuments] = useState([]);
 
   const user = useUser();
@@ -300,8 +300,6 @@ export default function DocumentLibrary() {
       last_modified_at: "",
     },
   ];
-
-  const fileTypes = ["DOCX", "DOC", "PDF", "TXT", "XLSX", "XLS", "PPTX", "PPT"];
 
 const ODD_OPACITY = 0.2;
 
