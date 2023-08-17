@@ -21,6 +21,7 @@ import {
   MenuItem,
   useTheme,
 } from "@mui/material";
+
 import { ColorModeContext } from "../theme";
 import { useUser } from "@supabase/auth-helpers-react";
 import { supabase } from "../supabase";
