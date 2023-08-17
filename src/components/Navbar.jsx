@@ -24,11 +24,12 @@ import {
 import { ColorModeContext } from "../theme";
 import { useUser } from "@supabase/auth-helpers-react";
 import { supabase } from "../supabase";
-
+import { tokens } from "../theme";
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);
@@ -88,8 +89,10 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 alignItems: "center",
                 textTransform: "none",
                 gap: "1rem",
+                color: colors.grey[100]
               }}
             >
+              <AccountCircle sx={{ fontSize: "25px" }} />
               <Box textAlign="left">
                 <Typography fontWeight="bold" fontSize="0.85rem">
                   {user.email}

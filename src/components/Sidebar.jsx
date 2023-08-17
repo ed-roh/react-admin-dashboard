@@ -110,7 +110,7 @@ const navItems = [
   },
   {
     text: "Document Library",
-    path: "documentlibrary",
+    path: "documents",
     icon: <SourceOutlined />,
   },
   {
@@ -217,21 +217,17 @@ const Sidebar = ({
                       sx={{
                         backgroundColor:
                           active === path
-                            ? theme.palette.secondary[300]
+                            ? colors.primary[400]
                             : "transparent",
                         color:
                           active === path
-                            ? theme.palette.primary[600]
-                            : theme.palette.secondary[100],
+                            ? colors.secondary
+                            : colors.primary,
                       }}
                     >
                       <ListItemIcon
                         sx={{
                           ml: "2rem",
-                          color:
-                            active === path
-                              ? theme.palette.primary[600]
-                              : theme.palette.secondary[200],
                         }}
                       >
                         {icon}
@@ -250,27 +246,9 @@ const Sidebar = ({
           <Box position="absolute" bottom="2rem">
             <Divider />
             <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
-              <Box textAlign="left">
-                <Typography
-                  fontWeight="bold"
-                  fontSize="0.9rem"
-                  sx={{ color: theme.palette.secondary[100] }}
-                >
-                  {user.full_name}
+              <Typography variant="body2" color={colors.grey[100]}>
+                &copy;&nbsp;2023 KnowByte Solutions
                 </Typography>
-                <Typography
-                  fontSize="0.8rem"
-                  sx={{ color: theme.palette.secondary[200] }}
-                >
-                  {user.title}
-                </Typography>
-              </Box>
-              <SettingsOutlined
-                sx={{
-                  color: theme.palette.secondary[300],
-                  fontSize: "25px ",
-                }}
-              />
             </FlexBetween>
           </Box>
         </Drawer>
