@@ -9,11 +9,12 @@ import {
 } from "@mui/material";
 import { tokens } from "theme";
 import React, { useState } from "react";
+import { CheckCircle, HighlightOff } from "@mui/icons-material";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [activeStep, setActiveStep] = useState(4);
+  const [activeStep, setActiveStep] = useState(3);
 
   const steps = [
     "Welcome",
@@ -107,9 +108,32 @@ const Dashboard = () => {
         return (
           <Box>
             <Typography variant="body1">
-              This is a step-by-step guide to help you get started with your
-              KnowByte account.
+              During this step, your network infrastructure will be analyzed for
+              risks and vulnerabilities. This will include a review of your
+              network topology, and a configuration review of your firewall and other network
+              devices. An internal vulnerability scan will then be performed to
+              identify any potential risks from within your network. Finally an
+              external penetration test will be performed to identify any
+              potential risks from outside your network.
             </Typography>
+            <Box m="10px">
+              <Box>
+              <CheckCircle sx={{ color: colors.greenAccent[500] }} />
+              <Typography> Network Topology Review</Typography>
+            </Box>
+            <Box>
+              <HighlightOff sx={{ color: colors.redAccent[500] }} />
+              <Typography>Configuration Review </Typography>
+            </Box>
+            <Box>
+              <HighlightOff sx={{ color: colors.redAccent[500] }} />
+              <Typography>Vulnerability Scan</Typography>
+            </Box>
+            <Box>
+              <HighlightOff sx={{ color: colors.redAccent[500] }} />
+              <Typography>Penetration Test </Typography>
+            </Box>
+            </Box>
           </Box>
         );
       case 4: // Policy Review
@@ -151,9 +175,8 @@ const Dashboard = () => {
       <Stepper
         sx={{ m: 4 }}
         variant="outlined"
-        orientation='vertical'
+        orientation="vertical"
         activeStep={activeStep}
-        nonLinear
       >
         {steps.map((label, index) => {
           const stepProps = {};
@@ -163,14 +186,17 @@ const Dashboard = () => {
               <StepButton
                 {...buttonProps}
                 sx={{
-                  "& .Mui-completed": { color: colors.greenAccent[400] },
-                  "& .Mui-active": { color: colors.blueAccent[400] },
+                  "& .Mui-completed": { color: colors.greenAccent[500] },
+                  "& .Mui-active": { color: colors.blueAccent[500] },
                 }}
                 onClick={handleStep(index)}
               >
                 {label}
               </StepButton>
-              <StepContent>   <Box sx={{ m: 4 }}>{getStepContent(activeStep)}</Box> </StepContent>
+              <StepContent>
+                {" "}
+                <Box sx={{ m: 4 }}>{getStepContent(activeStep)}</Box>{" "}
+              </StepContent>
             </Step>
           );
         })}

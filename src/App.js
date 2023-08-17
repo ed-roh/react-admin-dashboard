@@ -23,6 +23,7 @@ import Meetings from "./scenes/meetings";
 import Training from "./scenes/training";
 import Company from "./scenes/company";
 import People from "./scenes/people";
+import Network from "./scenes/network";
 import Vendors from "./scenes/vendors";
 import Hardware from "./scenes/hardware";
 import Software from "./scenes/software";
@@ -118,6 +119,8 @@ function App() {
                 <Route path="/training" element={<Training />} />
                 <Route path="/company" element={<Company />} />
                 <Route path="/people" element={<People />} />
+                <Route path="/people" element={<People />} />
+                <Route path="/network" element={<Network />} />
                 <Route path="/vendors" element={<Vendors />} />
                 <Route path="/hardware" element={<Hardware />} />
                 <Route path="/software" element={<Software />} />

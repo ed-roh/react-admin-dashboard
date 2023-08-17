@@ -31,6 +31,7 @@ import {
   AttachMoneyOutlined,
   CloudSyncOutlined,
   AccountCircle,
+  HubOutlined,
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -93,6 +94,11 @@ const navItems = [
     text: "People",
     path: "people",
     icon: <PeopleOutlined />,
+  },
+  {
+    text: "Network",
+    path: "network",
+    icon: <HubOutlined />,
   },
   {
     text: "Vendors",
