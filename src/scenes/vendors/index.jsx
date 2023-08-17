@@ -62,7 +62,7 @@ const Vendors = () => {
         rows = [
           {
             id: i,
-            name: vendor._name,
+            name: vendor.name,
           },
           ...rows,
         ];
