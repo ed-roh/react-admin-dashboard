@@ -118,12 +118,12 @@ const RiskRegister = () => {
     {
       field: "status",
       headerName: "Status",
-      flex: 100,
+      flex: 150,
     },
     {
       field: "created_at",
       headerName: "Created",
-      flex: 150,
+      flex: 260,
     },    
     {
       field: "last_reviewed",

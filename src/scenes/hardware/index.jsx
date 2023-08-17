@@ -57,10 +57,13 @@ const Hardware = () => {
         rows = [
           {
             id: i,
-            full_name: asset.full_name,
-            email: asset.email,
-            title: asset.title,
-            departmenet: asset.department,
+            name: asset.hostname,
+            ip_address: asset.ip_address,
+            mac_address: asset.mac_address,
+            vendor: asset.vendor,
+            type: asset.type,
+            os: asset.os,
+            user_count: 33,
           },
           ...rows,
         ];
@@ -74,33 +77,36 @@ const Hardware = () => {
   }
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
     {
-      field: "full_name",
+      field: "name",
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "mac_address",
+      headerName: "Mac Address",
       flex: 1,
     },
     {
-      field: "title",
-      headerName: "Title",
+      field: "ip_address",
+      headerName: "IP Address",
       flex: 1,
     },
     {
-      field: "department",
-      headerName: "Department",
+      field: "vendor",
+      headerName: "Vendor",
       flex: 1,
     },
     {
-      field: "invitebutton",
-      headerName: "Invite",
-      width: 100,
-      renderCell: renderButton,
+      field: "type",
+      headerName: "Type",
+      flex: 1,
+    },
+    {
+      field: "os",
+      headerName: "OS",
+      flex: 1,
     },
     {
       field: "editbutton",

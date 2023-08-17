@@ -208,7 +208,7 @@ const Sidebar = ({
                 )}
               </FlexBetween>
             </Box>
-            <Box display="flex" justifyContent="center" alignItems="center">
+            <Box mb="20px" display="flex" justifyContent="center" alignItems="center">
               <ScoreBox score={0} />
             </Box>
             <List>

@@ -13,6 +13,7 @@ import {
   DeleteForeverOutlined,
   ForwardToInboxOutlined,
   Style,
+  PeopleAltOutlined,
 } from "@mui/icons-material";
 
 
@@ -45,6 +46,7 @@ const Contacts = () => {
             <ForwardToInboxOutlined />
           ) : null}
           {params.field === "reviewbutton" ? <PreviewOutlined /> : null}
+          {params.field === "membersbutton" ? <PeopleAltOutlined /> : null}
         </IconButton>
       </strong>
     );
@@ -62,10 +64,11 @@ const Contacts = () => {
         rows = [
           {
             id: i,
-            full_name: asset.full_name,
-            email: asset.email,
-            title: asset.title,
-            departmenet: asset.department,
+            name: asset.name,
+            vendor: asset.vendor,
+            version: asset.version,
+            license: asset.license,
+            user_count: '33'
           },
           ...rows,
         ];
@@ -79,32 +82,36 @@ const Contacts = () => {
   }
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
     {
-      field: "full_name",
+      field: "name",
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "vendor",
+      headerName: "Vendor",
       flex: 1,
     },
     {
-      field: "title",
-      headerName: "Title",
+      field: "version",
+      headerName: "Version",
       flex: 1,
     },
     {
-      field: "department",
-      headerName: "Department",
+      field: "license",
+      headerName: "License Type",
       flex: 1,
     },
     {
-      field: "invitebutton",
-      headerName: "Invite",
-      width: 100,
+      field: "user_count",
+      headerName: "# of Users",
+      flex: 1,
+    },
+    {
+      field: "membersbutton",
+      headerName: "Users",
+      width: 50,
       renderCell: renderButton,
     },
     {
