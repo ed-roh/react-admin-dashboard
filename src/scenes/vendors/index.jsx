@@ -19,7 +19,7 @@ import {
 const Vendors = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [vendor, setVendors] = useState([]);
+  const [vendors, setVendors] = useState([]);
 
   const user = useUser();
   let rows = [];
