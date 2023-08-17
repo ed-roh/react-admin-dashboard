@@ -83,6 +83,18 @@ const Software = () => {
 
   const columns = [
     {
+      field: "editbutton",
+      headerName: "Edit",
+      width: 50,
+      renderCell: renderButton,
+    },
+    {
+      field: "deletebutton",
+      headerName: "Delete",
+      width: 100,
+      renderCell: renderButton,
+    },
+    {
       field: "name",
       headerName: "Name",
       flex: 1,
@@ -114,18 +126,7 @@ const Software = () => {
       width: 50,
       renderCell: renderButton,
     },
-    {
-      field: "editbutton",
-      headerName: "Edit",
-      width: 50,
-      renderCell: renderButton,
-    },
-    {
-      field: "deletebutton",
-      headerName: "Delete",
-      width: 100,
-      renderCell: renderButton,
-    },
+
   ];
 
   return (

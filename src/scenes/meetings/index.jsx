@@ -13,6 +13,7 @@ import {
   DeleteForeverOutlined,
   ForwardToInboxOutlined,
   Style,
+  PeopleAltOutlined,
 } from "@mui/icons-material";
 
 const Meetings = () => {
@@ -42,6 +43,8 @@ const Meetings = () => {
           {params.field === "deletebutton" ? <DeleteForeverOutlined /> : null}
           {params.field === "invitebutton" ? <ForwardToInboxOutlined /> : null}
           {params.field === "reviewbutton" ? <PreviewOutlined /> : null}
+          {params.field === "membersbutton" ? <PeopleAltOutlined /> : null}
+
         </IconButton>
       </strong>
     );
@@ -80,6 +83,18 @@ const Meetings = () => {
 
   const columns = [
     {
+      field: "editbutton",
+      headerName: "Edit",
+      width: 50,
+      renderCell: renderButton,
+    },
+    {
+      field: "deletebutton",
+      headerName: "Delete",
+      width: 100,
+      renderCell: renderButton,
+    },
+    {
       field: "name",
       headerName: "Name",
       flex: 300,
@@ -111,20 +126,8 @@ const Meetings = () => {
       flex: 100,
     },
     {
-      field: "invitebutton",
-      headerName: "Invite",
-      width: 100,
-      renderCell: renderButton,
-    },
-    {
-      field: "editbutton",
-      headerName: "Edit",
-      width: 50,
-      renderCell: renderButton,
-    },
-    {
-      field: "deletebutton",
-      headerName: "Delete",
+      field: "membersbutton",
+      headerName: "Members",
       width: 100,
       renderCell: renderButton,
     },
