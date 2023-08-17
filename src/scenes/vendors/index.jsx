@@ -79,33 +79,11 @@ const Contacts = () => {
   }
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
     {
-      field: "full_name",
+      field: "name",
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      flex: 1,
-    },
-    {
-      field: "title",
-      headerName: "Title",
-      flex: 1,
-    },
-    {
-      field: "department",
-      headerName: "Department",
-      flex: 1,
-    },
-    {
-      field: "invitebutton",
-      headerName: "Invite",
-      width: 100,
-      renderCell: renderButton,
     },
     {
       field: "editbutton",
