@@ -63,6 +63,9 @@ const Vendors = () => {
           {
             id: i,
             name: vendor.name,
+            devices: 33,
+            software: 33,
+            contracts: 3,
           },
           ...rows,
         ];
@@ -79,6 +82,24 @@ const Vendors = () => {
     {
       field: "name",
       headerName: "Name",
+      flex: 1,
+      cellClassName: "name-column--cell",
+    },
+    {
+      field: "devices",
+      headerName: "Devices",
+      flex: 1,
+      cellClassName: "name-column--cell",
+    },
+    {
+      field: "software",
+      headerName: "Licenses",
+      flex: 1,
+      cellClassName: "name-column--cell",
+    },
+    {
+      field: "contracts",
+      headerName: "Contracts",
       flex: 1,
       cellClassName: "name-column--cell",
     },
