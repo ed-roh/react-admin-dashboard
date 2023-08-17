@@ -17,7 +17,7 @@ import {
 } from "@mui/icons-material";
 
 
-const Contacts = () => {
+const Software = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [Software, setSoftware] = useState([]);
@@ -151,4 +151,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Software;

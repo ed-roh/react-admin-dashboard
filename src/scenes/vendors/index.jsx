@@ -16,17 +16,17 @@ import {
 } from "@mui/icons-material";
 
 
-const Contacts = () => {
+const Vendors = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [people, setPeople] = useState([]);
+  const [vendor, setVendors] = useState([]);
 
   const user = useUser();
   let rows = [];
 
   useEffect(() => {
     if (user) {
-      getPeople();
+      getVendors();
     }
   }, [user]);
 
@@ -50,28 +50,25 @@ const Contacts = () => {
     );
   };
 
-  async function getPeople() {
+  async function getVendors() {
     let { data, error, status } = await supabase
     .from('vendors')
     .select(`*`)
     .eq('customer_id', user.id);
    if (data !== null) {
       let i = 0;
-      data.map((person) => {
+      data.map((vendor) => {
         i = i + 1;
         rows = [
           {
             id: i,
-            full_name: person.full_name,
-            email: person.email,
-            title: person.title,
-            departmenet: person.department,
+            name: vendor._name,
           },
           ...rows,
         ];
       });
       console.log(data)
-      setPeople(rows);
+      setVendors(rows);
     } else {
       alert("Error loading documents");
       console.log(error);
@@ -114,7 +111,7 @@ const Contacts = () => {
         </Button>
         <DataGrid
           getRowClassName={(params) => params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd' }
-          rows={people}
+          rows={vendors}
           columns={columns}
          rowHeight={32}
         />
@@ -123,4 +120,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Vendors;
