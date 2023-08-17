@@ -1,3 +1,6 @@
+import { tokens } from "theme";
+import React, { useState } from "react";
+import { CheckCircle, HighlightOff } from "@mui/icons-material";
 import {
   Box,
   Step,
@@ -7,9 +10,6 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { tokens } from "theme";
-import React, { useState } from "react";
-import { CheckCircle, HighlightOff } from "@mui/icons-material";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -110,29 +110,29 @@ const Dashboard = () => {
             <Typography variant="body1">
               During this step, your network infrastructure will be analyzed for
               risks and vulnerabilities. This will include a review of your
-              network topology, and a configuration review of your firewall and other network
-              devices. An internal vulnerability scan will then be performed to
-              identify any potential risks from within your network. Finally an
-              external penetration test will be performed to identify any
-              potential risks from outside your network.
+              network topology, and a configuration review of your firewall and
+              other network devices. An internal vulnerability scan will then be
+              performed to identify any potential risks from within your
+              network. Finally an external penetration test will be performed to
+              identify any potential risks from outside your network.
             </Typography>
             <Box m="10px">
               <Box>
-              <CheckCircle sx={{ color: colors.greenAccent[500] }} />
-              <Typography> Network Topology Review</Typography>
-            </Box>
-            <Box>
-              <HighlightOff sx={{ color: colors.redAccent[500] }} />
-              <Typography>Configuration Review </Typography>
-            </Box>
-            <Box>
-              <HighlightOff sx={{ color: colors.redAccent[500] }} />
-              <Typography>Vulnerability Scan</Typography>
-            </Box>
-            <Box>
-              <HighlightOff sx={{ color: colors.redAccent[500] }} />
-              <Typography>Penetration Test </Typography>
-            </Box>
+                <CheckCircle sx={{ color: colors.greenAccent[500] }} />
+                <Typography> Network Topology Review</Typography>
+              </Box>
+              <Box>
+                <HighlightOff sx={{ color: colors.redAccent[500] }} />
+                <Typography>Configuration Review </Typography>
+              </Box>
+              <Box>
+                <HighlightOff sx={{ color: colors.redAccent[500] }} />
+                <Typography>Vulnerability Scan</Typography>
+              </Box>
+              <Box>
+                <HighlightOff sx={{ color: colors.redAccent[500] }} />
+                <Typography>Penetration Test</Typography>
+              </Box>
             </Box>
           </Box>
         );

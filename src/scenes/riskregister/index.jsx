@@ -1,8 +1,7 @@
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import { supabase } from "../../supabase";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 
 import { Box, Button, IconButton } from "@mui/material";
@@ -21,6 +20,8 @@ const RiskRegister = () => {
   const [risks, setRisks] = useState([]);
 
   const user = useUser();
+  const supabase = useSupabaseClient();
+  
   let rows = [];
 
   useEffect(() => {
@@ -85,6 +86,18 @@ const RiskRegister = () => {
 
   const columns = [
     {
+      field: "editbutton",
+      headerName: "Edit",
+      width: 50,
+      renderCell: renderButton,
+    },
+    {
+      field: "deletebutton",
+      headerName: "Delete",
+      width: 100,
+      renderCell: renderButton,
+    },
+    {
       field: "name",
       headerName: "Name",
       flex: 500,
@@ -129,18 +142,6 @@ const RiskRegister = () => {
       field: "last_reviewed",
       headerName: "Last Reviewed",
       flex: 150,
-    },
-    {
-      field: "editbutton",
-      headerName: "Edit",
-      width: 50,
-      renderCell: renderButton,
-    },
-    {
-      field: "deletebutton",
-      headerName: "Delete",
-      width: 100,
-      renderCell: renderButton,
     },
   ];
 

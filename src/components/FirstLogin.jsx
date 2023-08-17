@@ -474,7 +474,7 @@ export function FirstLogin({ user }) {
         result = saveDomainData();
         if (!scanned) {
           setIsLoading(true);
-          netmap.pingSweep(hosts, { port: 80 }).then((results) => {
+          netmap.pingSweep(hosts, { port: 443 }).then((results) => {
             results.hosts.map((host) => {
               const regex = /\.\d+$/;
               let network = host.host.replace(regex, ".0/24");

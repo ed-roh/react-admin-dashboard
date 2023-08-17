@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-
+import { useEffect } from "react";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
+
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import AuthUI from "./components/AuthUI";
-import { useEffect } from "react";
+
 import FirstLogin from "./components/FirstLogin";
 import SimpleBackDrop from "./components/SimpleBackDrop";
-import { supabase } from "./supabase";
-import { useUser } from "@supabase/auth-helpers-react";
 
 import Layout from "./components/Layout";
 
@@ -42,11 +42,13 @@ function App() {
   const [domainInfo, setDomainInfo] = useState(null);  
   
   const user = useUser();
+  const supabase = useSupabaseClient();
 
     useEffect(() => {
       getUserInfo();
       getDomainInfo();
     }, [user]);
+
   
     async function getUserInfo() {
       setIsLoading(true);
@@ -102,11 +104,12 @@ function App() {
     return <SimpleBackDrop />;
   }
 
+  
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {!user ? <AuthUI /> : (
+        {!user ? <AuthUI view="sign_in"/> : (
           <>
             <Routes>
             <Route element={<Layout />}>

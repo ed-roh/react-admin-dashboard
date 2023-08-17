@@ -72,6 +72,11 @@ const navItems = [
     icon: <SourceOutlined />,
   },
   {
+    text: "Document Library",
+    path: "documents",
+    icon: <SourceOutlined />,
+  },
+  {
     text: "Meetings",
     path: "meetings",
     icon: <EventOutlined />,
@@ -115,11 +120,7 @@ const navItems = [
     path: "software",
     icon: <TerminalOutlined />,
   },
-  {
-    text: "Document Library",
-    path: "documents",
-    icon: <SourceOutlined />,
-  },
+
   {
     text: "Admin",
     icon: null,

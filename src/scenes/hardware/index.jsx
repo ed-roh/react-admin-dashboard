@@ -1,6 +1,5 @@
 import Header from "../../components/Header";
-import { supabase } from "../../supabase";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 
 import { Box, Button, IconButton } from "@mui/material";
@@ -17,6 +16,8 @@ const Hardware = () => {
   const [Hardware, setHardware] = useState([]);
 
   const user = useUser();
+  const supabase = useSupabaseClient();
+  
   let rows = [];
 
   useEffect(() => {

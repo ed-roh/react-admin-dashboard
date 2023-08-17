@@ -1,8 +1,7 @@
 import { Typography } from "@mui/material";
 import Header from "../../components/Header";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
-import { useState, useEffect } from "react";
-import { FileUploader } from "react-drag-drop-files";
+import { useState } from "react";
 import { Box, Button, IconButton } from "@mui/material";
 import { alpha, styled } from '@mui/material/styles';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
@@ -11,7 +10,6 @@ import {
   EditOutlined,
   PublishedWithChangesOutlined,
   PreviewOutlined,
-  Style,
 } from "@mui/icons-material";
 
 export default function DocumentLibrary() {
@@ -96,7 +94,7 @@ export default function DocumentLibrary() {
   const rows = [
     {
       id: 1,
-      name: "Acceptible Use Policy",
+      name: "Acceptable Use Policy",
       status: "Missing",
       created_by: "",
       created_at: "",
