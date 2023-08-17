@@ -163,7 +163,7 @@ export function FirstLogin({ user }) {
     // make sure steps complete, save stuff
     if (activeStep >= 3) {
       setOpen(false);
-      navigate("/dashboard/sales");
+      navigate("/dashboard");
     }
   };
 

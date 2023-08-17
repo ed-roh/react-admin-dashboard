@@ -1,195 +1,177 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import Header from "../../components/Header";
-import { supabase } from "../../supabase";
-import SimpleBackDrop from "../../components/SimpleBackDrop";
-import { useState, useEffect } from "react";
-import StatBox from "../../components/StatBox";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
-import PieChart from "../../components/PieChart";
+import {
+  Box,
+  Step,
+  StepButton,
+  Stepper,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { tokens } from "theme";
+import React, { useState } from "react";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [activeStep, setActiveStep] = useState(4);
+
+  const steps = [
+    "Welcome",
+    "Data Entry",
+    "Risk Assessment",
+    "Network Review",
+    "Policy Review",
+    "Training",
+    "Initial Score",
+  ];
+
+  const [completed, setCompleted] = React.useState({});
+
+  const totalSteps = () => {
+    return steps.length;
+  };
+
+  const completedSteps = () => {
+    return Object.keys(completed).length;
+  };
+
+  const isLastStep = () => {
+    return activeStep === totalSteps() - 1;
+  };
+
+  const allStepsCompleted = () => {
+    return completedSteps() === totalSteps();
+  };
+
+  const handleNext = () => {
+    const newActiveStep =
+      isLastStep() && !allStepsCompleted()
+        ? // It's the last step, but not all steps have been completed,
+          // find the first step that has been completed
+          steps.findIndex((step, i) => !(i in completed))
+        : activeStep + 1;
+    setActiveStep(newActiveStep);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
+
+  const handleComplete = () => {
+    const newCompleted = completed;
+    newCompleted[activeStep] = true;
+    setCompleted(newCompleted);
+    handleNext();
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+    setCompleted({});
+  };
+
+  function getStepContent(step) {
+    let result = "";
+    switch (step) {
+      case 0: // Welcome
+        return (
+          <Box>
+            <Typography variant="h5">Welcome to the Setup Journey</Typography>
+            <Typography variant="body1">
+              This is a step-by-step guide to help you get started with your
+              KnowByte account.
+            </Typography>
+          </Box>
+        );
+      case 1: // Data Entry
+        return (
+          <Box>
+            <Typography variant="h5">Data Entry</Typography>
+            <Typography variant="body1">
+              This is a step-by-step guide to help you get started with your
+              KnowByte account.
+            </Typography>
+          </Box>
+        );
+      case 2: // Risk Assessment
+        return (
+          <Box>
+            <Typography variant="h5">Risk Assessment</Typography>
+            <Typography variant="body1">
+              This is a step-by-step guide to help you get started with your
+              KnowByte account.
+            </Typography>
+          </Box>
+        );
+      case 3: // Network Review
+        return (
+          <Box>
+            <Typography variant="h5">Network Review</Typography>
+            <Typography variant="body1">
+              This is a step-by-step guide to help you get started with your
+              KnowByte account.
+            </Typography>
+          </Box>
+        );
+      case 4: // Policy Review
+        return (
+          <Box>
+            <Typography variant="h5">Policy Review</Typography>
+            <Typography variant="body1">
+              This is a step-by-step guide to help you get started with your
+              KnowByte account.
+            </Typography>
+          </Box>
+        );
+      case 5: // Training
+        return (
+          <Box>
+            <Typography variant="h5">Training</Typography>
+            <Typography variant="body1">
+              This is a step-by-step guide to help you get started with your
+              KnowByte account.
+            </Typography>
+          </Box>
+        );
+      case 6: // Initial Score
+        return (
+          <Box>
+            <Typography variant="h5">Initial Score</Typography>
+            <Typography variant="body1">
+              This is a step-by-step guide to help you get started with your
+              KnowByte account.
+            </Typography>
+          </Box>
+        );
+      default:
+        return "Unknown step";
+    }
+  }
 
   return (
-    <Box m="20px">
-      {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" />
-
-        <Box>
-          <Button
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
-        </Box>
+    <Box m="50px" width='55vw'>
+      <Typography variant="h4">Your Setup Journey</Typography>
+      <Stepper sx={{ m: 4 }} variant="outlined" activeStep={activeStep}>
+        {steps.map((label, index) => {
+          const stepProps = {};
+          const buttonProps = {};
+          return (
+            <Step {...stepProps} key={label}>
+              <StepButton
+                {...buttonProps}
+                sx={{ '& .Mui-completed': { color: colors.greenAccent[300]}, '& .Mui-active': { color: colors.blueAccent[500]} }}
+                onClick={handleStep(index)}
+              >
+                {label}
+              </StepButton>
+            </Step>
+          );
+        })}
+      </Stepper>
+          <Box sx={{ m: 4 }}>{getStepContent(activeStep)}</Box>
       </Box>
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="140px"
-        gap="20px"
-      >
-        {/* ROW 1 */}
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="20"
-            subtitle="Risks Unmitigated"
-            progress="0.75"
-            increase="+14%"
-            icon={
-              <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="10"
-            subtitle="Policies Needing Review"
-            progress="0.50"
-            increase="+21%"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="4"
-            subtitle="Meeting Notes Need Review"
-            progress="0.30"
-            increase="+5%"
-            icon={
-              <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="134"
-            subtitle="Alerts Need Review"
-            progress="0.80"
-            increase="+43%"
-            icon={
-              <TrafficIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        {/* ROW 2 */}
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            color="secondary"
-            sx={{ padding: "10px 10px 0 10px" }}
-          >
-            Most Used Applications
-          </Typography>
-          <PieChart
-            data={[
-              { id: 1, value: 10, label: "Netflix" },
-              { id: 2, value: 10, label: "Dropbox" },
-              { id: 3, value: 10, label: "Office365" },
-              { id: 4, value: 20, label: "OneDrive" },
-              { id: 5, value: 50, label: "Other" },
-            ]}
-          />
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            color="secondary"
-            sx={{ padding: "10px 10px 0 10px" }}
-          >
-            Most Active Users
-          </Typography>
-          <PieChart
-            data={[
-              { id: 1, value: 50, label: "Eric Hester" },
-              { id: 2, value: 20, label: "Michelle Gimmi" },
-              { id: 3, value: 10, label: "Zachary Seiter" },
-              { id: 4, value: 10, label: "Erik Rhine" },
-            ]}
-          />
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            color="secondary"
-            sx={{ padding: "10px 10px 0 10px" }}
-          >
-            Top 5 Event Types
-          </Typography>
-          <PieChart
-            data={[
-              { id: 1, value: 10, label: "Bad Login" },
-              { id: 2, value: 10, label: "Blocked Website" },
-              { id: 3, value: 10, label: "Phishing Link" },
-              { id: 4, value: 10, label: "Unpatched System" },
-            ]}
-          />
-        </Box>
-      </Box>
-    </Box>
   );
 };
 

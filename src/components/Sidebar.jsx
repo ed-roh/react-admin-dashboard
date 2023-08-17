@@ -38,6 +38,7 @@ import FlexBetween from "./FlexBetween";
 import { useUser } from "@supabase/auth-helpers-react";
 import { tokens } from "../theme";
 import ScoreBox from "./ScoreBox";
+import logoImage from "assets/logo.png";
 
 const navItems = [
   {
@@ -175,19 +176,25 @@ const Sidebar = ({
           }}
         >
           <Box width="100%">
-            <Box m="1.5rem 2rem 2rem 3rem">
+            <Box m="1.5rem 2rem 2rem 1rem">
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box
                   display="flex"
                   justifyContent="space-between"
                   alignItems="center"
-                  ml="0px"
+                  mr="15px"
                 ></Box>
-                <Box>
-                  <Typography variant="h4" color={colors.grey[100]}>
-                    CleaRisk&reg; Portal
-                  </Typography>
-                </Box>
+              <Box
+                component="img"
+                alt="KnowByte Solutions"
+                src={logoImage}
+                height="65px"
+                width="140px"
+
+              />
+              <Typography>
+                CleaRisk&reg; Portal
+              </Typography>
                 {!isNonMobile && (
                   <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                     <ChevronLeft />
@@ -243,14 +250,7 @@ const Sidebar = ({
             </List>
           </Box>
 
-          <Box position="absolute" bottom="2rem">
-            <Divider />
-            <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
-              <Typography variant="body2" color={colors.grey[100]}>
-                &copy;&nbsp;2023 KnowByte Solutions
-                </Typography>
-            </FlexBetween>
-          </Box>
+          
         </Drawer>
       )}
     </Box>
