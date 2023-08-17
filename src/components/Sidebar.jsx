@@ -192,7 +192,7 @@ const Sidebar = ({
                 width="140px"
 
               />
-              <Typography>
+              <Typography variant="h5">
                 CleaRisk&reg; Portal
               </Typography>
                 {!isNonMobile && (

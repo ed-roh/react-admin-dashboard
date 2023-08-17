@@ -2,6 +2,7 @@ import {
   Box,
   Step,
   StepButton,
+  StepContent,
   Stepper,
   Typography,
   useTheme,
@@ -78,7 +79,6 @@ const Dashboard = () => {
       case 0: // Welcome
         return (
           <Box>
-            <Typography variant="h5">Welcome to the Setup Journey</Typography>
             <Typography variant="body1">
               This is a step-by-step guide to help you get started with your
               KnowByte account.
@@ -88,7 +88,6 @@ const Dashboard = () => {
       case 1: // Data Entry
         return (
           <Box>
-            <Typography variant="h5">Data Entry</Typography>
             <Typography variant="body1">
               This is a step-by-step guide to help you get started with your
               KnowByte account.
@@ -98,7 +97,6 @@ const Dashboard = () => {
       case 2: // Risk Assessment
         return (
           <Box>
-            <Typography variant="h5">Risk Assessment</Typography>
             <Typography variant="body1">
               This is a step-by-step guide to help you get started with your
               KnowByte account.
@@ -108,7 +106,6 @@ const Dashboard = () => {
       case 3: // Network Review
         return (
           <Box>
-            <Typography variant="h5">Network Review</Typography>
             <Typography variant="body1">
               This is a step-by-step guide to help you get started with your
               KnowByte account.
@@ -118,7 +115,6 @@ const Dashboard = () => {
       case 4: // Policy Review
         return (
           <Box>
-            <Typography variant="h5">Policy Review</Typography>
             <Typography variant="body1">
               This is a step-by-step guide to help you get started with your
               KnowByte account.
@@ -128,7 +124,6 @@ const Dashboard = () => {
       case 5: // Training
         return (
           <Box>
-            <Typography variant="h5">Training</Typography>
             <Typography variant="body1">
               This is a step-by-step guide to help you get started with your
               KnowByte account.
@@ -151,9 +146,15 @@ const Dashboard = () => {
   }
 
   return (
-    <Box m="50px" width='55vw'>
+    <Box m="50px" width="55vw">
       <Typography variant="h4">Your Setup Journey</Typography>
-      <Stepper alternativeLabel sx={{ m: 4 }} variant="outlined" activeStep={activeStep}>
+      <Stepper
+        sx={{ m: 4 }}
+        variant="outlined"
+        orientation='vertical'
+        activeStep={activeStep}
+        nonLinear
+      >
         {steps.map((label, index) => {
           const stepProps = {};
           const buttonProps = {};
@@ -161,17 +162,20 @@ const Dashboard = () => {
             <Step {...stepProps} key={label}>
               <StepButton
                 {...buttonProps}
-                sx={{ '& .Mui-completed': { color: colors.greenAccent[400]}, '& .Mui-active': { color: colors.blueAccent[400]} }}
+                sx={{
+                  "& .Mui-completed": { color: colors.greenAccent[400] },
+                  "& .Mui-active": { color: colors.blueAccent[400] },
+                }}
                 onClick={handleStep(index)}
               >
                 {label}
               </StepButton>
+              <StepContent>   <Box sx={{ m: 4 }}>{getStepContent(activeStep)}</Box> </StepContent>
             </Step>
           );
         })}
       </Stepper>
-          <Box sx={{ m: 4 }}>{getStepContent(activeStep)}</Box>
-      </Box>
+    </Box>
   );
 };
 
