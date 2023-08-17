@@ -153,7 +153,7 @@ const Dashboard = () => {
   return (
     <Box m="50px" width='55vw'>
       <Typography variant="h4">Your Setup Journey</Typography>
-      <Stepper sx={{ m: 4 }} variant="outlined" activeStep={activeStep}>
+      <Stepper alternativeLabel sx={{ m: 4 }} variant="outlined" activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
           const buttonProps = {};
@@ -161,7 +161,7 @@ const Dashboard = () => {
             <Step {...stepProps} key={label}>
               <StepButton
                 {...buttonProps}
-                sx={{ '& .Mui-completed': { color: colors.greenAccent[300]}, '& .Mui-active': { color: colors.blueAccent[500]} }}
+                sx={{ '& .Mui-completed': { color: colors.greenAccent[400]}, '& .Mui-active': { color: colors.blueAccent[400]} }}
                 onClick={handleStep(index)}
               >
                 {label}
