@@ -63,6 +63,8 @@ const Contacts = () => {
             when: meeting.when,
             created_by: meeting.created_by,
             recurring_data: meeting.recurring_data,
+            last_meeting: meeting.last_meeting,
+            status: meeting.status,
             created: meeting.created_at,
           },
           ...rows,
@@ -80,23 +82,33 @@ const Contacts = () => {
     {
       field: "name",
       headerName: "Name",
-      flex: 1,
+      flex: 300,
       cellClassName: "name-column--cell",
     },
     {
       field: "when",
       headerName: "When",
-      flex: 1,
+      flex: 150,
     },
     {
       field: "created_by",
       headerName: "Ogranizer",
-      flex: 1,
+      flex: 200,
     },
     {
       field: "recurring_data",
       headerName: "Reccurs (days)",
-      flex: 1,
+      flex: 100,
+    },
+    {
+      field: "last_meeting",
+      headerName: "Last Held",
+      flex: 150,
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      flex: 100,
     },
     {
       field: "invitebutton",

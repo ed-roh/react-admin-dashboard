@@ -87,42 +87,48 @@ const RiskRegister = () => {
     {
       field: "name",
       headerName: "Name",
-      flex: 1,
+      flex: 500,
       cellClassName: "name-column--cell",
     },
     {
       field: "likelihood",
       headerName: "Likelihood",
-      flex: 1,
-    },
+      flex: 40,
+     },
     {
       field: "imapact",
       headerName: "Impact",
-      flex: 1,
+      flex: 40,
     },
     {
       field: "loe",
       headerName: "Level of Effort",
-      flex: 1,
+      flex: 40,
+    },
+    {
+      field: "priority",
+      headerName: "Priority",
+      flex: 40,
     },
     {
       field: "notes",
       headerName: "Notes",
-      flex: 1,
+      flex: 500,
     },
     {
       field: "status",
       headerName: "Status",
-      flex: 1,
+      flex: 100,
     },
     {
       field: "created_at",
       headerName: "Created",
-      flex: 1,
-    },    {
+      flex: 150,
+    },    
+    {
       field: "last_reviewed",
       headerName: "Last Reviewed",
-      flex: 1,
+      flex: 150,
     },
     {
       field: "editbutton",

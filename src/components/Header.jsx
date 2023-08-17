@@ -1,20 +1,19 @@
 import { Typography, Box, useTheme } from "@mui/material";
-import { tokens } from "../theme";
+import React from "react";
 
 const Header = ({ title, subtitle }) => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   return (
-    <Box mb="30px">
+    <Box>
       <Typography
         variant="h2"
-        color={colors.grey[100]}
+        color={theme.palette.secondary[100]}
         fontWeight="bold"
-        sx={{ m: "0 0 5px 0" }}
+        sx={{ mb: "5px" }}
       >
         {title}
       </Typography>
-      <Typography variant="h5" color={colors.greenAccent[400]}>
+      <Typography variant="h5" color={theme.palette.secondary[300]}>
         {subtitle}
       </Typography>
     </Box>

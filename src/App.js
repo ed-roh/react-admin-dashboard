@@ -11,8 +11,7 @@ import SimpleBackDrop from "./components/SimpleBackDrop";
 import { supabase } from "./supabase";
 import { useUser } from "@supabase/auth-helpers-react";
 
-import Topbar from "./components/Topbar";
-import Sidebar from "./components/Sidebar";
+import Layout from "./components/Layout";
 
 import Dashboard from "./scenes/dashboard";
 import PolicyandProcedure from "./scenes/policyandprocedure";
@@ -32,8 +31,6 @@ import Billing from "./scenes/billing";
 import Probes from "./scenes/probes";
 import Notifications from "./scenes/notifications";
 import Profile from "./scenes/profile";
-
-
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -101,7 +98,7 @@ function App() {
     
 
   if (isLoading) {
-    return <SimpleBackDrop text="&nbsp;&nbsp;Gathering Information" />;
+    return <SimpleBackDrop />;
   }
 
   return (
@@ -109,34 +106,31 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {!user ? <AuthUI /> : (
-          <div className="app">
-          <Sidebar userInfo={userInfo} isSidebar={isSidebar} />
-          <main className="content">
-            <Topbar userInfo={userInfo} setIsSidebar={setIsSidebar} />
+          <>
             <Routes>
+            <Route element={<Layout />}>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/scorecard" element={<RiskScorecard />} />
-              <Route path="/assessments" element={<Assessments />} />
-              <Route path="/riskregister" element={<RiskRegister />} />
-              <Route path="/policyandprocedure" element={<PolicyandProcedure />} />
-              <Route path="/meetings" element={<Meetings />} />
-              <Route path="/training" element={<Training />} />
-              <Route path="/company" element={<Company />} />
-              <Route path="/people" element={<People />} />
-              <Route path="/vendors" element={<Vendors />} />
-              <Route path="/hardware" element={<Hardware />} />
-              <Route path="/software" element={<Software />} />
-              <Route path="/documents" element={<DocumentLibrary />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/billing" element={<Billing />} />
-              <Route path="/probes" element={<Probes />} />
-              <Route path="/notifications" element={<Notifications />} />
-              <Route path="/profile" element={<Profile />} />
-
+                <Route path="/riskscorecard" element={<RiskScorecard />} />
+                <Route path="/assessments" element={<Assessments />} />
+                <Route path="/riskregister" element={<RiskRegister />} />
+                <Route path="/policyandprocedure" element={<PolicyandProcedure />} />
+                <Route path="/meetings" element={<Meetings />} />
+                <Route path="/training" element={<Training />} />
+                <Route path="/company" element={<Company />} />
+                <Route path="/people" element={<People />} />
+                <Route path="/vendors" element={<Vendors />} />
+                <Route path="/hardware" element={<Hardware />} />
+                <Route path="/software" element={<Software />} />
+                <Route path="/documents" element={<DocumentLibrary />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/billing" element={<Billing />} />
+                <Route path="/probes" element={<Probes />} />
+                <Route path="/notifications" element={<Notifications />} />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
             </Routes>
             {firstTime ? <FirstLogin user={user} /> : <></>}
-          </main>
-        </div>
+            </>
         )}
       </ThemeProvider>
     </ColorModeContext.Provider>

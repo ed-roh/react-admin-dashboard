@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+import Header from "../../components/Header";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 import { FileUploader } from "react-drag-drop-files";
@@ -337,9 +338,14 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 }));
 
   return (
+    <>
+    <Box m="20px">
+    <Header
+      title="Policy and Procedure Library"
+    />
+    </Box> 
     <Box m="30px 30px" height="75vh">
-      <h1>Policies and Procedures</h1>
-      <Box m="30px 30px"></Box>
+        <Box m="30px 30px"></Box>
       <Box height="75vh">
         <Button sx="margin:10px" color="secondary" variant="contained" onClick={loadMissingTemplates}>
           Load Templates for Missing
@@ -358,5 +364,6 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
         />
       </Box>
     </Box>
+    </>
   );
 }
