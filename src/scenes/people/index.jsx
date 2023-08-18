@@ -13,10 +13,11 @@ import {
   DeleteForeverOutlined,
   ForwardToInboxOutlined,
   PeopleAltOutlined,
+  WarningOutlined,
 } from "@mui/icons-material";
 import SimpleBackDrop from "../../components/SimpleBackDrop";
 
-const Contacts = () => {
+const People = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [people, setPeople] = useState([]);
@@ -32,6 +33,12 @@ const Contacts = () => {
       getGroups();
     }
   }, [user]);
+
+  const renderIcon = (params) => {
+    return (
+    <>{params.value ? <WarningOutlined sx={{color:colors.redAccent[500]}} /> : null}</>
+    );
+  };
 
   const renderButton = (params) => {
     return (
@@ -55,7 +62,7 @@ const Contacts = () => {
   async function getPeople() {
     setIsLoading(true);
     let { data, error, status } = await supabase
-      .from("contacts")
+      .from("people")
       .select(`*`)
       .eq("customer_id", user.id);
     if (data !== null) {
@@ -70,11 +77,12 @@ const Contacts = () => {
             email: person.email,
             title: person.title,
             departmenet: person.department,
+            exposed: person.exposed,
+            breached: person.breached,
           },
           ...rows,
         ];
       });
-      console.log(data);
       setPeople(rows);
     } else {
       alert("Error loading documents");
@@ -103,7 +111,6 @@ const Contacts = () => {
           ...rows,
         ];
       });
-      console.log(data);
       setGroups(rows);
     } else {
       alert("Error loading documents");
@@ -122,29 +129,41 @@ const Contacts = () => {
     {
       field: "deletebutton",
       headerName: "Delete",
-      width: 100,
+      width: 50,
       renderCell: renderButton,
+    },
+    {
+      field: "breached",
+      headerName: "Breached",
+      flex: 65,
+      renderCell: renderIcon,
+    },
+    {
+      field: "exposed",
+      headerName: "Exposed",
+      flex: 65,
+      renderCell: renderIcon,
     },
     {
       field: "full_name",
       headerName: "Name",
-      flex: 1,
+      flex: 150,
       cellClassName: "name-column--cell",
     },
     {
       field: "email",
       headerName: "Email",
-      flex: 1,
+      flex: 200,
     },
     {
       field: "title",
       headerName: "Title",
-      flex: 1,
+      flex: 100,
     },
     {
       field: "department",
       headerName: "Department",
-      flex: 1,
+      flex: 100,
     },
     {
       field: "invitebutton",
@@ -231,4 +250,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default People;
