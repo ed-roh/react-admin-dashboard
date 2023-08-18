@@ -133,18 +133,6 @@ const People = () => {
       renderCell: renderButton,
     },
     {
-      field: "breached",
-      headerName: "Breached",
-      flex: 65,
-      renderCell: renderIcon,
-    },
-    {
-      field: "exposed",
-      headerName: "Exposed",
-      flex: 65,
-      renderCell: renderIcon,
-    },
-    {
       field: "full_name",
       headerName: "Name",
       flex: 150,
@@ -164,6 +152,18 @@ const People = () => {
       field: "department",
       headerName: "Department",
       flex: 100,
+    },
+    {
+      field: "breached",
+      headerName: "Breached",
+      flex: 65,
+      renderCell: renderIcon,
+    },
+    {
+      field: "exposed",
+      headerName: "Exposed",
+      flex: 65,
+      renderCell: renderIcon,
     },
     {
       field: "invitebutton",
