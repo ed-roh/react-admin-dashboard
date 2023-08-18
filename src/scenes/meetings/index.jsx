@@ -73,7 +73,6 @@ const Meetings = () => {
           ...rows,
         ];
       });
-      console.log(data);
       setMeetings(rows);
     } else {
       alert("Error loading documents");

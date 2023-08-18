@@ -1,8 +1,7 @@
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import { supabase } from "../../supabase";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 
 import { Box, Button, IconButton } from "@mui/material";
@@ -25,6 +24,8 @@ const People = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const user = useUser();
+  const supabase = useSupabaseClient();
+  
   let rows = [];
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const People = () => {
       getPeople();
       getGroups();
     }
-  }, [user]);
+  }, []);
 
   const renderIcon = (params) => {
     return (

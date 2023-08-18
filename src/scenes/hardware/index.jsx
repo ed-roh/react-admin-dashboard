@@ -69,7 +69,6 @@ const Hardware = () => {
           ...rows,
         ];
       });
-      console.log(data)
       setHardware(rows);
     } else {
       alert("Error loading documents");

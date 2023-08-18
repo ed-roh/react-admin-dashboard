@@ -70,7 +70,6 @@ const Vendors = () => {
           ...rows,
         ];
       });
-      console.log(data)
       setVendors(rows);
     } else {
       alert("Error loading documents");
