@@ -18,6 +18,7 @@ import SimpleBackDrop from "./SimpleBackDrop";
 import { supabase } from "../supabase";
 import NetMap from "../utils/netmap";
 import PropTypes from "prop-types";
+import { useUser } from "@supabase/auth-helpers-react";
 
 const netmap = new NetMap({ timeout: 200 });
 
@@ -134,13 +135,21 @@ const hosts = [
   "10.10.0.254",
 ];
 
-const steps = ["Welcome", "Profile", "Company", "People", "Vendors", "Network", "Getting Started"];
+const steps = [
+  "Welcome",
+  "Profile",
+  "Company",
+  "People",
+  "Vendors",
+  "Network",
+  "Getting Started",
+];
 let scanned = 0;
 let networkInfo = [];
 let companyId = "";
 let googlecompany = {};
 
-export function FirstLogin({ user }) {
+export function FirstLogin() {
   const [companyInfo, setCompanyInfo] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [domainInfo, setDomainInfo] = useState(null);
@@ -150,6 +159,7 @@ export function FirstLogin({ user }) {
   const [open, setOpen] = useState(true);
 
   const navigate = useNavigate();
+  const user = useUser();
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -206,26 +216,42 @@ export function FirstLogin({ user }) {
 
   const handleAddEmailRow = () => {
     const newEmailAddresses = [
-      { email: "", full_name: "", department: "", title: "", valid: true, customer_id: user.id },
+      {
+        email: "",
+        full_name: "",
+        department: "",
+        title: "",
+        valid: true,
+        customer_id: user.id,
+      },
       ...emailAddresses,
     ];
     setEmailAddresses(newEmailAddresses);
   };
 
   async function saveCompanyData() {
-    const { data, error } = await supabase.from("customers").upsert(companyInfo).select();
+    const { data, error } = await supabase
+      .from("customers")
+      .upsert(companyInfo)
+      .select();
 
     return data;
   }
 
   async function saveContactData() {
-    const { data, error } = await supabase.from("contacts").upsert(emailAddresses).select();
+    const { data, error } = await supabase
+      .from("people")
+      .upsert(emailAddresses)
+      .select();
 
     return data;
   }
 
   async function saveDomainData() {
-    const { data, error } = await supabase.from("domains").upsert(domainInfo).select();
+    const { data, error } = await supabase
+      .from("domains")
+      .upsert(domainInfo)
+      .select();
 
     return data;
   }
@@ -233,7 +259,11 @@ export function FirstLogin({ user }) {
   async function saveUserData() {
     const { data, error } = await supabase
       .from("users")
-      .upsert({ id: user.id, full_name: userInfo.full_name, customer_id: user.id })
+      .upsert({
+        id: user.id,
+        full_name: userInfo.full_name,
+        customer_id: user.id,
+      })
       .select();
 
     return data;
@@ -246,55 +276,62 @@ export function FirstLogin({ user }) {
         return (
           <Box sx={{ "& > :not(style)": { m: 1 } }}>
             <Typography>
-              Welcome to the KBS Clearisk Portal, the ultimate platform for capturing and managing
-              online technology risks. Almost every action your business takes happens on the
-              internet, which presents both opportunities and challenges. As organizations navigate
-              the complexities of today&apos;s connected world, the need to proactively manage risks
-              has never been more critical.
+              Welcome to the KBS Clearisk Portal, the ultimate platform for
+              capturing and managing online technology risks. Almost every
+              action your business takes happens on the internet, which presents
+              both opportunities and challenges. As organizations navigate the
+              complexities of today&apos;s connected world, the need to
+              proactively manage risks has never been more critical.
               <br></br>
               <br></br>
               That is where we come in!
               <br></br>
               <br></br>
-              By employing White Hat hacker techniques that scan the internet and gather fragments
-              of information from diverse sources, our cutting-edge platform doesn&apos;t just
-              streamline the account set up process; it unveils a panoramic view of your
-              company&apos;s online presence, providing both the visible and hidden facets of your
-              digital footprint to build a comprehensive picture of your organization&apos;s digital
-              identity. By applying these various data gathering methods, we give you an unmatched
-              understanding of your online environment all while just setting up your account.
+              By employing White Hat hacker techniques that scan the internet
+              and gather fragments of information from diverse sources, our
+              cutting-edge platform doesn&apos;t just streamline the account set
+              up process; it unveils a panoramic view of your company&apos;s
+              online presence, providing both the visible and hidden facets of
+              your digital footprint to build a comprehensive picture of your
+              organization&apos;s digital identity. By applying these various
+              data gathering methods, we give you an unmatched understanding of
+              your online environment all while just setting up your account.
               <br></br>
               <br></br>
-              KnowByte Solutions - where information transforms into insight, and risk transforms
-              into opportunity.
+              KnowByte Solutions - where information transforms into insight,
+              and risk transforms into opportunity.
             </Typography>
           </Box>
         );
 
       case 1:
+
         return (
           <Box sx={{ "& > :not(style)": { m: 1 } }}>
             <TextField
               label="Full Name"
+              value={userInfo.full_name}
               onChange={handleUserInfoChange("full_name")}
               fullWidth
               margin="normal"
             />
             <TextField
               label="Email"
-              value={user.email}
+              value={userInfo.email}
               onChange={handleUserInfoChange("email")}
               fullWidth
               margin="normal"
             />
             <TextField
               label="Title"
+              value={userInfo.title}
               onChange={handleUserInfoChange("title")}
               fullWidth
               margin="normal"
             />
             <TextField
               label="Department"
+              value={userInfo.department}
               onChange={handleUserInfoChange("department")}
               fullWidth
               margin="normal"
@@ -371,16 +408,20 @@ export function FirstLogin({ user }) {
           </Box>
         );
       case 3:
-        const existingUser = emailAddresses.find((email) => email.email === user.email);
+        const existingUser = emailAddresses.find(
+          (email) => email.email === user.email
+        );
 
         // If user email does not exist, add it to the list
         if (!existingUser) {
           emailAddresses.unshift({
+            customer_id: user.id,
             email: user.email,
             full_name: userInfo.full_name || "",
             department: userInfo.department || "",
             title: userInfo.title || "",
-            customer_id: user.id,
+            exposed: false,
+            breached: false,
             valid: true,
           });
         }
@@ -496,7 +537,12 @@ export function FirstLogin({ user }) {
                 alignItems="center"
                 sx={{ "& > :not(style)": { m: 1 } }}
               >
-                <TextField label="Network" value={host} fullWidth margin="normal" />
+                <TextField
+                  label="Network"
+                  value={host}
+                  fullWidth
+                  margin="normal"
+                />
               </Box>
             ))}
           </Box>
@@ -505,12 +551,12 @@ export function FirstLogin({ user }) {
         return (
           <Box sx={{ "& > :not(style)": { m: 1 } }}>
             <Typography>
-              Time to jump in an start managing your risk! We will guide you through the next steps
-              as you look around.
+              Time to jump in an start managing your risk! We will guide you
+              through the next steps as you look around.
               <br></br>
               <br></br>
-              KnowByte Solutions - where information transforms into insight, and risk transforms
-              into opportunity.
+              KnowByte Solutions - where information transforms into insight,
+              and risk transforms into opportunity.
             </Typography>
           </Box>
         );
@@ -526,165 +572,66 @@ export function FirstLogin({ user }) {
   useEffect(() => {
     const domain_name = user.email.split("@")[1];
     //const domain_name = "phillipsstaffing.com";
+
     async function fetchData() {
-      try {
+
         setIsLoading(true);
-        // Retrieve company information from Google Places API
-        var service = new window.google.maps.places.PlacesService(document.createElement("div"));
-        var request = {
-          query: domain_name,
-          fields: ["name", "formatted_address", "place_id", "types"],
-        };
-
-        service.findPlaceFromQuery(request, function (results, status) {
-          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            var placeId = results[0].place_id;
-            var detailsRequest = {
-              placeId: placeId,
-              fields: ["name", "formatted_address", "formatted_phone_number", "types"],
-            };
-            service.getDetails(detailsRequest, function (place, status) {
-              if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-                googlecompany = {
-                  name: place.name || domain_name,
-                  address: place.formatted_address || "",
-                  phone: place.formatted_phone_number || "",
-                  industry: place.types.join(", ") || "",
-                };
-                const company = {
-                  id: user.id,
-                  name: googlecompany.name || domain_name,
-                  website: "http://" + domain_name || "",
-                  address: googlecompany.address || "",
-                  phone: googlecompany.phone || "",
-                  industry: googlecompany.industry,
-
-                  /*       facebook: res.data.facebook || "",
-                  linkedin: res.data.linkedin || "",
-                  instagram: res.data.instagram || "",
-                  twitter: res.data.twitter || "",
-                  youtube: res.data.youtube || "", */
-                };
-                setCompanyInfo(company);
-              }
-            });
-          }
-        });
-
-        let url = "https://host.io/api/full/" + domain_name + "?token=20619bd198b2b1";
-        let domain = {};
-        domain.domain = domain_name;
-        setDomainInfo(domain);
+        const url = "https://api.knowbyte.app/api/getDomainInfo/" + domain_name;
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
-            if (data.dns) {
-              let regex = /[^.]+\.[^.]+\.$/;
+            if (data && data.emails) {
+              setEmailAddresses(data.emails.map((email) => ({
+                customer_id: user.id,
+                email: email.email || "",
+                full_name: email.full_name || "",
+                department: email.department || "",
+                title: email.title || "",
+                breached: email.breach,
+                exposed: email.exposed,  
+                valid: false,
+              })));
 
-              domain.mx = data.dns.mx[0].match(regex)[0];
-              if (Object.entries(data.ipinfo)[0][1].asn.name) {
-                domain.hosting = Object.entries(data.ipinfo)[0][1].asn.name;
-              } else {
-                domain.hosting = Object.entries(data.ipinfo)[1][1].asn.name;
-              }
-              domain.ns = data.dns.ns[0].match(regex)[0];
-              domain.webserver = data.web.server;
-              domain.customer_id = user.id;
-            } else {
-              domain.mx = "";
-              domain.hosting = "";
-              domain.ns = "";
-              domain.webserver = "";
+              setCompanyInfo({
+                id: user.id,
+                twitter: data.socialProfiles[0].twitter,
+                facebook: data.socialProfiles[0].facebook,
+                linkedin: data.socialProfiles[0].linkedin,
+                instagram: data.socialProfiles[0].instagram,
+                youtube: data.socialProfiles[0].youtube,
+                address: data.address,
+                industry: data.businessType,
+                name: data.companyName,
+                phone: data.phone,
+                website: "https://" + domain_name,
+              });
+
+              setDomainInfo({
+                customer_id: user.id,
+                domain: domain_name,
+                mx: data.mxRecord,
+                ns: data.nsRecord,
+                hosting: data.hosting,
+                webserver: data.webserver,
+                tech: data.tech,
+
+              });
+              const foundUser = emailAddresses.find((email) => email.email === user.email);
+              let formInfo = {};
+               if (foundUser) {   
+                 formInfo = foundUser;
+               }
+               else { 
+                 formInfo = { email: user.email, full_name: '', title: '', department: ''};
+               } 
+              setUserInfo(formInfo);
+
+              setIsLoading(false);
             }
-            setIsLoading(false);
-            setDomainInfo(domain);
-
           })
           .catch((error) => {
             console.error("An error occurred:", error);
-            domain.domain = domain_name;
-            setDomainInfo(domain);
           });
-
-          
-
-        /*         // Retrieve email addresses from hunter.io
-        const hunter = new EmailHunter("71d76759ceb19999f0cbda7968a5e5d6c898735b");
-        hunter.domainSearch({ domain: domain_name, limit: 100 }, (err, res) => {
-          if (res && res.data && res.data.emails) {
-            const excludedDepartments = ["sales", "Sales"];
-            const excludedTypes = ["generic"];
-
-            const filteredEmails = res.data.emails
-              .filter((email) => !excludedDepartments.includes(email.department))
-              .filter((email) => !excludedTypes.includes(email.type))
-              .filter((email) => email.value);
-
-            const emailAddresses = filteredEmails.map((email) => ({
-              customer_id: user.id,
-              email: email.value || "",
-              full_name: (email.first_name || "") + " " + (email.last_name || ""),
-              department: email.department || "",
-              title: email.title || "",
-              valid: false,
-            }));
-
-            const name = res.data.organization || googlecompany.name;
-            const address =
-              googlecompany.address ||
-              res.data.street +
-                " " +
-                res.data.city +
-                ", " +
-                res.data.state +
-                " " +
-                res.data.postal_code;
-            const industry = res.data.industry || googlecompany.industry; */
-
-        /* 
-
-          //let url='https://api.ipify.org/?format=json'
-          //fetch public ip then do a lookup on who it is for internet provider
-
-
-          let url='https://haveibeenpwned.com/api/v3/breacheddomain/'+domain;
-          fetch(url,{
-            headers: {
-              'hibp-api-key': '6114573cdf4f4af4a7d9b850cdbabb55'
-            }
-          })             
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.dns) {   
-                let regex=/[^.]+\.[^.]+\.$/;
-                company.mx = data.dns.mx[0].match(regex)[0];
-                if (Object.entries(data.ipinfo)[0][1].asn.name){
-                  company.hosting = Object.entries(data.ipinfo)[0][1].asn.name;
-                } else {  
-                  company.hosting = Object.entries(data.ipinfo)[1][1].asn.name;
-                }
-                company.ns = data.dns.ns[0].match(regex)[0];
-                company.webserver = data.web.server;
-              } else {
-                  company.mx = '';               
-                  company.hosting = '';
-                  company.ns = '';
-                  company.webserver = '';
-              }
-              setCompanyInfo(company);
-              setIsLoading(false);
-            })
-            .catch((error) => console.error("An error occurred:", error));
-           */
-
-        setEmailAddresses(emailAddresses);
-        /*   } else {
-            console.error("Unexpected response structure:", err);
-          }
-        }); */
-      } catch (error) {
-        console.error("An error occurred while fetching data:", error);
-      }
     }
     fetchData();
   }, []);
@@ -713,7 +660,9 @@ export function FirstLogin({ user }) {
 
         <React.Fragment>
           <Box sx={{ m: 4 }}>{getStepContent(activeStep)}</Box>
-          <Box sx={{ display: "flex", position: "absolute", bottom: 10, pt: 2 }}>
+          <Box
+            sx={{ display: "flex", position: "absolute", bottom: 10, pt: 2 }}
+          >
             <Button
               variant="contained"
               color="primary"
@@ -724,7 +673,12 @@ export function FirstLogin({ user }) {
               Back
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button variant="contained" color="primary" onClick={handleNext} sx={{ mr: 1 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleNext}
+              sx={{ mr: 1 }}
+            >
               {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>
           </Box>

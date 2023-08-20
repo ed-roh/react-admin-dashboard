@@ -135,7 +135,7 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
               </Route>
             </Routes>
-            {firstTime ? <FirstLogin user={user} /> : <></>}
+            {firstTime ? <FirstLogin /> : <></>}
             </>
         )}
       </ThemeProvider>

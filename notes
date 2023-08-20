@@ -1,0 +1,15 @@
+	BreachDirectoryAPI    = "https://breachdirectory.p.rapidapi.com/?func=auto&term="
+	    EmailrepURL           = "https://emailrep.io/"
+
+
+	HunterAPI             = "https://api.hunter.io/v2/domain-search?domain="
+	IntelxURL             = "https://intelx.io/"
+	IPAPIURL              = "https://ipapi.co/"
+	PsbdmpAPI             = "https://psbdmp.ws/api/v3/search/"
+	AdobeEndpoint         = "https://auth.services.adobe.com/signin/v2/users/accounts"
+	DiscordEndpoint       = "https://discord.com/api/v9/auth/register"
+	InstagramCSRFEndpoint = "https://www.instagram.com/accounts/emailsignup/"
+	InstagramEndpoint     = "https://www.instagram.com/accounts/web_create_ajax/attempt/"
+	SpotifyEndpoint       = "https://spclient.wg.spotify.com/signup/public/v1/account"
+	TwitterEndpoint       = "https://api.twitter.com/i/users/email_available.json"
+

@@ -13,7 +13,9 @@ const Company = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [companyInfo, setCompanyInfo] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [domainInfo, setDomainInfo] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
 
   const user = useUser();
   const supabase = useSupabaseClient();
@@ -21,12 +23,20 @@ const Company = () => {
   useEffect(() => {
     if (user) {
       getCompany();
+      getDomains();
     }
-  }, [user]);
+  }, []);
   
   const handleCompanyInfoChange = (field) => (e) => {
     setCompanyInfo({
       ...companyInfo,
+      [field]: e.target.value,
+    });
+  };
+
+  const handleDomainInfoChange = (field) => (e) => {
+    setDomainInfo({
+      ...domainInfo,
       [field]: e.target.value,
     });
   };
@@ -46,15 +56,33 @@ const Company = () => {
     }
     setIsLoading(false);
   }
+
+  async function getDomains() {
+    setIsLoading(true);
+    let { data, error } = await supabase
+      .from("domains")
+      .select(`*`)
+      .eq("customer_id", user.id);
+    if (data !== null) {
+      setDomainInfo(data[0]);
+    } else {
+      alert("Error loading documents");
+      console.log(error);
+    }
+    setIsLoading(false);
+  }
   
   if (isLoading) {
     return <SimpleBackDrop />;
   }
   
   return (
-    <Box m="30px 30px" height="75vh">
+    <>
+    <Box m="30px 30px">
       <h1>Company Profile</h1>
       <Box sx={{ "& > :not(style)": { m: 1 } }}>
+      <Typography variant="h6">Organization Information</Typography>
+
             <TextField
               label="Company Name"
               value={companyInfo.name}
@@ -120,7 +148,46 @@ const Company = () => {
               margin="normal"
             />
           </Box>
+    <Box sx={{ "& > :not(style)": { m: 1 } }}>
+    <Typography variant="h6">Domain Information</Typography>
+
+    <TextField
+        label="Domain Name"
+        value={domainInfo.domain || ""}
+        
+        onChange={handleDomainInfoChange("domain")}
+        margin="normal"
+      />
+      <TextField
+        label="Email Provider"
+        value={domainInfo.mx || ""}
+        
+        onChange={handleDomainInfoChange("mx")}
+        margin="normal"
+      />
+      <TextField
+        label="DNS Provider"
+        value={domainInfo.ns || ""}
+        
+        onChange={handleDomainInfoChange("ns")}
+        margin="normal"
+      />
+      <TextField
+        label="Web Hosting Provider"
+        value={domainInfo.hosting || ""}
+        
+        onChange={handleDomainInfoChange("hosting")}
+        margin="normal"
+      />
+      <TextField
+        label="Website Technology"
+        value={domainInfo.webserver || ""}
+        onChange={handleDomainInfoChange("webserver")}
+        margin="normal"
+      />
     </Box>
+   </Box>
+   </>
   );
 }
 

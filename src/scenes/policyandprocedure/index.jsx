@@ -1,22 +1,82 @@
-import { Typography } from "@mui/material";
+import { Dialog, DialogTitle, Icon, Typography } from "@mui/material";
 import Header from "../../components/Header";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
-import { useState } from "react";
 import { Box, Button, IconButton } from "@mui/material";
-import { alpha, styled } from '@mui/material/styles';
-import { DataGrid, gridClasses } from '@mui/x-data-grid';
+import { alpha, styled } from "@mui/material/styles";
+import { DataGrid, gridClasses } from "@mui/x-data-grid";
 import {
   InputOutlined,
   EditOutlined,
   PublishedWithChangesOutlined,
   PreviewOutlined,
+  SavedSearchTwoTone,
+  CloseRounded,
 } from "@mui/icons-material";
+import React, { useState, useEffect, Component } from "react";
+import { convertToRaw, convertFromRaw, EditorState } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "./editor.css";
 
 export default function PolicyandProcedure() {
   const [documents, setDocuments] = useState([]);
-
   const user = useUser();
   const supabase = useSupabaseClient();
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState();
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+
+  const openEditor = (name) => {
+    console.log("opening: ", name);
+    supabase
+      .from("policies")
+      .select("json")
+      .eq("name", name)
+      .eq("customer_id", user.id)
+      .then((data) => {
+        console.log("found data");
+        setEditorState(
+          EditorState.createWithContent(
+            convertFromRaw(JSON.parse(data.data[0].json))
+          )
+        );
+      })
+      .catch((err) => {
+        console.log("no data");
+
+        setEditorState(EditorState.createEmpty());
+        console.log(err);
+      });
+    setName(name);
+    setOpen(true);
+  };
+
+  useEffect(() => {
+    let raw = convertToRaw(editorState.getCurrentContent());
+    saveContent(name, raw);
+  }, [editorState]);
+
+  function saveContent(name, raw) {
+    console.log("saving", raw);
+
+    supabase
+      .from("policies")
+      .upsert({
+        customer_id: user.id,
+        name: name,
+        json: JSON.stringify(raw),
+        status: "Updated",
+        modified_by: user.email,
+        last_modified_at: "now()",
+      })
+      .select()
+      .then((data) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   const renderButton = (params) => {
     return (
@@ -27,7 +87,12 @@ export default function PolicyandProcedure() {
           size="small"
           style={{ marginLeft: 16 }}
         >
-          {params.field === "editbutton" ? <EditOutlined /> : null}
+          {params.field === "editbutton" ? (
+            //on click se tname to params.name and open editor
+            <IconButton onClick={() => openEditor(params.row.name)}>
+              <EditOutlined />
+            </IconButton>
+          ) : null}
           {params.field === "loadbutton" ? <InputOutlined /> : null}
           {params.field === "approvebutton" ? (
             <PublishedWithChangesOutlined />
@@ -38,23 +103,17 @@ export default function PolicyandProcedure() {
     );
   };
 
-  const loadTemplate = async () => {
-  }
+  const loadTemplate = async () => {};
 
-  const markReview = async () => {
-  }
+  const markReview = async () => {};
 
-  const markApprove = async () => {
-  }
-    
-  const loadMissingTemplates = async () => {
-  }
-  
-  const markAllReview = async () => {
-  }
-  
-  const markAllApprove = async () => {
-  }
+  const markApprove = async () => {};
+
+  const loadMissingTemplates = async () => {};
+
+  const markAllReview = async () => {};
+
+  const markAllApprove = async () => {};
 
   const columns = [
     {
@@ -301,65 +360,108 @@ export default function PolicyandProcedure() {
     },
   ];
 
-const ODD_OPACITY = 0.2;
+  const ODD_OPACITY = 0.2;
 
-const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
-  [`& .${gridClasses.row}.even`]: {
-    backgroundColor: theme.palette.grey[500],
-    '&:hover, &.Mui-hovered': {
-      backgroundColor: alpha(theme.palette.secondary.main, ODD_OPACITY),
-      '@media (hover: none)': {
-        backgroundColor: 'transparent',
+  const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
+    [`& .${gridClasses.row}.even`]: {
+      backgroundColor: theme.palette.grey[500],
+      "&:hover, &.Mui-hovered": {
+        backgroundColor: alpha(theme.palette.secondary.main, ODD_OPACITY),
+        "@media (hover: none)": {
+          backgroundColor: "transparent",
+        },
       },
-    },
-    '&.Mui-selected': {
-      backgroundColor: alpha(
-        theme.palette.primary.main,
-        ODD_OPACITY + theme.palette.action.selectedOpacity,
-      ),
-      '&:hover, &.Mui-hovered': {
+      "&.Mui-selected": {
         backgroundColor: alpha(
-          theme.palette.secondary.main,
-          ODD_OPACITY - 0.1        ),
-        // Reset on touch devices, it doesn't add specificity
-        '@media (hover: none)': {
+          theme.palette.primary.main,
+          ODD_OPACITY + theme.palette.action.selectedOpacity
+        ),
+        "&:hover, &.Mui-hovered": {
           backgroundColor: alpha(
-            theme.palette.primary.main,
-            ODD_OPACITY + theme.palette.action.selectedOpacity,
+            theme.palette.secondary.main,
+            ODD_OPACITY - 0.1
           ),
+          // Reset on touch devices, it doesn't add specificity
+          "@media (hover: none)": {
+            backgroundColor: alpha(
+              theme.palette.primary.main,
+              ODD_OPACITY + theme.palette.action.selectedOpacity
+            ),
+          },
         },
       },
     },
-  },
-}));
+  }));
 
   return (
     <>
-    <Box m="20px">
-    <Header
-      title="Policy and Procedure Library"
-    />
-    </Box> 
-    <Box m="30px 30px" height="75vh">
-        <Box m="30px 30px"></Box>
-      <Box height="75vh">
-        <Button sx="margin:10px" color="secondary" variant="contained" onClick={loadMissingTemplates}>
-          Load Templates for Missing
-        </Button>
-        <Button sx="margin:10px" color="secondary" variant="contained" onClick={markAllReview}>
-          Mark All for Review
-        </Button>
-        <Button sx="margin:10px" color="secondary" variant="contained" onClick={markAllApprove}>
-          Mark All for Approval
-        </Button>
-        <DataGrid
-          getRowClassName={(params) => params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd' }
-          rows={rows}
-          columns={columns}
-         rowHeight={32}
-        />
+      <Box>
+        <Dialog
+          maxWidth="lg"
+          PaperProps={{
+            sx: {
+              minHeight: "80vh",
+            },
+          }}
+          open={open}
+          onClose={() => saveContent(name, editorState.getCurrentContent())}
+        >
+          <IconButton onClick={() => setOpen(false)}>
+            <CloseRounded />
+          </IconButton>
+
+          <DialogTitle>Policy Editor :: Editing {name}</DialogTitle>
+          <Box m={2}>
+            <Editor
+              wrapperClassName="wrapper-class"
+              editorClassName="editor-class"
+              toolbarClassName="toolbar-class"
+              editorState={editorState}
+              onEditorStateChange={setEditorState}
+            />
+          </Box>
+        </Dialog>
       </Box>
-    </Box>
+      <Box m="20px">
+        <Header title="Policy and Procedure Library" />
+      </Box>
+      <Box m="30px 30px" height="75vh">
+        <Box m="30px 30px"></Box>
+        <Box height="75vh">
+          <Button
+            sx="margin:10px"
+            color="secondary"
+            variant="contained"
+            onClick={loadMissingTemplates}
+          >
+            Load Templates for Missing
+          </Button>
+          <Button
+            sx="margin:10px"
+            color="secondary"
+            variant="contained"
+            onClick={markAllReview}
+          >
+            Mark All for Review
+          </Button>
+          <Button
+            sx="margin:10px"
+            color="secondary"
+            variant="contained"
+            onClick={markAllApprove}
+          >
+            Mark All for Approval
+          </Button>
+          <DataGrid
+            getRowClassName={(params) =>
+              params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
+            }
+            rows={rows}
+            columns={columns}
+            rowHeight={32}
+          />
+        </Box>
+      </Box>
     </>
   );
 }
