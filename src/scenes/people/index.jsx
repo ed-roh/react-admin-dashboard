@@ -1,9 +1,9 @@
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
-
+import { useProfile } from "utils/profile";
 import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, gridClasses } from "@mui/x-data-grid";
 import {
@@ -23,7 +23,9 @@ const People = () => {
   const [groups, setGroups] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const user = useUser();
+  const profile = useProfile();
+  const user = profile.user;
+
   const supabase = useSupabaseClient();
   
   let rows = [];
@@ -33,7 +35,7 @@ const People = () => {
       getPeople();
       getGroups();
     }
-  }, []);
+  }, [user]);
 
   const renderIcon = (params) => {
     return (
@@ -61,11 +63,14 @@ const People = () => {
   };
 
   async function getPeople() {
+
     setIsLoading(true);
-    let { data, error, status } = await supabase
+    
+    let { data, error } = await supabase
       .from("people")
       .select(`*`)
-      .eq("customer_id", user.id);
+      .eq("customer_id", profile.customer.id);
+
     if (data !== null) {
       let i = 0;
       rows = [];
@@ -94,10 +99,10 @@ const People = () => {
 
   async function getGroups() {
     setIsLoading(true);
-    let { data, error, status } = await supabase
+    let { data, error } = await supabase
       .from("groups")
       .select(`*`)
-      .eq("customer_id", user.id);
+      .eq("customer_id", profile.customer.id);
     if (data !== null) {
       let i = 0;
       rows = [];

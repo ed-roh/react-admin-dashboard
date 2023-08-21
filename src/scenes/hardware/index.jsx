@@ -10,12 +10,14 @@ import {
   DeleteForeverOutlined,
   ForwardToInboxOutlined,
 } from "@mui/icons-material";
+import { useProfile } from "utils/profile";
 
 
 const Hardware = () => {
   const [Hardware, setHardware] = useState([]);
 
-  const user = useUser();
+  const profile = useProfile();
+  const user = profile.user;
   const supabase = useSupabaseClient();
   
   let rows = [];
@@ -47,10 +49,10 @@ const Hardware = () => {
   };
 
   async function getHardware() {
-    let { data, error, status } = await supabase
+    let { data, error } = await supabase
     .from('hardware')
     .select(`*`)
-    .eq('customer_id', user.id);
+    .eq('customer_id', profile.company.id);
    if (data !== null) {
       let i = 0;
       data.map((asset) => {

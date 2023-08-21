@@ -1,7 +1,6 @@
-import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 
 import { Box, Button, IconButton } from "@mui/material";
@@ -12,14 +11,14 @@ import {
   DeleteForeverOutlined,
   ForwardToInboxOutlined,
 } from "@mui/icons-material";
+import { useProfile } from "utils/profile";
 
 
 const RiskRegister = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const [risks, setRisks] = useState([]);
-
-  const user = useUser();
+  const profile = useProfile();
+  const user = profile.user;
   const supabase = useSupabaseClient();
   
   let rows = [];
@@ -51,10 +50,10 @@ const RiskRegister = () => {
   };
 
   async function getRisks() {
-    let { data, error, status } = await supabase
+    let { data, error } = await supabase
     .from('risks')
     .select(`*`)
-    .eq('customer_id', user.id);
+    .eq('customer_id', profile.company.id);
    if (data !== null) {
       let i = 0;
       rows = [];

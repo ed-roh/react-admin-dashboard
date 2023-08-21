@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import SimpleBackDrop from "../../components/SimpleBackDrop";
 
 import { Box, Typography, TextField } from "@mui/material";
+import { useProfile } from "utils/profile";
 
 
 
@@ -16,8 +17,8 @@ const Company = () => {
   const [domainInfo, setDomainInfo] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
-
-  const user = useUser();
+  const profile = useProfile();
+  const user = profile.user;
   const supabase = useSupabaseClient();
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const Company = () => {
       getCompany();
       getDomains();
     }
-  }, []);
+  }, [user]);
   
   const handleCompanyInfoChange = (field) => (e) => {
     setCompanyInfo({
@@ -46,7 +47,7 @@ const Company = () => {
     let { data, error } = await supabase
       .from("customers")
       .select(`*`)
-      .eq("id", user.id);
+      .eq("id", profile.customer.id);
     if (data !== null) {
       console.log(data[0].name)
       setCompanyInfo(data[0]);
@@ -62,7 +63,7 @@ const Company = () => {
     let { data, error } = await supabase
       .from("domains")
       .select(`*`)
-      .eq("customer_id", user.id);
+      .eq("customer_id", profile.customer.id);
     if (data !== null) {
       setDomainInfo(data[0]);
     } else {

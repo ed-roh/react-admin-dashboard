@@ -1,6 +1,6 @@
-import { Dialog, DialogTitle, Icon, Typography } from "@mui/material";
+import { Dialog, DialogTitle } from "@mui/material";
 import Header from "../../components/Header";
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Box, Button, IconButton } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import { DataGrid, gridClasses } from "@mui/x-data-grid";
@@ -11,26 +11,41 @@ import {
   PreviewOutlined,
   CloseRounded,
 } from "@mui/icons-material";
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import { convertToRaw, convertFromRaw, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./editor.css";
 import SimpleBackDrop from "../../components/SimpleBackDrop";
-
-let rows = [];
-let realrows = [];
+import { useProfile } from "utils/profile";
 
 export default function PolicyandProcedure() {
-  const [documents, setDocuments] = useState([]);
-  const user = useUser();
   const supabase = useSupabaseClient();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [rows, setRows] = useState([]);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
+
+  const profile = useProfile();
+  const user = profile.user;
+  console.log("profile",profile)
+  
+  useEffect(() => {
+    if (user) {
+      getPolicies();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (name) {
+      let raw = convertToRaw(editorState.getCurrentContent());
+      saveContent(name, raw);
+    }
+  }, [editorState]);
+
 
   const openEditor = (name) => {
     console.log("opening: ", name);
@@ -38,7 +53,7 @@ export default function PolicyandProcedure() {
       .from("policies")
       .select("json")
       .eq("name", name)
-      .eq("customer_id", user.id)
+      .eq("customer_id", profile.customer.id)
       .then((data) => {
         console.log("found data");
         setEditorState(
@@ -56,10 +71,7 @@ export default function PolicyandProcedure() {
     setOpen(true);
   };
 
-  useEffect(() => {
-    let raw = convertToRaw(editorState.getCurrentContent());
-    saveContent(name, raw);
-  }, [editorState]);
+
 
   function saveContent(name, raw) {
     console.log("saving", name, raw);
@@ -67,7 +79,7 @@ export default function PolicyandProcedure() {
     supabase
       .from("policies")
       .upsert({
-        customer_id: user.id,
+        customer_id: profile.customer.id,
         name: name,
         json: JSON.stringify(raw),
         status: "Updated",
@@ -182,10 +194,13 @@ export default function PolicyandProcedure() {
 
   ];
 
+  async function getPolicies () {
+    let rows = [];
+    let realrows = [];
   supabase
     .from("policies")
     .select("*")
-    .eq("customer_id", user.id)
+    .eq("customer_id", profile.customer.id)
     .then((data) => {
       realrows = data.data;
     })
@@ -219,11 +234,14 @@ export default function PolicyandProcedure() {
               .find((r) => r.name === row.name)
               ?.last_modified_at.slice(0, 4) || "",
       }));
+      setRows(rows);
       setIsLoading(false);
     })
     .catch((err) => {
       console.log(err);
     });
+
+  }
 
   const ODD_OPACITY = 0.2;
 
@@ -279,7 +297,7 @@ export default function PolicyandProcedure() {
             <CloseRounded />
           </IconButton>
 
-          <DialogTitle>Policy Editor :: Editing {name}</DialogTitle>
+          <DialogTitle>Policy Editor :: Editing {name} </DialogTitle>
           <Box m={2}>
             <Editor
               wrapperClassName="wrapper-class"

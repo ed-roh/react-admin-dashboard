@@ -1,8 +1,8 @@
-import { tokens } from "../../theme";
+
+
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { supabase } from "../../supabase";
-import { useUser } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 
 import { Box, Button, IconButton } from "@mui/material";
@@ -15,14 +15,14 @@ import {
   Style,
   PeopleAltOutlined,
 } from "@mui/icons-material";
+import { useProfile } from "utils/profile";
 
 const Meetings = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const [meetings, setMeetings] = useState([]);
 
-  const user = useUser();
-  let rows = [];
+  const profile = useProfile();
+  const user = profile.user;
 
   useEffect(() => {
     if (user) {
@@ -51,10 +51,11 @@ const Meetings = () => {
   };
 
   async function getMeetings() {
-    let { data, error, status } = await supabase
+    let rows = [];
+    let { data, error } = await supabase
       .from("meetings")
       .select(`*`)
-      .eq("customer_id", user.id);
+      .eq("customer_id", profile.company.id);
     if (data !== null) {
       let i = 0;
       data.map((meeting) => {

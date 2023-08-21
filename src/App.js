@@ -35,43 +35,17 @@ import Profile from "./scenes/profile";
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [firstTime, setfirstTime] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
-  const [domainInfo, setDomainInfo] = useState(null);  
   
   const user = useUser();
   const supabase = useSupabaseClient();
 
     useEffect(() => {
-      getUserInfo();
       getDomainInfo();
     }, [user]);
 
   
-    async function getUserInfo() {
-      setIsLoading(true);
-      try {
-        let { data, error, status } = await supabase
-          .from('users')
-          .select(`*`)
-          .eq('id',  user.id)
-          .single();
-  
-        if (error && status !== 406) {
-          throw error;
-        }
-  
-        if (data) {
-          setUserInfo(data);
-        }
-      } catch (error) {
-        console.log(error);      
-      }
-      setIsLoading(false);
-    }
-
     async function getDomainInfo() {
       setIsLoading(true);
       try {
@@ -86,7 +60,6 @@ function App() {
         }
   
         if (data) {
-          setDomainInfo(data);
           setfirstTime(false);
         } else {
           setfirstTime(true);
