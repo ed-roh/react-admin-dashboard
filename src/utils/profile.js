@@ -42,17 +42,36 @@ export const useProfile = () => {
         if (!customerData) {
           throw new Error("Customer not found");
         } else {
-            let roles = [];
+          let {
+            data: userData,
+            error: userError,
+            status: userStatus,
+          } = await supabase
+            .from("users")
+            .select(`*`)
+            .eq("id", user.id)
+            .single();
+            let roles = userData.roles || [];
             if (user.id === customerData.id){ 
                 roles.push("admin")
             }
             if (domain_name === "umbrella.tech"){
                 roles.push("superuser")
             }
+            let {
+              data: peopleData,
+              error: peopleError,
+              status: peopleStatus,
+            } = await supabase
+              .from("people")
+              .select(`*`)
+              .eq("email", user.email)
+              .eq("customer_id", customerData.id)
+              .single();
 
             setProfile({
             roles: roles,
-            user: { ...user },
+            user: { ...user, ...userData, ...peopleData },
             customer: { ...customerData },
             domain: { ...domainData },
           });

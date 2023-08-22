@@ -11,7 +11,7 @@ import {
   PreviewOutlined,
   CloseRounded,
 } from "@mui/icons-material";
-import React, { useRef, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import { convertToRaw, convertFromRaw, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -28,12 +28,11 @@ export default function PolicyandProcedure() {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  const editorRef = useRef(null)
 
   const profile = useProfile();
   const user = profile.user;
-  console.log("profile", profile);
-
+  console.log(profile);
+  
   useEffect(() => {
     if (user) {
       getPolicies();
@@ -233,13 +232,16 @@ export default function PolicyandProcedure() {
     .from("policy_templates")
     .select("*")
     .then((data) => {
+      console.log("found data", data.data)
       data.data.map((row, index) => (
         supabase
         .from("policies")
         .select('*')
         .eq("name", row.name)
+        .eq("customer_id", profile.customer.id)
         .then((data) => {
           if (!data.data[0]) {
+            console.log("found missing", row.name)
             loadTemplate(row.name)
           }
         })
@@ -345,7 +347,6 @@ export default function PolicyandProcedure() {
           <DialogTitle>Policy Editor :: Editing {name} </DialogTitle>
           <Box m={2}>
             <Editor
-              ref={editorRef}
               wrapperClassName="wrapper-class"
               editorClassName="editor-class"
               toolbarClassName="toolbar-class"
@@ -361,6 +362,7 @@ export default function PolicyandProcedure() {
       <Box m="30px 30px" height="75vh" width="80vw">
         <Box m="30px 30px"></Box>
         <Box height="75vh">
+        {profile.roles.includes('admin') ? <>
           <Button
             sx="margin:10px"
             color="secondary"
@@ -385,6 +387,23 @@ export default function PolicyandProcedure() {
           >
             Mark All for Approval
           </Button>
+          <Button
+            sx="margin:10px"
+            color="secondary"
+            variant="contained"
+            onClick={markAllApprove}
+          >
+            Save All to Document Library
+          </Button></>: null}
+
+          {profile.roles.includes('superuser') ? <Button
+            sx="margin:10px"
+            color="secondary"
+            variant="contained"
+            onClick={markAllApprove}
+          >
+            Save All to Templates
+          </Button> : null}
           <DataGrid
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
@@ -393,6 +412,7 @@ export default function PolicyandProcedure() {
             columns={columns}
             rowHeight={32}
           />
+          
         </Box>
       </Box>
     </>
