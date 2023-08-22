@@ -13,6 +13,7 @@
     "@supabase/auth-ui-react": "^0.4.2",
     "@supabase/auth-ui-shared": "^0.1.6",
     "@supabase/supabase-js": "^2.32.0",
+    "ahooks": "^3.7.8",
     "debounce": "^1.2.1",
     "draft-convert": "^2.1.13",
     "draft.js": "^0.2.0",
@@ -22,7 +23,8 @@
     "react-dom": "^18.2.0",
     "react-draft-wysiwyg": "^1.15.0",
     "react-drag-drop-files": "^2.3.10",
-    "react-router-dom": "^6.15.0"
+    "react-router-dom": "^6.15.0",
+    "vercel": "^32.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

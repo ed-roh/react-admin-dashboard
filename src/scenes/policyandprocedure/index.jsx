@@ -11,26 +11,25 @@ import {
   PreviewOutlined,
   CloseRounded,
 } from "@mui/icons-material";
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { convertToRaw, convertFromRaw, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./editor.css";
 import SimpleBackDrop from "../../components/SimpleBackDrop";
 import { useProfile } from "utils/profile";
-import { useNavigate } from "react-router-dom";
 
 export default function PolicyandProcedure() {
   const supabase = useSupabaseClient();
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState();
+  const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [rows, setRows] = useState([]);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
+  const editorRef = useRef(null)
 
-  const navigate = useNavigate()
   const profile = useProfile();
   const user = profile.user;
   console.log("profile", profile);
@@ -42,21 +41,20 @@ export default function PolicyandProcedure() {
   }, [user]);
 
   useEffect(() => {
-    if (name) {
+    if (name !== '' && editorState.getCurrentContent().getPlainText() !== '') {
       let raw = convertToRaw(editorState.getCurrentContent());
       saveContent(name, raw);
     }
   }, [editorState]);
 
+ 
   const openEditor = (name) => {
-    console.log("opening: ", name);
     supabase
       .from("policies")
       .select("json")
       .eq("name", name)
       .eq("customer_id", profile.customer.id)
       .then((data) => {
-        console.log("found data");
         setEditorState(
           EditorState.createWithContent(
             convertFromRaw(JSON.parse(data.data[0].json))
@@ -64,8 +62,6 @@ export default function PolicyandProcedure() {
         );
       })
       .catch((err) => {
-        console.log("no data");
-        setEditorState(EditorState.createEmpty());
         console.log(err);
       });
     setName(name);
@@ -74,7 +70,6 @@ export default function PolicyandProcedure() {
 
   function saveContent(name, raw) {
     console.log("saving", name, raw);
-    setIsLoading(true);
     supabase
       .from("policies")
       .upsert({
@@ -87,10 +82,8 @@ export default function PolicyandProcedure() {
       })
       .select()
       .then((data) => {
-        setIsLoading(false);
       })
       .catch((err) => {
-        setIsLoading(false);
         console.log(err);
       });
   }
@@ -138,17 +131,16 @@ export default function PolicyandProcedure() {
                     ?.last_modified_at.slice(0, 4) || "",
             }));
             setRows(rows);
-            setIsLoading(false);
           })
           .catch((err) => {
-            setIsLoading(false);
             console.log(err);
           });
       })
       .catch((err) => {
-        setIsLoading(false);
         console.log(err);
       });
+      setIsLoading(false);
+
   }
 
 
@@ -246,7 +238,6 @@ export default function PolicyandProcedure() {
         .from("policies")
         .select('*')
         .eq("name", row.name)
-        .eq("customer_id", profile.customer.id)
         .then((data) => {
           if (!data.data[0]) {
             loadTemplate(row.name)
@@ -354,6 +345,7 @@ export default function PolicyandProcedure() {
           <DialogTitle>Policy Editor :: Editing {name} </DialogTitle>
           <Box m={2}>
             <Editor
+              ref={editorRef}
               wrapperClassName="wrapper-class"
               editorClassName="editor-class"
               toolbarClassName="toolbar-class"
