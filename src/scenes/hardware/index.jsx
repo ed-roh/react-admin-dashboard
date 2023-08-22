@@ -74,9 +74,11 @@ const Hardware = () => {
         setIsLoading(false);
       });
     } else {
-      alert("Error loading documents");
+      setIsLoading(false);
       console.log(error);
     }
+    setIsLoading(false);
+
   }
 
   const columns = [

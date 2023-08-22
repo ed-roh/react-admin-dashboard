@@ -91,7 +91,7 @@ const People = () => {
       });
       setPeople(rows);
     } else {
-      alert("Error loading documents");
+      setIsLoading(false);
       console.log(error);
     }
     setIsLoading(false);
