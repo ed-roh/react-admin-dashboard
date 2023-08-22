@@ -157,6 +157,8 @@ export function FirstLogin() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = useState(true);
+  const [fetch, setFetch] = useState(false);
+
 
   const navigate = useNavigate();
   const user = useUser();
@@ -305,7 +307,7 @@ export function FirstLogin() {
         );
 
       case 1:
-
+        setFetch(true);
         return (
           <Box sx={{ "& > :not(style)": { m: 1 } }}>
             <TextField
@@ -634,7 +636,7 @@ export function FirstLogin() {
           });
     }
     fetchData();
-  }, []);
+  }, [fetch]);
 
   if (isLoading) {
     return <SimpleBackDrop text="&nbsp;&nbsp;Gathering Information" />;
