@@ -82,7 +82,7 @@ const People = () => {
             full_name: person.full_name,
             email: person.email,
             title: person.title,
-            departmenet: person.department,
+            department: person.department,
             exposed: person.exposed,
             breached: person.breached,
           },

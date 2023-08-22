@@ -18,6 +18,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./editor.css";
 import SimpleBackDrop from "../../components/SimpleBackDrop";
 import { useProfile } from "utils/profile";
+import { useNavigate } from "react-router-dom";
 
 export default function PolicyandProcedure() {
   const supabase = useSupabaseClient();
@@ -29,6 +30,7 @@ export default function PolicyandProcedure() {
     EditorState.createEmpty()
   );
 
+  const navigate = useNavigate()
   const profile = useProfile();
   const user = profile.user;
   console.log("profile", profile);
@@ -204,13 +206,56 @@ export default function PolicyandProcedure() {
     );
   };
 
-  const loadTemplate = async () => {};
+  const loadTemplate = async (name) => {
+    supabase
+    .from("policy_templates")
+    .select("*")
+    .eq("name", name)
+    .then((data) => {
+      console.log("found data", data.data)
+      if (data.data[0]) {
+        supabase
+        .from("policies")
+        .upsert({
+          customer_id: profile.customer.id,
+          name: name,
+          json: data.data[0].json,
+          status: "Imported",
+          modified_by: user.email,
+          last_modified_at: "now()",
+        })
+        .then((data) => {
+          console.log('saved', data)
+          getPolicies();
+        })
+      }
+    })     
+  };
 
   const markReview = async () => {};
 
   const markApprove = async () => {};
 
-  const loadMissingTemplates = async () => {};
+  const loadMissingTemplates = async () => {
+    supabase
+    .from("policy_templates")
+    .select("*")
+    .then((data) => {
+      data.data.map((row, index) => (
+        supabase
+        .from("policies")
+        .select('*')
+        .eq("name", row.name)
+        .eq("customer_id", profile.customer.id)
+        .then((data) => {
+          if (!data.data[0]) {
+            loadTemplate(row.name)
+          }
+        })
+      ))
+    })
+    getPolicies();
+  };
 
   const markAllReview = async () => {};
 
