@@ -31,7 +31,6 @@ export default function PolicyandProcedure() {
 
   const profile = useProfile();
   const user = profile.user;
-  console.log(profile);
   
   useEffect(() => {
     if (user) {
@@ -364,7 +363,7 @@ export default function PolicyandProcedure() {
         <Box height="75vh">
         {profile.roles.includes('admin') ? <>
           <Button
-            sx="margin:10px"
+            sx={{margin: '10px'}}
             color="secondary"
             variant="contained"
             onClick={loadMissingTemplates}
@@ -372,7 +371,7 @@ export default function PolicyandProcedure() {
             Load Templates for Missing
           </Button>
           <Button
-            sx="margin:10px"
+            sx={{margin: '10px'}}
             color="secondary"
             variant="contained"
             onClick={markAllReview}
@@ -380,7 +379,7 @@ export default function PolicyandProcedure() {
             Mark All for Review
           </Button>
           <Button
-            sx="margin:10px"
+            sx={{margin: '10px'}}
             color="secondary"
             variant="contained"
             onClick={markAllApprove}
@@ -388,7 +387,7 @@ export default function PolicyandProcedure() {
             Mark All for Approval
           </Button>
           <Button
-            sx="margin:10px"
+            sx={{margin: '10px'}}
             color="secondary"
             variant="contained"
             onClick={markAllApprove}
@@ -397,7 +396,7 @@ export default function PolicyandProcedure() {
           </Button></>: null}
 
           {profile.roles.includes('superuser') ? <Button
-            sx="margin:10px"
+            sx={{margin: '10px'}}
             color="secondary"
             variant="contained"
             onClick={markAllApprove}

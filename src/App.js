@@ -32,6 +32,7 @@ import Billing from "./scenes/billing";
 import Probes from "./scenes/probes";
 import Notifications from "./scenes/notifications";
 import Profile from "./scenes/profile";
+import { useProfile } from "./utils/profile";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -47,7 +48,9 @@ function App() {
 
   
     async function getDomainInfo() {
-      setIsLoading(true);
+      if (!user) {
+        return;
+      }
       try {
         let { data, error, status } = await supabase
           .from('domains')
@@ -57,18 +60,19 @@ function App() {
   
         if (error && status !== 406) {
           throw error;
-        }
-  
+        } 
         if (data) {
           setfirstTime(false);
+          setIsLoading(false);
         } else {
           setfirstTime(true);
+          setIsLoading(false)
         }
       } catch (error) {
-        setfirstTime(true);
+        setfirstTime(false);
         console.log(error);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
 
     

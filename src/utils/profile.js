@@ -51,7 +51,10 @@ export const useProfile = () => {
             .select(`*`)
             .eq("id", user.id)
             .single();
-            let roles = userData.roles || [];
+            if (userError && userStatus !== 406) {
+              throw userError;
+            }
+            let roles = [userData.roles]
             if (user.id === customerData.id){ 
                 roles.push("admin")
             }
