@@ -60,9 +60,10 @@ const Meetings = () => {
       .eq("customer_id", profile.customer.id);
     if (data !== null) {
       let i = 0;
+      let rows = [];
       data.map((meeting) => {
         i = i + 1;
-        let rows = [
+        rows = [
           {
             id: i,
             name: meeting.name,
@@ -79,7 +80,7 @@ const Meetings = () => {
         setIsLoading(false);
       });
     } else {
-      alert("Error loading documents");
+      setIsLoading(false);
       console.log(error);
     }
   }

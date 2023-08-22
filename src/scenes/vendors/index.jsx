@@ -20,6 +20,7 @@ const Vendors = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [vendors, setVendors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const profile = useProfile();
   const user = profile.user;
@@ -52,15 +53,17 @@ const Vendors = () => {
   };
 
   async function getVendors() {
+    setIsLoading(true);
     let { data, error, status } = await supabase
     .from('vendors')
     .select(`*`)
     .eq('customer_id', profile.customer.id);
    if (data !== null) {
       let i = 0;
+      let rows =[];
       data.map((vendor) => {
         i = i + 1;
-        let rows = [
+        rows = [
           {
             id: i,
             name: vendor.name,
@@ -71,9 +74,10 @@ const Vendors = () => {
           ...rows,
         ];
         setVendors(rows);
+        setIsLoading(false);
       });
     } else {
-      alert("Error loading documents");
+      setIsLoading(false);
       console.log(error);
     }
   }

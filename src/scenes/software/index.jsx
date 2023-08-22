@@ -1,4 +1,3 @@
-import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { supabase } from "../../supabase";
@@ -19,8 +18,7 @@ import SimpleBackDrop from "../../components/SimpleBackDrop";
 
 const Software = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  const [Software, setSoftware] = useState([]);
+  const [software, setSoftware] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const profile = useProfile();
@@ -57,12 +55,12 @@ const Software = () => {
       .from("software")
       .select(`*`)
       .eq("customer_id", profile.customer.id);
-
-    if (data) {
+    if (data !== null) {
       let i = 0;
+      let rows = [];
       data.map((asset) => {
         i = i + 1;
-        let rows = [
+        rows = [
           {
             id: i,
             name: asset.name,
@@ -76,12 +74,10 @@ const Software = () => {
         setSoftware(rows);
         setIsLoading(false);
       });
-    
     } else {
       setIsLoading(false);
       console.log(error);
     }
-
   }
 
   const columns = [
@@ -147,7 +143,7 @@ const Software = () => {
           getRowClassName={(params) =>
             params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
           }
-          rows={Software}
+          rows={software}
           columns={columns}
           rowHeight={32}
         />

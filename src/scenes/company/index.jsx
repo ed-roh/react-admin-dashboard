@@ -49,13 +49,12 @@ const Company = () => {
       .select(`*`)
       .eq("id", profile.customer.id);
     if (data !== null) {
-      console.log(data[0].name)
+      setIsLoading(false);
       setCompanyInfo(data[0]);
     } else {
-      alert("Error loading documents");
+      setIsLoading(false);
       console.log(error);
     }
-    setIsLoading(false);
   }
 
   async function getDomains() {
@@ -66,11 +65,11 @@ const Company = () => {
       .eq("customer_id", profile.customer.id);
     if (data !== null) {
       setDomainInfo(data[0]);
+      setIsLoading(false);
     } else {
-      alert("Error loading documents");
+      setIsLoading(false);
       console.log(error);
     }
-    setIsLoading(false);
   }
   
   if (isLoading) {
