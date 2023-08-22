@@ -74,6 +74,8 @@ export default function DocumentLibrary() {
       setIsLoading(false);
       console.log(error);
     }
+    setIsLoading(false);
+
   }
 
   if (isLoading) {
