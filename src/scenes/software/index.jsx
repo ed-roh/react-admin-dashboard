@@ -2,11 +2,10 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { supabase } from "../../supabase";
-import { useUser } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 
 import { Box, Button, IconButton } from "@mui/material";
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid } from "@mui/x-data-grid";
 import {
   EditOutlined,
   PreviewOutlined,
@@ -15,15 +14,17 @@ import {
   Style,
   PeopleAltOutlined,
 } from "@mui/icons-material";
-
+import { useProfile } from "utils/profile";
+import SimpleBackDrop from "../../components/SimpleBackDrop";
 
 const Software = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [Software, setSoftware] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const user = useUser();
-  let rows = [];
+  const profile = useProfile();
+  const user = profile.user;
 
   useEffect(() => {
     if (user) {
@@ -42,9 +43,7 @@ const Software = () => {
         >
           {params.field === "editbutton" ? <EditOutlined /> : null}
           {params.field === "deletebutton" ? <DeleteForeverOutlined /> : null}
-          {params.field === "invitebutton" ? (
-            <ForwardToInboxOutlined />
-          ) : null}
+          {params.field === "invitebutton" ? <ForwardToInboxOutlined /> : null}
           {params.field === "reviewbutton" ? <PreviewOutlined /> : null}
           {params.field === "membersbutton" ? <PeopleAltOutlined /> : null}
         </IconButton>
@@ -53,32 +52,36 @@ const Software = () => {
   };
 
   async function getSoftware() {
-    let { data, error, status } = await supabase
-    .from('software')
-    .select(`*`)
-    .eq('customer_id', user.id);
-   if (data !== null) {
+    setIsLoading(true);
+    let { data, error } = await supabase
+      .from("software")
+      .select(`*`)
+      .eq("customer_id", profile.customer.id);
+
+    if (data) {
       let i = 0;
       data.map((asset) => {
         i = i + 1;
-        rows = [
+        let rows = [
           {
             id: i,
             name: asset.name,
             vendor: asset.vendor,
             version: asset.version,
             license: asset.license,
-            user_count: '33'
+            user_count: "33",
           },
           ...rows,
         ];
+        setSoftware(rows);
+        setIsLoading(false);
       });
-      console.log(data)
-      setSoftware(rows);
+    
     } else {
-      alert("Error loading documents");
+      setIsLoading(false);
       console.log(error);
     }
+
   }
 
   const columns = [
@@ -126,26 +129,27 @@ const Software = () => {
       width: 50,
       renderCell: renderButton,
     },
-
   ];
+
+  if (isLoading) {
+    return <SimpleBackDrop />;
+  }
 
   return (
     <Box m="20px">
-      <Header
-        title="Your Software Assets"
-      />
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-       
-      >        <Button sx="margin:10px" color="secondary" variant="contained">
-      New Asset
-    </Button>
+      <Header title="Your Software Assets" />
+      <Box m="40px 0 0 0" height="75vh">
+        {" "}
+        <Button sx="margin:10px" color="secondary" variant="contained">
+          New Asset
+        </Button>
         <DataGrid
-          getRowClassName={(params) => params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd' }
+          getRowClassName={(params) =>
+            params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
+          }
           rows={Software}
           columns={columns}
-         rowHeight={32}
+          rowHeight={32}
         />
       </Box>
     </Box>

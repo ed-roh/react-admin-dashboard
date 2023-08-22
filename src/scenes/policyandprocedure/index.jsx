@@ -31,8 +31,8 @@ export default function PolicyandProcedure() {
 
   const profile = useProfile();
   const user = profile.user;
-  console.log("profile",profile)
-  
+  console.log("profile", profile);
+
   useEffect(() => {
     if (user) {
       getPolicies();
@@ -45,7 +45,6 @@ export default function PolicyandProcedure() {
       saveContent(name, raw);
     }
   }, [editorState]);
-
 
   const openEditor = (name) => {
     console.log("opening: ", name);
@@ -70,8 +69,6 @@ export default function PolicyandProcedure() {
     setName(name);
     setOpen(true);
   };
-
-
 
   function saveContent(name, raw) {
     console.log("saving", name, raw);
@@ -191,56 +188,62 @@ export default function PolicyandProcedure() {
     { field: "last_modified_at", headerName: "Last Modified", width: 120 },
     { field: "modified_by", headerName: "Modified By", width: 175 },
     { field: "next_review", headerName: "Next Review", width: 120 },
-
   ];
 
-  async function getPolicies () {
+  async function getPolicies() {
     let rows = [];
     let realrows = [];
-  supabase
-    .from("policies")
-    .select("*")
-    .eq("customer_id", profile.customer.id)
-    .then((data) => {
-      realrows = data.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    setIsLoading(true);
+    supabase
+      .from("policies")
+      .select("*")
+      .eq("customer_id", profile.customer.id)
+      .then((data) => {
+        realrows = data.data;
 
-  supabase
-    .from("policy_templates")
-    .select("*")
-    .then((data) => {
-      rows = data.data.map((row, index) => ({
-        id: index,
-        name: row.name,
-        status: realrows.find((r) => r.name === row.name)?.status || "Missing",
-        owner: realrows.find((r) => r.name === row.name)?.owner || "",
-        created_by: realrows.find((r) => r.name === row.name)?.created_by || "",
-        created_at:
-          realrows.find((r) => r.name === row.name)?.created_at.slice(5, 10) +
-            "-" +
-            realrows.find((r) => r.name === row.name)?.created_at.slice(0, 4) ||
-          "",
-        modified_by:
-          realrows.find((r) => r.name === row.name)?.modified_by || "",
-        last_modified_at:
-          realrows
-            .find((r) => r.name === row.name)
-            ?.last_modified_at.slice(5, 10) +
-            "-" +
-            realrows
-              .find((r) => r.name === row.name)
-              ?.last_modified_at.slice(0, 4) || "",
-      }));
-      setRows(rows);
-      setIsLoading(false);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
+        supabase
+          .from("policy_templates")
+          .select("*")
+          .then((data) => {
+            rows = data.data.map((row, index) => ({
+              id: index,
+              name: row.name,
+              status:
+                realrows.find((r) => r.name === row.name)?.status || "Missing",
+              owner: realrows.find((r) => r.name === row.name)?.owner || "",
+              created_by:
+                realrows.find((r) => r.name === row.name)?.created_by || "",
+              created_at:
+                realrows
+                  .find((r) => r.name === row.name)
+                  ?.created_at.slice(5, 10) +
+                  "-" +
+                  realrows
+                    .find((r) => r.name === row.name)
+                    ?.created_at.slice(0, 4) || "",
+              modified_by:
+                realrows.find((r) => r.name === row.name)?.modified_by || "",
+              last_modified_at:
+                realrows
+                  .find((r) => r.name === row.name)
+                  ?.last_modified_at.slice(5, 10) +
+                  "-" +
+                  realrows
+                    .find((r) => r.name === row.name)
+                    ?.last_modified_at.slice(0, 4) || "",
+            }));
+            setRows(rows);
+            setIsLoading(false);
+          })
+          .catch((err) => {
+            setIsLoading(false);
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+      });
   }
 
   const ODD_OPACITY = 0.2;

@@ -2,7 +2,6 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { supabase } from "../../supabase";
-import { useUser } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 
 import { Box, Button, IconButton } from "@mui/material";
@@ -15,14 +14,16 @@ import {
   Style,
 } from "@mui/icons-material";
 
+import { useProfile } from "utils/profile";
 
 const Vendors = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [vendors, setVendors] = useState([]);
 
-  const user = useUser();
-  let rows = [];
+  const profile = useProfile();
+  const user = profile.user;
+
 
   useEffect(() => {
     if (user) {
@@ -54,12 +55,12 @@ const Vendors = () => {
     let { data, error, status } = await supabase
     .from('vendors')
     .select(`*`)
-    .eq('customer_id', user.id);
+    .eq('customer_id', profile.customer.id);
    if (data !== null) {
       let i = 0;
       data.map((vendor) => {
         i = i + 1;
-        rows = [
+        let rows = [
           {
             id: i,
             name: vendor.name,
@@ -69,8 +70,8 @@ const Vendors = () => {
           },
           ...rows,
         ];
+        setVendors(rows);
       });
-      setVendors(rows);
     } else {
       alert("Error loading documents");
       console.log(error);

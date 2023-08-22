@@ -16,10 +16,12 @@ import {
   PeopleAltOutlined,
 } from "@mui/icons-material";
 import { useProfile } from "utils/profile";
+import SimpleBackDrop from "../../components/SimpleBackDrop";
 
 const Meetings = () => {
   const theme = useTheme();
   const [meetings, setMeetings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const profile = useProfile();
   const user = profile.user;
@@ -51,16 +53,16 @@ const Meetings = () => {
   };
 
   async function getMeetings() {
-    let rows = [];
+    setIsLoading(true);
     let { data, error } = await supabase
       .from("meetings")
       .select(`*`)
-      .eq("customer_id", profile.company.id);
+      .eq("customer_id", profile.customer.id);
     if (data !== null) {
       let i = 0;
       data.map((meeting) => {
         i = i + 1;
-        rows = [
+        let rows = [
           {
             id: i,
             name: meeting.name,
@@ -73,8 +75,9 @@ const Meetings = () => {
           },
           ...rows,
         ];
+        setMeetings(rows);
+        setIsLoading(false);
       });
-      setMeetings(rows);
     } else {
       alert("Error loading documents");
       console.log(error);
@@ -133,6 +136,10 @@ const Meetings = () => {
     },
   ];
 
+  if (isLoading) {
+    return <SimpleBackDrop />;
+  }
+  
   return (
     <Box m="20px">
       <Header title="Meeting Manager" />

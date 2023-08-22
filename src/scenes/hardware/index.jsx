@@ -11,17 +11,18 @@ import {
   ForwardToInboxOutlined,
 } from "@mui/icons-material";
 import { useProfile } from "utils/profile";
+import SimpleBackDrop from "../../components/SimpleBackDrop";
 
 
 const Hardware = () => {
   const [Hardware, setHardware] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const profile = useProfile();
   const user = profile.user;
+
   const supabase = useSupabaseClient();
   
-  let rows = [];
-
   useEffect(() => {
     if (user) {
       getHardware();
@@ -49,15 +50,16 @@ const Hardware = () => {
   };
 
   async function getHardware() {
+    setIsLoading(true);
     let { data, error } = await supabase
     .from('hardware')
     .select(`*`)
-    .eq('customer_id', profile.company.id);
+    .eq('customer_id', profile.customer.id);
    if (data !== null) {
       let i = 0;
       data.map((asset) => {
         i = i + 1;
-        rows = [
+        let rows = [
           {
             id: i,
             name: asset.hostname,
@@ -70,8 +72,9 @@ const Hardware = () => {
           },
           ...rows,
         ];
+        setHardware(rows);
+        setIsLoading(false);
       });
-      setHardware(rows);
     } else {
       alert("Error loading documents");
       console.log(error);
@@ -124,6 +127,10 @@ const Hardware = () => {
     },
 
   ];
+
+  if (isLoading) {
+    return <SimpleBackDrop />;
+  }
 
   return (
     <Box m="20px">

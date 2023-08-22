@@ -42,7 +42,16 @@ export const useProfile = () => {
         if (!customerData) {
           throw new Error("Customer not found");
         } else {
-          setProfile({
+            let roles = [];
+            if (user.id === customerData.id){ 
+                roles.push("admin")
+            }
+            if (domain_name === "umbrella.tech"){
+                roles.push("superuser")
+            }
+
+            setProfile({
+            roles: roles,
             user: { ...user },
             customer: { ...customerData },
             domain: { ...domainData },

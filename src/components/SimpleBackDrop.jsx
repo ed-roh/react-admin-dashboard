@@ -6,7 +6,7 @@ export default function SimpleBackDrop() {
   return (
     <div>
       <Backdrop open sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <CircularProgress color="inherit" />
+        <CircularProgress color="inherit" />&nbsp;&nbsp;Loading Data
       </Backdrop>
     </div>
   );

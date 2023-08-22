@@ -12,11 +12,13 @@ import {
   ForwardToInboxOutlined,
 } from "@mui/icons-material";
 import { useProfile } from "utils/profile";
-
+import SimpleBackDrop from "../../components/SimpleBackDrop";
 
 const RiskRegister = () => {
   const theme = useTheme();
   const [risks, setRisks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const profile = useProfile();
   const user = profile.user;
   const supabase = useSupabaseClient();
@@ -50,10 +52,11 @@ const RiskRegister = () => {
   };
 
   async function getRisks() {
+    setIsLoading(true);
     let { data, error } = await supabase
     .from('risks')
     .select(`*`)
-    .eq('customer_id', profile.company.id);
+    .eq('customer_id', profile.customer.id);
    if (data !== null) {
       let i = 0;
       rows = [];
@@ -77,8 +80,9 @@ const RiskRegister = () => {
         ];
       });
       setRisks(rows);
+      setIsLoading(false);
     } else {
-      alert("Error loading documents");
+      setIsLoading(false);
       console.log(error);
     }
   }
@@ -143,6 +147,10 @@ const RiskRegister = () => {
       flex: 150,
     },
   ];
+
+  if (isLoading) {
+    return <SimpleBackDrop />;
+  }
 
   return (
     <Box m="20px">
