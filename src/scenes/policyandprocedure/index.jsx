@@ -72,7 +72,7 @@ export default function PolicyandProcedure() {
 
   function saveContent(name, raw) {
     console.log("saving", name, raw);
-
+    setIsLoading(true);
     supabase
       .from("policies")
       .upsert({
@@ -84,8 +84,11 @@ export default function PolicyandProcedure() {
         last_modified_at: "now()",
       })
       .select()
-      .then((data) => {})
+      .then((data) => {
+        setIsLoading(false);
+      })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err);
       });
   }
