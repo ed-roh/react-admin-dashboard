@@ -15,10 +15,10 @@ import {
 } from "@mui/icons-material";
 
 import { useProfile } from "utils/profile";
+import SimpleBackDrop from "../../components/SimpleBackDrop";
 
 const Vendors = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const [vendors, setVendors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -122,6 +122,10 @@ const Vendors = () => {
     },
 
   ];
+
+  if (isLoading) {
+    return <SimpleBackDrop />;
+  }
 
   return (
     <Box m="20px">
