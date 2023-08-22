@@ -55,7 +55,7 @@ const Software = () => {
       .from("software")
       .select(`*`)
       .eq("customer_id", profile.customer.id);
-    if (data !== null) {
+    if (!error) {
       let i = 0;
       let rows = [];
       data.map((asset) => {
@@ -78,6 +78,7 @@ const Software = () => {
       setIsLoading(false);
       console.log(error);
     }
+    setIsLoading(false);
   }
 
   const columns = [

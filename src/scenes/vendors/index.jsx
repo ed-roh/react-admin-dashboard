@@ -80,6 +80,7 @@ const Vendors = () => {
       setIsLoading(false);
       console.log(error);
     }
+    setIsLoading(false);
   }
 
   const columns = [

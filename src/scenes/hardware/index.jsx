@@ -52,7 +52,7 @@ const Hardware = () => {
       .from("hardware")
       .select(`*`)
       .eq("customer_id", profile.customer.id);
-    if (data !== null) {
+    if (!error) {
       let i = 0;
       let rows = [];
       data.map((asset) => {
