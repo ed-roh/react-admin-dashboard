@@ -36,14 +36,16 @@ import { useProfile } from "./utils/profile";
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [firstTime, setfirstTime] = useState(false);
   
   const user = useUser();
   const supabase = useSupabaseClient();
 
     useEffect(() => {
-      getDomainInfo();
+      if (user){
+       getDomainInfo();
+      }
     }, [user]);
 
   
