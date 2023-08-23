@@ -73,6 +73,7 @@ function App() {
         console.log(error);
         setIsLoading(false);
       }
+      setIsLoading(false);
     }
 
     
