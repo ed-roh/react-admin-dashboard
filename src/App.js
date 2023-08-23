@@ -6,11 +6,10 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
-import AuthUI from "./components/AuthUI";
 
+import AuthUI from "./components/AuthUI";
 import FirstLogin from "./components/FirstLogin";
 import SimpleBackDrop from "./components/SimpleBackDrop";
-
 import Layout from "./components/Layout";
 
 import Dashboard from "./scenes/dashboard";
@@ -32,7 +31,6 @@ import Billing from "./scenes/billing";
 import Probes from "./scenes/probes";
 import Notifications from "./scenes/notifications";
 import Profile from "./scenes/profile";
-import { useProfile } from "./utils/profile";
 
 function App() {
   const [theme, colorMode] = useMode();
