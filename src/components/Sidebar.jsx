@@ -191,14 +191,14 @@ const Sidebar = ({
                   alignItems="center"
                   mr="15px"
                 ></Box>
-              <Box
+{/*               <Box
                 component="img"
                 alt="KnowByte Solutions"
                 src={logoImage}
                 height="65px"
                 width="140px"
 
-              />
+              /> */}
               <Typography variant="h5">
                 CleaRisk&reg; Portal
               </Typography>

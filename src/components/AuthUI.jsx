@@ -14,7 +14,7 @@ export default function AuthUI({view}) {
       }}
     >
       <Dialog maxWidth="sm" fullWidth open="true">
-        <DialogTitle>KnowByte Solutions CleaRisk&reg; Portal</DialogTitle>
+        <DialogTitle>KnowBreach Solutions CleaRisk&reg; Portal</DialogTitle>
         <Box sx={{ m: 4 }}>
           <Auth
             supabaseClient={supabase}
