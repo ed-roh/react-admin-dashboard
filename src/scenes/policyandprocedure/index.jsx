@@ -36,7 +36,7 @@ export default function PolicyandProcedure() {
     if (user) {
       getPolicies();
     }
-  }, [user]);
+  }, [user,open]);
 
   useEffect(() => {
     if (name !== '' && editorState.getCurrentContent().getPlainText() !== '') {
