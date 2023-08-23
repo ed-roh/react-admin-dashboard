@@ -21,7 +21,7 @@ const People = () => {
   const colors = tokens(theme.palette.mode);
   const [people, setPeople] = useState([]);
   const [groups, setGroups] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const profile = useProfile();
   const user = profile.user;
