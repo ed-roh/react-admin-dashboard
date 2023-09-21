@@ -54,11 +54,17 @@ const Sidebar = () => {
           padding: "5px 35px 5px 20px !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
+          color: "#3ACBE8 !important",  
         },
         "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+          color: "#1CA3DE !important", 
         },
+        marginLeft: "20px",
+
+        marginTop: "20px",
+
+        borderRadius: "15px",
+
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
@@ -68,20 +74,29 @@ const Sidebar = () => {
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
-              margin: "10px 0 20px 0",
+              margin: "0px 0 20px 0",
               color: colors.grey[100],
             }}
           >
+            <Box display="flex" justifyContent="center" alignItems="center" marginLeft="15px">
+            <img
+              width="50px"
+              height="50px"
+              src={`../../assets/aailogo.png`}
+              style={{ cursor: "pointer", borderRadius: "50%", }}
+            />
+            </Box>
+            
             {!isCollapsed && (
               <Box
                 display="flex"
-                justifyContent="space-between"
+                justifyContent="center"
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
-                </Typography>
+                {/* <Typography variant="h3" color={colors.grey[100]}>
+                  AlterCall AI
+                </Typography> */}
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
                 </IconButton>
@@ -96,7 +111,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={`../../assets/ryanblair.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -107,11 +122,11 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Ed Roh
+                  Ryan Blair
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                {/* <Typography variant="h5" color={colors.greenAccent[500]}>
                   VP Fancy Admin
-                </Typography>
+                </Typography> */}
               </Box>
             </Box>
           )}
@@ -130,29 +145,29 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Data
+              People
             </Typography>
             <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Contacts Information"
+              title="Client List"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
+              title="Manage Team"
+              to="/team"
+              icon={<PeopleOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            /> */}
+            {/* <Item
               title="Invoices Balances"
               to="/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
 
             <Typography
               variant="h6"
@@ -161,8 +176,15 @@ const Sidebar = () => {
             >
               Pages
             </Typography>
-            <Item
+            {/* <Item
               title="Profile Form"
+              to="/form"
+              icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            /> */}
+            <Item
+              title="Session Page"
               to="/form"
               icon={<PersonOutlinedIcon />}
               selected={selected}
