@@ -16,10 +16,13 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 
+
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
 
+
+  
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>

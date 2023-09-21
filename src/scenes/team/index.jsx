@@ -36,10 +36,10 @@ const Team = () => {
       flex: 1,
     },
     {
-      field: "accessLevel",
-      headerName: "Access Level",
+      field: "statusLevel",
+      headerName: "Status",
       flex: 1,
-      renderCell: ({ row: { access } }) => {
+      renderCell: ({ row: { status } }) => {
         return (
           <Box
             width="60%"
@@ -48,19 +48,19 @@ const Team = () => {
             display="flex"
             justifyContent="center"
             backgroundColor={
-              access === "admin"
+              status === "Complete"
                 ? colors.greenAccent[600]
-                : access === "manager"
+                : status === "Processing"
                 ? colors.greenAccent[700]
                 : colors.greenAccent[700]
             }
             borderRadius="4px"
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
+            {status === "Complete"}
+            {status === "Processing"}
+            {status === "user"}
             <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
+              {status}
             </Typography>
           </Box>
         );
@@ -69,11 +69,14 @@ const Team = () => {
   ];
 
   return (
-    <Box m="20px">
-      <Header title="TEAM" subtitle="Managing the Team Members" />
+    <Box m="30px">
+      <h2 style={{color: colors.grey[100], borderBottom: "0.05rem solid #ccc"}}>
+        Client File List
+      </h2>
+      <Header title="" subtitle="" />
       <Box
         m="40px 0 0 0"
-        height="75vh"
+        height="45vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",

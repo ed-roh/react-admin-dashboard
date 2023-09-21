@@ -12,6 +12,8 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import Team from "../team";
+
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -21,12 +23,12 @@ const Dashboard = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+        <Header title="Coaching Overview" subtitle="" />
 
         <Box>
           <Button
             sx={{
-              backgroundColor: colors.blueAccent[700],
+              backgroundColor: "#1CA3DE",
               color: colors.grey[100],
               fontSize: "14px",
               fontWeight: "bold",
@@ -53,10 +55,11 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          borderRadius="15px"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
+            title="N/A"
+            subtitle="Questions Asked"
             progress="0.75"
             increase="+14%"
             icon={
@@ -72,10 +75,11 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          borderRadius="15px"
         >
           <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
+            title="N/A"
+            subtitle="Questions Answered"
             progress="0.50"
             increase="+21%"
             icon={
@@ -91,10 +95,11 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          borderRadius="15px"
         >
           <StatBox
-            title="32,441"
-            subtitle="New Clients"
+            title="N/A"
+            subtitle="Agreements"
             progress="0.30"
             increase="+5%"
             icon={
@@ -110,10 +115,11 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          borderRadius="15px"
         >
           <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
+            title="N/A"
+            subtitle="Principles"
             progress="0.80"
             increase="+43%"
             icon={
@@ -126,18 +132,12 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          gridColumn="span 12" // initially span 8
+          gridRow="span 3" // initially span 3
+          backgroundColor="transparent"
         >
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
+
+            {/* <Box>
               <Typography
                 variant="h5"
                 fontWeight="600"
@@ -152,20 +152,17 @@ const Dashboard = () => {
               >
                 $59,342.32
               </Typography>
-            </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                />
-              </IconButton>
-            </Box>
-          </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            </Box> */}
+            <Box height="250px" m="-20px 0 0 0">
+            <Typography m="-10px">
+              <Team isDashboard={true} />
+            </Typography>
+
           </Box>
         </Box>
-        <Box
+
+        {/* Extra Feature Templates for Future Versions */}
+        {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -214,10 +211,10 @@ const Dashboard = () => {
               </Box>
             </Box>
           ))}
-        </Box>
+        </Box> */}
 
         {/* ROW 3 */}
-        <Box
+        {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -275,7 +272,7 @@ const Dashboard = () => {
           <Box height="200px">
             <GeographyChart isDashboard={true} />
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
