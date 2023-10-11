@@ -14,20 +14,20 @@ const Contacts = () => {
     { field: "registrarId", headerName: "Registrar ID" },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Nome",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
       field: "age",
-      headerName: "Age",
+      headerName: "Idade",
       type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
       field: "phone",
-      headerName: "Phone Number",
+      headerName: "Num. Celular",
       flex: 1,
     },
     {
@@ -37,17 +37,17 @@ const Contacts = () => {
     },
     {
       field: "address",
-      headerName: "Address",
+      headerName: "Endereço",
       flex: 1,
     },
     {
       field: "city",
-      headerName: "City",
+      headerName: "Cidade",
       flex: 1,
     },
     {
       field: "zipCode",
-      headerName: "Zip Code",
+      headerName: "Zip Código",
       flex: 1,
     },
   ];
@@ -55,8 +55,8 @@ const Contacts = () => {
   return (
     <Box m="20px">
       <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
+        title="Clientes"
+        subtitle="Lista de contatos para referência futura"
       />
       <Box
         m="40px 0 0 0"
