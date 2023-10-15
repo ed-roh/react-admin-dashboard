@@ -5,6 +5,9 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@fullcalendar/core": "^5.11.3",
     "@fullcalendar/daygrid": "^5.11.3",
     "@fullcalendar/interaction": "^5.11.3",
@@ -25,6 +28,8 @@
     "@testing-library/user-event": "^13.5.0",
     "chart.js": "^3.9.1",
     "formik": "^2.2.9",
+    "install": "^0.13.0",
+    "npm": "^10.2.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.2.0",
@@ -32,6 +37,7 @@
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
+    "swiper": "^10.3.1",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },

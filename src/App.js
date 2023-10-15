@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
-import Topbar from "./scenes/global/Topbar";
-import Sidebar from "./scenes/global/Sidebar";
+import { Routes, Route, useLocation } from "react-router-dom";
+import Sidebar from "./scenes/estrutura/Sidebar";
+import TopBar from "./scenes/estrutura/Topbar";
+import Home from "./scenes/home";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
 import Invoices from "./scenes/invoices";
@@ -19,35 +20,36 @@ import Fidelidade from "./scenes/fidelidade";
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(true);
+  const location = useLocation();
+
+  const pathsToHideSidebar = ["/"];
+  const shouldHideSidebar = pathsToHideSidebar.includes(location.pathname);
+
+  const pathsToHideTopBar = ["/"];
+  const shouldHideTopBar = pathsToHideTopBar.includes(location.pathname);
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="app">
-          <Sidebar isSidebar={isSidebar} />
-          <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/invoices" element={<Invoices />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/fidelidade" element={<Fidelidade />} />
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/geography" element={<Geography />} />
-            </Routes>
-          </main>
-        </div>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
-
+    <div className="app">
+      {!shouldHideSidebar && <Sidebar />}
+      <main className="content">
+      {!shouldHideTopBar && <TopBar />}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard theme={theme} />} />
+          <Route path="/team" element={<Team theme={theme} />} />
+          <Route path="/contacts" element={<Contacts theme={theme} />} />
+          <Route path="/invoices" element={<Invoices theme={theme} />} />
+          <Route path="/form" element={<Form theme={theme} />} />
+          <Route path="/bar" element={<Bar theme={theme} />} />
+          <Route path="/pie" element={<Pie theme={theme} />} />
+          <Route path="/line" element={<Line theme={theme} />} />
+          <Route path="/faq" element={<FAQ theme={theme} />} />
+          <Route path="/fidelidade" element={<Fidelidade />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/geography" element={<Geography />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 

@@ -18,6 +18,9 @@ const Dashboard = () => {
   const colors = tokens(theme.palette.mode);
 
   return (
+    <div>
+      
+    
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -278,6 +281,7 @@ const Dashboard = () => {
         </Box>
       </Box>
     </Box>
+    </div>
   );
 };
 
