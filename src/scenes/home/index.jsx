@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
+import { useRef, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,135 +10,126 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopyright } from '@fortawesome/free-regular-svg-icons';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
+import 'swiper/swiper-bundle.css'; // Import the Swiper CSS
 
 import InicioImage from '../../Imgs/inicio.png';
 import EmpresasImage from '../../Imgs/Empresas.png';
 import ClientesImage from '../../Imgs/Clientes.png';
+import LogoAT from '../../Imgs/LogoAT.png';
 
 function Home() {
+  const swiperRef = useRef(null);
 
-    const slides = [
-        { image: InicioImage },
-        { image: EmpresasImage },
-        { image: ClientesImage },
-    ];
+  useEffect(() => {
+    if (swiperRef.current) {
+      // Atualize o Swiper após a montagem do componente
+      swiperRef.current.swiper.update();
+    }
+  }, []);
 
-    return (
-        <div>
-            <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        sx={{
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                            flexGrow: 0,
-                        }}
-                    >
-                        LOGO
-                    </Typography>
+  const slideTo = (index) => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slideTo(index);
+    }
+  };
 
-                    {/* Aqui começa a seção do Navbar */}
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            flexGrow: 1,
-                        }}
-                    >
-                        <Button
-                            component={Link}
-                            to="InicioImage"
-                            sx={{ color: 'inherit' }}
-                        >
-                            Início
-                        </Button>
-                        <Button
-                            component={Link}
-                            to="/slide2"
-                            sx={{ color: 'inherit' }}
-                        >
-                            Benefícios
-                        </Button>
-                        <Button
-                            component={Link}
-                            to="/slide3"
-                            sx={{ color: 'inherit' }}
-                        >
-                            Sobre Nós
-                        </Button>
-                    </Box>
+  return (
+    <div>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <img src={LogoAT} alt="Logo" style={{ maxHeight: '48px' }} />
 
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexGrow: 0,
-                        }}
-                    >
-                        <Button
-                            component={Link}
-                            to="/entrar"
-                            sx={{ color: 'inherit', mr: 1 }}
-                        >
-                            Entrar
-                        </Button>
-                        <Button
-                            component={Link}
-                            to="/cadastrar-se"
-                            sx={{ color: 'inherit' }}
-                        >
-                            Cadastrar-se
-                        </Button>
-                    </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexGrow: 1,
+            }}
+          >
+            <Button onClick={() => slideTo(0)} sx={{ marginRight: 8 ,  textTransform: 'none' , color: 'black'}} > Início </Button>
+            <Button onClick={() => slideTo(1)} sx={{ marginRight: 8 ,  textTransform: 'none' , color: 'black' }} > Para Empresas </Button>
+            <Button onClick={() => slideTo(2)} sx={{ textTransform: 'none' , color: 'black'}} > Para Clientes </Button>
+          </Box>
 
-                    {/* Fim da seção do Navbar */}
-                </Toolbar>
-            </Container>
-
-            <Container maxWidth="x1" style={{ margin: 0, padding: 0 }}>
-                <Swiper
-                    spaceBetween={0}
-                    slidesPerView={1}
-                    pagination={{ clickable: true }}
-                    autoplay={{ delay: 4000 }}
-                >
-                    {slides.map((slide, index) => (
-                        <SwiperSlide key={index}>
-                            <Box
-                                display="flex"
-                                justifyContent="center"
-                                alignItems="center"
-                                minHeight="80vh"
-                            >
-                                <img src={slide.image} alt={slide.title} style={{ maxWidth: '100%' }} />
-                                <Typography variant="h4">{slide.title}</Typography>
-                                <Typography variant="body1">{slide.content}</Typography>
-                            </Box>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </Container>
-
-            {/* Aqui começa a seção do Footer */}
-            <Box
-                sx={{
-                    backgroundColor: 'background.paper',
-                    borderTop: '1px solid #ccc',
-                    textAlign: 'center',
-                }}
+          <Box
+            sx={{
+              display: 'flex',
+              flexGrow: 0,
+            }}
+          >
+            <Button
+              component={Link}
+              to="/entrar"
+              sx={{ color: 'inherit', mr: 1 }}
             >
-                <p>
-                    <span>Trade Stream</span> <FontAwesomeIcon icon={faCopyright} /> 2023
-                </p>
-                <p> Desenvolvido <FontAwesomeIcon icon={faCode} color="orange" /> Aimée Ferreira</p>
+              Entrar
+            </Button>
+            <Button
+              component={Link}
+              to="/cadastro"
+              sx={{ color: 'inherit' }}
+            >
+              Cadastrar-se
+            </Button>
+          </Box>
+        </Toolbar>
+      </Container>
+
+      <Container maxWidth="xl" style={{ margin: 0, padding: 0 }}>
+        <Swiper
+          spaceBetween={0}
+          slidesPerView={1}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 4000 }}
+          ref={swiperRef}
+        >
+          <SwiperSlide>
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              minHeight="80vh"
+            >
+              <img src={InicioImage} alt="Slide 1" style={{ maxWidth: '100%' }} />
             </Box>
-            {/* Fim da seção do Footer */}
-        </div>
-    );
+          </SwiperSlide>
+          <SwiperSlide>
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              minHeight="80vh"
+            >
+              <img src={EmpresasImage} alt="Slide 2" style={{ maxWidth: '100%' }} />
+            </Box>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              minHeight="80vh"
+            >
+              <img src={ClientesImage} alt="Slide 3" style={{ maxWidth: '100%' }} />
+            </Box>
+          </SwiperSlide>
+        </Swiper>
+      </Container>
+
+      <Box
+        sx={{
+          backgroundColor: 'background.paper',
+          borderTop: '1px solid #ccc',
+          textAlign: 'center',
+        }}
+      >
+        <p>
+          <span>Todos os direitos reservados</span> <FontAwesomeIcon icon={faCopyright} /> 2023
+        </p>
+        <p> Desenvolvido <FontAwesomeIcon icon={faCode} color="orange" /> Aimée Ferreira</p>
+      </Box>
+    </div>
+  );
 }
 
 export default Home;

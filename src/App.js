@@ -22,10 +22,10 @@ function App() {
   const [theme, colorMode] = useMode();
   const location = useLocation();
 
-  const pathsToHideSidebar = ["/"];
+  const pathsToHideSidebar = ["/", "/entrar", "/cadastro"];
   const shouldHideSidebar = pathsToHideSidebar.includes(location.pathname);
 
-  const pathsToHideTopBar = ["/"];
+  const pathsToHideTopBar = ["/", "/entrar", "/cadastro"];
   const shouldHideTopBar = pathsToHideTopBar.includes(location.pathname);
 
   return (
