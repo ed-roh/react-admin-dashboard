@@ -19,7 +19,7 @@ const Fidelidade = () => {
         <Box m="20px">
             <Header title="Fidelização de Clientes" subtitle="Personalize seu Programa de Pontos e garanta sua vantagem competitiva no mercado!" />
 
-            <Accordion >
+            <Accordion style={{ backgroundColor: '#35338d'}} >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography color={colors.greenAccent[500]} variant="h5">
                         Pesquisa de Satisfação Automática
@@ -80,7 +80,7 @@ const Fidelidade = () => {
                     </Typography>
                 </AccordionDetails>
             </Accordion>
-            <Accordion >
+            <Accordion style={{ backgroundColor: '#35338d'}} >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography color={colors.greenAccent[500]} variant="h5">
                         Cartão de Fidelidade Digital
@@ -108,7 +108,7 @@ const Fidelidade = () => {
                     </Typography>
                 </AccordionDetails>
             </Accordion>
-            <Accordion >
+            <Accordion style={{ backgroundColor: '#35338d'}} >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography color={colors.greenAccent[500]} variant="h5">
                         Indicação de Amigos
@@ -159,7 +159,7 @@ const Fidelidade = () => {
                     </Typography>
                 </AccordionDetails>
             </Accordion>
-            <Accordion >
+            <Accordion style={{ backgroundColor: '#35338d'}}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography color={colors.greenAccent[500]} variant="h5">
                         Prêmios por Pontos

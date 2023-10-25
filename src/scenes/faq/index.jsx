@@ -14,8 +14,8 @@ const FAQ = () => {
     <Box m="20px">
       <Header title="FAQ" subtitle="Perguntas Frequentes" />
 
-      <Accordion defaultExpanded>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <Accordion style={{ backgroundColor: '#35338d'}} defaultExpanded>
+        <AccordionSummary  expandIcon={<ExpandMoreIcon />}>
           <Typography color={colors.greenAccent[500]} variant="h5">
             An Important Question
           </Typography>
@@ -26,8 +26,8 @@ const FAQ = () => {
             malesuada lacus ex, sit amet blandit leo lobortis eget.
           </Typography>
         </AccordionDetails>
-      </Accordion>
-      <Accordion defaultExpanded>
+      </Accordion >
+      <Accordion style={{ backgroundColor: '#35338d'}} defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography color={colors.greenAccent[500]} variant="h5">
             Another Important Question
@@ -40,7 +40,7 @@ const FAQ = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion defaultExpanded>
+      <Accordion style={{ backgroundColor: '#35338d'}} defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography color={colors.greenAccent[500]} variant="h5">
             Your Favorite Question
@@ -53,7 +53,7 @@ const FAQ = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion defaultExpanded>
+      <Accordion style={{ backgroundColor: '#35338d'}} defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography color={colors.greenAccent[500]} variant="h5">
             Some Random Question
@@ -66,7 +66,7 @@ const FAQ = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion defaultExpanded>
+      <Accordion style={{ backgroundColor: '#35338d'}} defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography color={colors.greenAccent[500]} variant="h5">
             The Final Question

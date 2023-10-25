@@ -26,7 +26,6 @@ function Home() {
 
     useEffect(() => {
         if (swiperRef.current) {
-            // Atualize o Swiper após a montagem do componente
             swiperRef.current.swiper.update();
         }
     }, []);
@@ -41,12 +40,12 @@ function Home() {
         <div>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <img src={LogoAT} alt="Logo" style={{ maxHeight: '48px' }} />
+                    <img src={LogoAT} alt="Logo" style={{ maxHeight: '46px' }} />
 
                     <Box sx={{ display: 'flex', justifyContent: 'center', flexGrow: 1, }} >
-                        <Button onClick={() => slideTo(0)} sx={{ marginRight: 8, textTransform: 'none', color: 'black' }} > Início </Button>
-                        <Button onClick={() => slideTo(1)} sx={{ marginRight: 8, textTransform: 'none', color: 'black' }} > Para Empresas </Button>
-                        <Button onClick={() => slideTo(2)} sx={{ textTransform: 'none', color: 'black'}} > Para Clientes </Button>
+                        <Button onClick={() => slideTo(0)} sx={{ marginRight: 8, textTransform: 'none', color: 'white', fontWeight: 'bold', fontSize: '20px' }} > Início </Button>
+                        <Button onClick={() => slideTo(1)} sx={{ marginRight: 8, textTransform: 'none', color: 'white', fontWeight: 'bold', fontSize: '20px'  }} > Para Empresas </Button>
+                        <Button onClick={() => slideTo(2)} sx={{ textTransform: 'none', color: 'white', fontWeight: 'bold', fontSize: '20px'  }} > Para Clientes </Button>
                     </Box>
 
                     <Box sx={{ display: 'flex', flexGrow: 0 }}>
@@ -89,8 +88,8 @@ function Home() {
                     className="swiper-container" 
                 >
                     <SwiperSlide>
-                        <Box display="flex" justifyContent="center" alignItems="center" minHeight="90vh" >
-                            <img src={InicioImage} alt="Slide 1" style={{ maxWidth: '100%' }} />
+                        <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh" >
+                            <img src={InicioImage} alt="Slide 1" style={{ maxWidth: '100%', height: '100%' }} />
                         </Box>
                     </SwiperSlide>
 

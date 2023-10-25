@@ -55,10 +55,10 @@ const Sidebar = () => {
           padding: "5px 35px 5px 20px !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
+          color: "#fcd08d !important",
         },
         "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+          color: "#FAB141 !important",
         },
       }}
     >
@@ -120,7 +120,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboards"
-              to="/"
+              to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -128,7 +128,7 @@ const Sidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.grey[800]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Dados
@@ -157,7 +157,7 @@ const Sidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.grey[800]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Controle
@@ -193,7 +193,7 @@ const Sidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.grey[800]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Gráficos
