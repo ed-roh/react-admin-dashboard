@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
+import ptLocale from "@fullcalendar/core/locales/pt-br";
 
 const Calendar = () => {
   const theme = useTheme();
@@ -113,14 +114,17 @@ const Calendar = () => {
               {
                 id: "12315",
                 title: "Evento durante o dia inteiro",
-                date: "2022-09-14",
+                start: "2023-10-30",
+                end: "20223-10-30",
               },
               {
                 id: "5123",
                 title: "Evento cronometrado",
-                date: "2022-09-28",
+                start: "2023-10-28T10:00:00",
+                end: "2023-10-28T12:00:00",
               },
             ]}
+            locale={ptLocale} 
           />
         </Box>
       </Box>

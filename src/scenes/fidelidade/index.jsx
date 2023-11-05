@@ -1,178 +1,68 @@
-import { Box, Button, TextField, Checkbox, useTheme } from "@mui/material";
+import { Box, Button, TextField, useTheme, Card, CardHeader, CardMedia, CardContent, Grid, Container } from "@mui/material";
 import Header from "../../components/Header";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { tokens } from "../../theme";
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import Grid from '@mui/material/Grid';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 
 const Fidelidade = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
+    // Função de exemplo para lidar com o clique no botão "Salvar"
+    const handleSave = () => {
+        // Implemente a ação de salvar aqui
+        console.log("Salvando...");
+    };
+
     return (
         <Box m="20px">
-            <Header title="Fidelização de Clientes" subtitle="Personalize seu Programa de Pontos e garanta sua vantagem competitiva no mercado!" />
+            <Header title="Cartão de Fidelidade Digital" subtitle="Personalize seu programa de frequência de compra, e aumente sua vantagem competitiva no mercado!" />
 
-            <Accordion style={{ backgroundColor: '#35338d'}} >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[500]} variant="h5">
-                        Pesquisa de Satisfação Automática
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        <Box display="flex"
-                            gap="30px"
-                            alignItems="center">
-
-                            <FormControlLabel
-                                control={<Checkbox />}
-                                label="Habilite a Pesquisa de Satisfação para obter feedback de seus clientes."
+            <Grid container spacing={2} sx={{ marginTop: 3 }}>
+                <Grid item xs={4}>
+                    <Card sx={{ height: '100%', backgroundColor: '#9661FF' }}>
+                        <CardHeader
+                            title="Cartão de Fidelidade "
+                            sx={{ textAlign: 'center', fontSize: '70', color: 'white' }}
+                            avatar={
+                                <LocalActivityIcon style={{ fontSize: 32, color: 'gold' }} />
+                            }
+                            action={
+                                <LocalActivityIcon style={{ fontSize: 32, color: 'gold' }} />
+                            }
+                        />
+                        <CardMedia sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        </CardMedia>
+                        <CardContent>
+                            <TextField
+                                fullWidth
+                                multiline
+                                rows={4}
+                                variant="outlined"
+                                placeholder="Descrição do 1º Prêmio... 
+                                Necessário: XX compras"
                             />
-                        </Box>
+                        </CardContent>
+                    </Card>
+                </Grid>
 
-                        <Box display="flex" justifyContent="space-between" p={4}>
-                            <Typography>
-                                <Grid container spacing={0.5}>
-                                    <Grid item xs={12}>
-                                        <Typography>
-                                            Quantos dias após a compra
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <TextField placeholder="0 dias" variant="outlined" fullWidth sx={{ marginTop: 0.5 }} />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Typography>
-                                            Pontuação
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <TextField placeholder="0 pontos" variant="outlined" fullWidth sx={{ marginTop: 0.5 }} />
-                                    </Grid>
-                                </Grid>
+                <Grid >
+                    <Grid container spacing={7}>
+                        <Grid   item xs={8}  sx={{ marginTop: '40px' , marginLeft: '30px' }} >
+                            <Typography >
+                                Quantidade de frequência de compras:
                             </Typography>
-                            <FormControl>
-                                <FormGroup>
-                                    <FormControlLabel
-                                        control={<Checkbox />}
-                                        label="Ativar lembrete Email Automático"
-                                    />
-                                    <FormControlLabel
-                                        control={<Checkbox />}
-                                        label="Ativar lembrete SMS Automático"
-                                    />
-                                </FormGroup>
-
-                                <Button variant="contained" color="secondary">Botão 2</Button>
-                                <Button variant="contained" color="info">Botão 3</Button>
-                                <Button variant="contained" color="warning">Botão 4</Button>
-
-                            </FormControl>
-
-                        </Box>
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion style={{ backgroundColor: '#35338d'}} >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[500]} variant="h5">
-                        Cartão de Fidelidade Digital
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        <Box display="flex"
-                            gap="30px"
-                            alignItems="center">
-
-                            <FormControlLabel
-                                control={<Checkbox />}
-                                label="Habilite o Cartão de Fidelidade Digital para que incentive a frequência de compra de seus clientes ao conquistar prêmios."
-                            />
-                        </Box>
-                    </Typography>
-                    <Typography>
-                        <Box display="flex" gap="30px" alignItems="center">
-                            <FormControlLabel
-                                control={<Checkbox />}
-                                label="Cartão de Fidelidade: Computar 10 compras"
-                            />
-                        </Box>
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion style={{ backgroundColor: '#35338d'}} >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[500]} variant="h5">
-                        Indicação de Amigos
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        <Box display="flex"
-                            gap="30px"
-                            alignItems="center">
-
-                            <FormControlLabel
-                                control={<Checkbox />}
-                                label="Habilite a Indicação de Amigos para conquistar novos clientes."
-                            />
-                        </Box>
-                        <Box display="flex" justifyContent="space-between" p={4}>
-                            <Typography>
-                                <Grid container spacing={0.5}>
-                                    <Grid item xs={12}>
-                                        <Typography>
-                                            Pontos que serão obtidos para quem indica
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <TextField placeholder="0 pontos" variant="outlined" fullWidth sx={{ marginTop: 0.5 }} />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Typography sx={{ marginTop: 1 }} >
-                                            Amigo(a) indicado(a) ganha pontos
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <TextField placeholder="0 pontos" variant="outlined" fullWidth sx={{ marginTop: 0.5 }} />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Typography sx={{ marginTop: 1 }} >
-                                            Pontos na primeira compra do(a) indicado(a)
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <TextField placeholder="0 pontos" variant="outlined" fullWidth sx={{ marginTop: 0.5 }} />
-                                    </Grid>
-                                </Grid>
-                            </Typography>
-
-                        </Box>
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion style={{ backgroundColor: '#35338d'}}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[500]} variant="h5">
-                        Prêmios por Pontos
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-        </Box >
+                            <TextField placeholder="0 compras" variant="outlined" fullWidth sx={{ marginTop: 0.5 }} />
+                        </Grid>
+                        <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginRight: '50px' }}>
+                            <Button variant="contained" onClick={handleSave} style={{ width: '200px' }}>
+                                Salvar
+                            </Button>
+                        </Container>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Box>
     );
 };
 

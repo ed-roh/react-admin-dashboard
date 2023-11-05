@@ -87,7 +87,7 @@ const PieChart = () => {
           itemsSpacing: 0,
           itemWidth: 100,
           itemHeight: 18,
-          itemTextColor: "#999",
+          itemTextColor: "#00000",
           itemDirection: "left-to-right",
           itemOpacity: 1,
           symbolSize: 18,
@@ -96,7 +96,7 @@ const PieChart = () => {
             {
               on: "hover",
               style: {
-                itemTextColor: "#000",
+                itemTextColor: "#00000",
               },
             },
           ],

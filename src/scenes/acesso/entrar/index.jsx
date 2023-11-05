@@ -1,8 +1,11 @@
-import React from 'react';
-import { Container, Paper, Typography, TextField, Button, Grid, Link as MuiLink } from '@mui/material';
+import React, { useState } from 'react';
+import { Container, Paper, Typography, TextField, Button, Grid, Link as MuiLink, IconButton, InputAdornment } from '@mui/material';
 import styled from '@mui/system/styled';
 import LogoAT from '../../../Imgs/variacaoLogoAT.png';
 import { Link } from 'react-router-dom';
+import { auth, signInWithEmailAndPassword } from '../../../Firebase';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const StyledContainer = styled(Container)({
   display: 'flex',
@@ -35,19 +38,79 @@ const StyledLink = styled(MuiLink)({
 });
 
 function Entrar() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+
+    // Remover a mensagem de erro ao digitar nos campos
+    if (errorMessage) {
+      setErrorMessage('');
+    }
+
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+
+    // Remover a mensagem de erro ao digitar nos campos
+    if (errorMessage) {
+      setErrorMessage('');
+    }
+
+  };
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleSignIn = () => {
+    // Limpe qualquer mensagem de erro anterior
+    setErrorMessage('');
+
+    // Verificar se o email e a senha estão preenchidos
+    if (!email || !password) {
+      setButtonClicked(true);
+      setErrorMessage(<strong>Por favor, preencha todos os campos!</strong>);
+      return;
+    }
+
+    // Autenticar o usuário com Firebase
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Autenticação bem-sucedida, você pode redirecionar o usuário para /dashboard aqui
+        console.log('Autenticação bem-sucedida', userCredential);
+      })
+      .catch((error) => {
+        setErrorMessage(<strong>Email ou senha inválidos.</strong>);
+      });
+  };
+
   return (
     <StyledContainer maxWidth="xs">
       <StyledPaper elevation={3}>
         <img src={LogoAT} alt="LogoAT" style={{ maxHeight: '56px' }} />
 
-        <Typography component="h1" variant="h3" style={{ marginTop: '14px' }}>
+        
+        <Typography component="h1" variant="h3" style={{ marginTop: '10px' }}>
           Acesse sua conta
         </Typography>
+        
+        <Grid container>
+        <Grid item xs>
+        <Typography variant="body2" color='#dcdcdc' style={{ marginTop: '26px', marginBottom: '2px' }} >
+          *Campos obrigatórios
+        </Typography>
+        </Grid>
+        </Grid>
 
         <StyledForm noValidate>
-          <TextField
+          <TextField padding="0"
             variant="outlined"
-            margin="normal"
             label="Email"
             name="email"
             type="email"
@@ -55,6 +118,7 @@ function Entrar() {
             required
             fullWidth
             autoFocus
+            onChange={handleEmailChange}
           />
 
           <TextField
@@ -62,14 +126,30 @@ function Entrar() {
             margin="normal"
             name="password"
             label="Senha"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             autoComplete="current-password"
             required
             fullWidth
+            onChange={handlePasswordChange}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleTogglePasswordVisibility}>
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
+          {errorMessage && (
+            <Typography variant="body2" color="error" style={{ textAlign: 'center' }}>
+              {errorMessage}
+            </Typography>
+          )}
+
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <StyledSubmitButton type="submit" variant="contained" style={{ backgroundColor: '#FAB141', color: 'white', margin: '15px 0px 15px' }}>
+            <StyledSubmitButton component={Link} to="/dashboard" type="button" variant="contained" onClick={handleSignIn} style={{ backgroundColor: '#FAB141', color: 'white', margin: '15px 0px 15px' }}>
               Entrar
             </StyledSubmitButton>
           </div>

@@ -8,7 +8,6 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
@@ -20,12 +19,11 @@ const Dashboard = () => {
   return (
     <div>
 
-
       <Box m="20px">
-        {/* HEADER */}
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Header title="DASHBOARDS" subtitle="Bem-vindo(a) ao seu painel de controle!" />
 
+{/*
           <Box>
             <Button
               sx={{
@@ -40,7 +38,9 @@ const Dashboard = () => {
               Baixar relatórios
             </Button>
           </Box>
+          */}
         </Box>
+            
 
         {/* GRID & CHARTS */}
         <Box
@@ -156,13 +156,6 @@ const Dashboard = () => {
                   R$59,342.32
                 </Typography>
               </Box>
-              <Box>
-                <IconButton>
-                  <DownloadOutlinedIcon
-                    sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                  />
-                </IconButton>
-              </Box>
             </Box>
             <Box height="250px" m="-20px 0 0 0">
               <LineChart isDashboard={true} />
@@ -213,7 +206,7 @@ const Dashboard = () => {
                   p="5px 10px"
                   borderRadius="4px"
                 >
-                  ${transaction.cost}
+                  R$ {transaction.cost}
                 </Box>
               </Box>
             ))}

@@ -31,7 +31,10 @@ const Invoices = () => {
       flex: 1,
       renderCell: (params) => (
         <Typography color={colors.greenAccent[500]}>
-          ${params.row.cost}
+          {new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      }).format(params.row.cost)}
         </Typography>
       ),
     },
@@ -46,7 +49,7 @@ const Invoices = () => {
     <Box m="20px">
       <Header title="FATURAS" subtitle="Lista de saldo de Faturas" />
       <Box
-        m="40px 0 0 0"
+        m="40px 0px 0px 0px"
         height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
@@ -74,7 +77,7 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+        <DataGrid  rows={mockDataInvoices} columns={columns} />
       </Box>
     </Box>
   );

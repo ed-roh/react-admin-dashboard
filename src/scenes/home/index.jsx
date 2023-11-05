@@ -7,18 +7,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
-{/*
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopyright } from '@fortawesome/free-regular-svg-icons';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
-*/}
-
 import 'swiper/swiper-bundle.css';
 import './styles.css';
 
 import InicioImage from '../../Imgs/inicio.png';
 import EmpresasImage from '../../Imgs/Empresas.png';
-import ClientesImage from '../../Imgs/Clientes.png';
+// import ClientesImage from '../../Imgs/Clientes.png';
 import LogoAT from '../../Imgs/LogoAT.png';
 
 function Home() {
@@ -42,13 +36,15 @@ function Home() {
                 <Toolbar disableGutters>
                     <img src={LogoAT} alt="Logo" style={{ maxHeight: '46px' }} />
 
+                    {/*
                     <Box sx={{ display: 'flex', justifyContent: 'center', flexGrow: 1, }} >
                         <Button onClick={() => slideTo(0)} sx={{ marginRight: 8, textTransform: 'none', color: 'white', fontWeight: 'bold', fontSize: '20px' }} > Início </Button>
                         <Button onClick={() => slideTo(1)} sx={{ marginRight: 8, textTransform: 'none', color: 'white', fontWeight: 'bold', fontSize: '20px'  }} > Para Empresas </Button>
                         <Button onClick={() => slideTo(2)} sx={{ textTransform: 'none', color: 'white', fontWeight: 'bold', fontSize: '20px'  }} > Para Clientes </Button>
                     </Box>
+    */}
 
-                    <Box sx={{ display: 'flex', flexGrow: 0 }}>
+                    <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'flex-end' }}>
 
                         <Button component={Link} to="/entrar"
                             sx={{
@@ -99,21 +95,17 @@ function Home() {
                         </Box>
                     </SwiperSlide>
 
+                    {/*
                     <SwiperSlide>
                         <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh" >
                             <img src={ClientesImage} alt="Slide 3" style={{ maxWidth: '100%' }} />
                         </Box>
                     </SwiperSlide>
+                        */}
 
                 </Swiper>
             </Container>
 
-            {/*
-            <Box sx={{ backgroundColor: 'background.paper', borderTop: '1px solid #ccc', textAlign: 'center', }} >
-                <p> <span>Todos os direitos reservados</span> <FontAwesomeIcon icon={faCopyright} /> 2023 </p>
-                <p> Desenvolvido <FontAwesomeIcon icon={faCode} color="orange" /> Aimée Ferreira</p>
-            </Box>
-*/}
         </div>
     );
 }

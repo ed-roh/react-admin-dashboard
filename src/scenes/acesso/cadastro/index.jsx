@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Container, Paper, Typography, TextField, Button, Link as MuiLink, Grid, RadioGroup, Radio, FormControlLabel } from '@mui/material';
+import { Container, Paper, Typography, TextField, Button, Link as MuiLink, Grid } from '@mui/material';
 import styled from '@mui/system/styled';
 import InputMask from 'react-input-mask';
 import LogoAT from '../../../Imgs/variacaoLogoAT.png';
 import { Link } from 'react-router-dom';
+import { auth } from '../../../Firebase';
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: 'flex',
@@ -36,11 +37,30 @@ const StyledLink = styled(MuiLink)({
 });
 
 function Cadastro() {
-  const [tipo, setTipo] = useState('empresa'); // Valor padrão: 'empresa'
+  const [cnpj, setCnpj] = useState('');
+  const [razaoSocial, setRazaoSocial] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
 
-  const handleTipoChange = (event) => {
-    setTipo(event.target.value);
-  };
+ async function handleSignUp(e) {
+    e.preventDefault();
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+      await sendEmailVerification(userCredential.user);
+
+      // Agora, você pode salvar os campos adicionais no banco de dados do Firebase
+      const user = userCredential.user;
+      await updateProfile(user, {
+        displayName: razaoSocial, // DisplayName pode ser usado para a razão social
+      });
+
+      // Você também pode armazenar o CNPJ em um banco de dados Firestore, se desejar
+      // Exemplo: db.collection('users').doc(user.uid).set({ cnpj });
+    } catch (error) {
+      console.error("Erro ao criar a conta", error);
+    }
+  }
 
   return (
     <StyledContainer maxWidth="xs">
@@ -51,105 +71,47 @@ function Cadastro() {
           Criar uma conta
         </Typography>
 
-        <StyledForm noValidate>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <RadioGroup row name="tipo" value={tipo} onChange={handleTipoChange}>
-              <FormControlLabel value="empresa" control={<Radio />} label="Empresa" />
-              <FormControlLabel value="cliente" control={<Radio />} label="Cliente" />
-            </RadioGroup>
-          </div>
-
-          {tipo === 'empresa' && (
-            <>
-              <InputMask mask="99.999.999/9999-99" maskChar={null}>
-                {() => (
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    label="CNPJ"
-                    name="cnpj"
-                    autoComplete="cnpj"
-                    placeholder="Ex: 00.000.000/0000-00"
-                    required
-                    fullWidth
-                    autoFocus
-                  />
-                )}
-              </InputMask>
+        <StyledForm noValidate onSubmit={handleSignUp}>
+          <InputMask mask="99.999.999/9999-99" maskChar={null} value={cnpj} onChange={(e) => setCnpj(e.target.value)} >
+            {() => (
               <TextField
                 variant="outlined"
                 margin="normal"
-                label="Razão Social"
-                name="razaoSocial"
-                autoComplete="organization"
+                label="CNPJ"
+                name="cnpj"
+                autoComplete="cnpj"
+                placeholder="Ex: 00.000.000/0000-00"
                 required
                 fullWidth
+                autoFocus
               />
+            )}
+          </InputMask>
 
-              <TextField
-                variant="outlined"
-                margin="normal"
-                label="Email Profissional"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                fullWidth
-              />
-            </>
-          )}
+          <TextField
+            variant="outlined"
+            margin="normal"
+            label="Razão Social"
+            name="razaoSocial"
+            autoComplete="organization"
+            required
+            fullWidth
+            value={razaoSocial}
+            onChange={(e) => setRazaoSocial(e.target.value)}
+          />
 
-          {tipo === 'cliente' && (
-            <>
-              <InputMask mask="999.999.999-99" maskChar={null}>
-                {() => (
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    label="CPF"
-                    name="cpf"
-                    autoComplete="cpf"
-                    placeholder="Ex: 000.000.000-00"
-                    required
-                    fullWidth
-                  />
-                )}
-              </InputMask>
-              <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  label="Nome"
-                  name="nome"
-                  autoComplete="given-name"
-                  required
-                  fullWidth
-                />
-
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  label="Sobrenome"
-                  name="sobrenome"
-                  autoComplete="family-name"
-                  style={{ marginLeft: '16px' }}
-                  required
-                  fullWidth
-                />
-              </div>
-
-              <TextField
-                variant="outlined"
-                margin="normal"
-                label="Email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                fullWidth
-              />
-            </>
-          )}
+          <TextField
+            variant="outlined"
+            margin="normal"
+            label="Email Profissional"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            fullWidth
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
           <TextField
             variant="outlined"
@@ -160,6 +122,8 @@ function Cadastro() {
             autoComplete="new-password"
             required
             fullWidth
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
           />
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -174,7 +138,7 @@ function Cadastro() {
 
           <Grid container>
             <Grid item xs>
-              <StyledLink component={Link} to="/entrar" variant="body2" >
+              <StyledLink component={Link} to="/entrar" variant="body2">
                 Já possui conta?
               </StyledLink>
             </Grid>

@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import 'firebase/firestore';
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import 'firebase/storage';
+import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
@@ -15,4 +16,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export { auth };
+export { auth, sendPasswordResetEmail, signInWithEmailAndPassword };
