@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import Header from "../../components/Header";
-import { Box, Typography, TextField, Button, Grid, Card, CardContent, CardHeader, CardMedia, Container } from "@mui/material";
+import { Box, Typography, TextField, Button, Grid, Card, CardContent, CardHeader, CardMedia, Container, Snackbar } from "@mui/material";
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 const Premios = () => {
-    const [link, setLink] = useState('');
-    const [savedData, setSavedData] = useState(null);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     const handleSave = () => {
-        if (link) {
-            const savedDataMessage = `Link salvo: ${link}`;
-            setSavedData(savedDataMessage);
-        }
+        setShowSuccessMessage(true);
+    };
+
+    const handleCloseSnackbar = () => {
+        setShowSuccessMessage(false);
     };
 
     return (
@@ -84,6 +84,14 @@ const Premios = () => {
                     Salvar
                 </Button>
             </Container>
+
+            <Snackbar
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                open={showSuccessMessage}
+                autoHideDuration={3000} // Define a duração que o snack deve ficar visível (3 segundos neste caso)
+                onClose={handleCloseSnackbar}
+                message="Salvo com sucesso!"
+            />
         </Box>
     );
 };

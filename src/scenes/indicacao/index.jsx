@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import Header from "../../components/Header";
-import { Box, Typography, TextField, Button, Checkbox, FormControlLabel } from "@mui/material";
+import { Box, Typography, TextField, Button, Checkbox, FormControlLabel, Snackbar } from "@mui/material";
 
 const Indicacao = () => {
-    const [link, setLink] = useState('');
     const [savedData, setSavedData] = useState(null);
     const [cupomAtivo, setCupomAtivo] = useState(false);
     const [cupomValue, setCupomValue] = useState('');
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     const handleSave = () => {
-        if (link) {
-            const savedDataMessage = `Link salvo: ${link}`;
-            setSavedData(savedDataMessage);
-        }
+        setShowSuccessMessage(true);
     };
 
     const handleCupomCheckboxChange = (event) => {
@@ -20,13 +17,18 @@ const Indicacao = () => {
         if (!event.target.checked) {
             setCupomValue('');
         }
+        setShowSuccessMessage(true);
+    };
+
+    const handleCloseSnackbar = () => {
+        setShowSuccessMessage(false);
     };
 
     return (
         <Box m="20px">
             <Header title="Indique e Ganhe" subtitle="Incentive as indicações por meio de pontos, para conquistar novos potenciais clientes" />
             <Typography variant="h4">
-                Nossos clientes existentes desempenham um papel fundamental, recomendando nossos produtos e serviços para suas redes de contatos.<br /> é possível criar e personalizar vários formulários a partir do seu segmento.
+                Nossos clientes existentes desempenham um papel fundamental, recomendando nossos produtos e serviços para suas redes de contatos.<br /> É possível criar e personalizar vários formulários a partir do seu segmento.
             </Typography>
 
             <Box display="flex" justifyContent="space-between" sx={{ marginTop: 3 }}>
@@ -34,21 +36,36 @@ const Indicacao = () => {
                     <Typography>
                         Pontos a serem obtidos para quem indica:
                     </Typography>
-                    <TextField placeholder="0 pontos" variant="outlined" fullWidth sx={{ marginTop: 0.5, width: '400px' }} />
+                    <TextField
+                        placeholder="0 pontos"
+                        variant="outlined"
+                        fullWidth
+                        sx={{ marginTop: 0.5, width: '400px' }}
+                    />
                     <Typography sx={{ marginTop: 2 }}>
                         Cadastro de novo(a) amigo(a) indicado(a):
                     </Typography>
-                    <TextField placeholder="0 pontos" variant="outlined" fullWidth sx={{ marginTop: 0.5, width: '400px' }} />
+                    <TextField
+                        placeholder="0 pontos"
+                        variant="outlined"
+                        fullWidth
+                        sx={{ marginTop: 0.5, width: '400px' }}
+                    />
                     <Typography sx={{ marginTop: 2 }}>
                         Pontos na primeira compra do(a) indicado(a):
                     </Typography>
-                    <TextField placeholder="0 pontos" variant="outlined" fullWidth sx={{ marginTop: 0.5, width: '400px' }} />
+                    <TextField
+                        placeholder="0 pontos"
+                        variant="outlined"
+                        fullWidth
+                        sx={{ marginTop: 0.5, width: '400px' }}
+                    />
                 </Typography>
                 <div>
                     <FormControlLabel
                         control={<Checkbox checked={cupomAtivo} onChange={handleCupomCheckboxChange} />}
                         label="Cupom Promocional"
-                        sx={{ marginRight: 50 }} 
+                        sx={{ marginRight: 60 }}
                     />
                     <TextField
                         placeholder="Ative o cupom promocional"
@@ -57,7 +74,9 @@ const Indicacao = () => {
                         sx={{ width: '250px', display: 'flex', flexDirection: 'column', textTransform: 'uppercase' }}
                         disabled={!cupomAtivo}
                         value={cupomValue}
-                        onChange={(e) => setCupomValue(e.target.value.toUpperCase())}
+                        onChange={(e) => {
+                            setCupomValue(e.target.value.toUpperCase());
+                        }}
                     />
                 </div>
             </Box>
@@ -67,6 +86,14 @@ const Indicacao = () => {
                     Salvar
                 </Button>
             </div>
+
+            <Snackbar
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                open={showSuccessMessage}
+                autoHideDuration={3000} // Define a duração que o snack deve ficar visível (3 segundos neste caso)
+                onClose={handleCloseSnackbar}
+                message="Salvo com sucesso!"
+            />
         </Box>
     );
 };

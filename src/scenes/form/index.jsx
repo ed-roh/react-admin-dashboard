@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import Header from "../../components/Header";
 import { Box, Typography, TextField, Button, Grid } from "@mui/material";
 
+function isLinkValid(link) {
+  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  return urlPattern.test(link);
+}
+
 const Form = () => {
   const [link, setLink] = useState('');
   const [savedData, setSavedData] = useState(null);
 
   const handleSave = () => {
-    if (link) {
+    if (isLinkValid(link)) {
       const savedDataMessage = `Link salvo: ${link}`;
       setSavedData(savedDataMessage);
+    } else {
+      setSavedData("Link inválido. Por favor, insira um link válido.");
     }
   };
 

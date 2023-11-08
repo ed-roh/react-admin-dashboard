@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Container, Paper, Typography, TextField, Button, Link as MuiLink, Grid } from '@mui/material';
+import { Container, Paper, Typography, TextField, Button, Link as MuiLink, Grid, IconButton, InputAdornment } from '@mui/material';
 import styled from '@mui/system/styled';
 import InputMask from 'react-input-mask';
 import LogoAT from '../../../Imgs/variacaoLogoAT.png';
 import { Link } from 'react-router-dom';
-import { auth } from '../../../Firebase';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { auth, db } from '../../../Firebase';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: 'flex',
@@ -41,26 +45,47 @@ function Cadastro() {
   const [razaoSocial, setRazaoSocial] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
- async function handleSignUp(e) {
+  async function handleSignUp(e) {
     e.preventDefault();
+
+    // Verifique se o email já está em uso
+    const emailQuery = query(collection(db, 'users'), where('email', '==', email));
+    const emailSnapshot = await getDocs(emailQuery);
+
+    if (!emailSnapshot.empty) {
+      setError("Este email já está em uso.");
+      return;
+    }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
       await sendEmailVerification(userCredential.user);
 
-      // Agora, você pode salvar os campos adicionais no banco de dados do Firebase
+      // Salve os campos adicionais no Firestore
       const user = userCredential.user;
-      await updateProfile(user, {
-        displayName: razaoSocial, // DisplayName pode ser usado para a razão social
+      const userRef = collection(db, 'usuários'); // Referência para a coleção 'users'
+
+      // Adicione um documento com os dados do usuário
+      await addDoc(userRef, {
+        cnpj: cnpj,
+        razaoSocial: razaoSocial,
+        email: email,
+        senha: senha,
       });
 
-      // Você também pode armazenar o CNPJ em um banco de dados Firestore, se desejar
-      // Exemplo: db.collection('users').doc(user.uid).set({ cnpj });
+      window.location.href = '/dashboard';
+
     } catch (error) {
       console.error("Erro ao criar a conta", error);
     }
   }
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <StyledContainer maxWidth="xs">
@@ -72,6 +97,8 @@ function Cadastro() {
         </Typography>
 
         <StyledForm noValidate onSubmit={handleSignUp}>
+          {error && <div>{error}</div>}
+
           <InputMask mask="99.999.999/9999-99" maskChar={null} value={cnpj} onChange={(e) => setCnpj(e.target.value)} >
             {() => (
               <TextField
@@ -118,12 +145,21 @@ function Cadastro() {
             margin="normal"
             label="Criar Senha"
             name="senha"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             autoComplete="new-password"
             required
             fullWidth
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleTogglePasswordVisibility}>
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
