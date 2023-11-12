@@ -90,7 +90,7 @@ const Fidelidade = () => {
                                 multiline
                                 rows={4}
                                 variant="outlined"
-                                placeholder="Descrição do 1º Prêmio... Necessário: XX compras"
+                                placeholder="Descrição do Prêmio..."
                             />
                         </CardContent>
                     </Card>

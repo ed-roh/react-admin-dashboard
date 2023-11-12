@@ -32,6 +32,7 @@
     "formik": "^2.2.9",
     "html2canvas": "^1.4.1",
     "install": "^0.13.0",
+    "notistack": "^3.0.1",
     "npm": "^10.2.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",

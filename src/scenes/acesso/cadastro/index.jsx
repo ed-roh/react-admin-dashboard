@@ -51,22 +51,22 @@ function Cadastro() {
   async function handleSignUp(e) {
     e.preventDefault();
 
-    // Verifique se o email já está em uso
-    const emailQuery = query(collection(db, 'users'), where('email', '==', email));
-    const emailSnapshot = await getDocs(emailQuery);
-
-    if (!emailSnapshot.empty) {
-      setError("Este email já está em uso.");
-      return;
-    }
-
     try {
+      // Verifique se o email já está em uso
+      const emailQuery = query(collection(db, 'usuários'), where('email', '==', email)); // Corrigido para 'usuários'
+      const emailSnapshot = await getDocs(emailQuery);
+
+      if (!emailSnapshot.empty) {
+        setError("Este email já está em uso.");
+        return;
+      }
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
       await sendEmailVerification(userCredential.user);
 
       // Salve os campos adicionais no Firestore
       const user = userCredential.user;
-      const userRef = collection(db, 'usuários'); // Referência para a coleção 'users'
+      const userRef = collection(db, 'usuários'); // Corrigido para 'usuários'
 
       // Adicione um documento com os dados do usuário
       await addDoc(userRef, {
@@ -80,6 +80,7 @@ function Cadastro() {
 
     } catch (error) {
       console.error("Erro ao criar a conta", error);
+      setError("Erro ao criar a conta. Por favor, tente novamente.");
     }
   }
 
@@ -95,6 +96,14 @@ function Cadastro() {
         <Typography component="h1" variant="h3" style={{ marginTop: '14px' }}>
           Criar uma conta
         </Typography>
+
+        <Grid container>
+        <Grid item xs>
+        <Typography variant="body2" color='#dcdcdc' style={{ marginTop: '26px', marginBottom: '2px' }} >
+          *Campos obrigatórios
+        </Typography>
+        </Grid>
+        </Grid>
 
         <StyledForm noValidate onSubmit={handleSignUp}>
           {error && <div>{error}</div>}

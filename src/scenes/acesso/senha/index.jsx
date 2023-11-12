@@ -110,7 +110,7 @@ function RedefinirSenha() {
         )}
 
         <StyledLink component={Link} to="/entrar" variant="body2" style={{ marginTop: '16px' }}>
-          Voltar para a página de login
+          Entrar em conta existente
         </StyledLink>
       </StyledPaper>
     </StyledContainer>
