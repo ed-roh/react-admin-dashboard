@@ -9,14 +9,12 @@ import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { auth, db } from '../../../Firebase';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   height: '100vh',
 }));
-
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
   display: 'flex',
@@ -25,21 +23,17 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   borderRadius: 16,
   backgroundColor: '#8C52FF',
 }));
-
 const StyledForm = styled('form')(({ theme }) => ({
   width: '100%',
   marginTop: theme.spacing(1),
 }));
-
 const StyledSubmitButton = styled(Button)(({ theme }) => ({
   margin: theme.spacing(3, 0, 2),
 }));
-
 const StyledLink = styled(MuiLink)({
   color: 'white',
   textDecorationColor: 'white',
 });
-
 function Cadastro() {
   const [cnpj, setCnpj] = useState('');
   const [razaoSocial, setRazaoSocial] = useState('');
@@ -47,27 +41,21 @@ function Cadastro() {
   const [senha, setSenha] = useState('');
   const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
-
   async function handleSignUp(e) {
     e.preventDefault();
-
+    // Verifique se o email já está em uso
+    const emailQuery = query(collection(db, 'users'), where('email', '==', email));
+    const emailSnapshot = await getDocs(emailQuery);
+    if (!emailSnapshot.empty) {
+      setError("Este email já está em uso.");
+      return;
+    }
     try {
-      // Verifique se o email já está em uso
-      const emailQuery = query(collection(db, 'usuários'), where('email', '==', email)); // Corrigido para 'usuários'
-      const emailSnapshot = await getDocs(emailQuery);
-
-      if (!emailSnapshot.empty) {
-        setError("Este email já está em uso.");
-        return;
-      }
-
       const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
       await sendEmailVerification(userCredential.user);
-
       // Salve os campos adicionais no Firestore
       const user = userCredential.user;
-      const userRef = collection(db, 'usuários'); // Corrigido para 'usuários'
-
+      const userRef = collection(db, 'usuários'); // Referência para a coleção 'users'
       // Adicione um documento com os dados do usuário
       await addDoc(userRef, {
         cnpj: cnpj,
@@ -75,24 +63,18 @@ function Cadastro() {
         email: email,
         senha: senha,
       });
-
       window.location.href = '/dashboard';
-
     } catch (error) {
       console.error("Erro ao criar a conta", error);
-      setError("Erro ao criar a conta. Por favor, tente novamente.");
     }
   }
-
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
   return (
     <StyledContainer maxWidth="xs">
       <StyledPaper elevation={3}>
         <img src={LogoAT} alt="LogoAT" style={{ maxHeight: '56px' }} />
-
         <Typography component="h1" variant="h3" style={{ marginTop: '14px' }}>
           Criar uma conta
         </Typography>
@@ -107,7 +89,6 @@ function Cadastro() {
 
         <StyledForm noValidate onSubmit={handleSignUp}>
           {error && <div>{error}</div>}
-
           <InputMask mask="99.999.999/9999-99" maskChar={null} value={cnpj} onChange={(e) => setCnpj(e.target.value)} >
             {() => (
               <TextField
@@ -123,7 +104,6 @@ function Cadastro() {
               />
             )}
           </InputMask>
-
           <TextField
             variant="outlined"
             margin="normal"
@@ -135,7 +115,6 @@ function Cadastro() {
             value={razaoSocial}
             onChange={(e) => setRazaoSocial(e.target.value)}
           />
-
           <TextField
             variant="outlined"
             margin="normal"
@@ -148,7 +127,6 @@ function Cadastro() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-
           <TextField
             variant="outlined"
             margin="normal"
@@ -170,7 +148,6 @@ function Cadastro() {
               ),
             }}
           />
-
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <StyledSubmitButton
               type="submit"
@@ -180,7 +157,6 @@ function Cadastro() {
               Criar conta
             </StyledSubmitButton>
           </div>
-
           <Grid container>
             <Grid item xs>
               <StyledLink component={Link} to="/entrar" variant="body2">
@@ -193,5 +169,4 @@ function Cadastro() {
     </StyledContainer>
   );
 }
-
 export default Cadastro;

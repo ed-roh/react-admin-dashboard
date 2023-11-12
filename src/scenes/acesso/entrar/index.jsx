@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSnackbar } from 'notistack';
 import { Container, Paper, Typography, TextField, Button, Grid, Link as MuiLink, IconButton, InputAdornment } from '@mui/material';
 import styled from '@mui/system/styled';
 import LogoAT from '../../../Imgs/variacaoLogoAT.png';
@@ -39,39 +38,52 @@ const StyledLink = styled(MuiLink)({
 });
 
 function Entrar() {
-  const { enqueueSnackbar } = useSnackbar();
   const [email, setEmail] = useState('');
-  const [senha, setPassword] = useState('');
-  const [showSenha, setShowSenha] = useState(false); // Corrigido para "showSenha"
+  const [password, setPassword] = useState('');
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
 
+  // Remover a mensagem de erro ao digitar nos campos
+  if (errorMessage) {
+    setErrorMessage('');
+  }
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
+  // Remover a mensagem de erro ao digitar nos campos
+  if (errorMessage) {
+    setErrorMessage('');
+  }
+
   const handleTogglePasswordVisibility = () => {
-    setShowSenha(!showSenha); // Corrigido para "showSenha"
+    setShowPassword(!showPassword);
   };
 
   const handleSignIn = () => {
-    if (!email || !senha) {
-      enqueueSnackbar('Por favor, preencha todos os campos!', { variant: 'error' });
+    // Limpe qualquer mensagem de erro anterior
+    setErrorMessage('');
+
+    // Verificar se o email e a senha estão preenchidos
+    if (!email || !password) {
+      setButtonClicked(true);
+      setErrorMessage(<strong>Por favor, preencha todos os campos!</strong>);
       return;
     }
 
     // Autenticar o usuário com Firebase
-    signInWithEmailAndPassword(auth, email, senha)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Autenticação bem-sucedida
-        enqueueSnackbar('Logado(a) com sucesso!', { variant: 'success' });
-        // Redirecionar o usuário para /dashboard aqui
         console.log('Autenticação bem-sucedida', userCredential);
       })
       .catch((error) => {
-        enqueueSnackbar('E-mail e/ou senha inválidos', { variant: 'error' });
+        setErrorMessage(<strong>Email ou senha inválidos.</strong>);
       });
   };
 
@@ -92,11 +104,8 @@ function Entrar() {
         </Grid>
         </Grid>
 
-        <StyledForm noValidate onSubmit={(e) => {
-          e.preventDefault(); // Evita a submissão padrão do formulário
-          handleSignIn();
-        }}>
-          <TextField
+        <StyledForm noValidate>
+          <TextField padding="0"
             variant="outlined"
             label="Email"
             name="email"
@@ -111,9 +120,9 @@ function Entrar() {
           <TextField
             variant="outlined"
             margin="normal"
-            name="senha"
+            name="password"
             label="Senha"
-            type={showSenha ? 'text' : 'password'} // Corrigido para "password"
+            type={showPassword ? 'text' : 'password'}
             autoComplete="current-password"
             required
             fullWidth
@@ -122,15 +131,21 @@ function Entrar() {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton onClick={handleTogglePasswordVisibility}>
-                    {showSenha ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                   </IconButton>
                 </InputAdornment>
               ),
             }}
           />
+          
+          {errorMessage && (
+            <Typography variant="body2" color="error" style={{ textAlign: 'center' }}>
+              {errorMessage}
+            </Typography>
+          )}
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <StyledSubmitButton type="submit" variant="contained" style={{ backgroundColor: '#FAB141', color: 'white', margin: '15px 0px 15px' }}>
+          <StyledSubmitButton component={Link} to="/dashboard" type="button" variant="contained" onClick={handleSignIn} style={{ backgroundColor: '#FAB141', color: 'white', margin: '15px 0px 15px' }}>
               Entrar
             </StyledSubmitButton>
           </div>
