@@ -2,5 +2,8 @@
     "workbench.editor.languageDetectionHints": {
         "untitledEditors": false,
         "notebookEditors": false
-    }
+    },
+    "cSpell.words": [
+        "acessorios"
+    ]
 }
