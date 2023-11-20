@@ -11,13 +11,13 @@ const Invoices = () => {
     { field: "id", headerName: "ID" },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Nome",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
       field: "phone",
-      headerName: "Phone Number",
+      headerName: "Num. Celular",
       flex: 1,
     },
     {
@@ -27,26 +27,29 @@ const Invoices = () => {
     },
     {
       field: "cost",
-      headerName: "Cost",
+      headerName: "Custo",
       flex: 1,
       renderCell: (params) => (
         <Typography color={colors.greenAccent[500]}>
-          ${params.row.cost}
+          {new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      }).format(params.row.cost)}
         </Typography>
       ),
     },
     {
       field: "date",
-      headerName: "Date",
+      headerName: "Data",
       flex: 1,
     },
   ];
 
   return (
     <Box m="20px">
-      <Header title="INVOICES" subtitle="List of Invoice Balances" />
+      <Header title="FATURAS" subtitle="Lista de saldo de Faturas" />
       <Box
-        m="40px 0 0 0"
+        m="40px 0px 0px 0px"
         height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
@@ -74,7 +77,7 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+        <DataGrid  rows={mockDataInvoices} columns={columns} />
       </Box>
     </Box>
   );

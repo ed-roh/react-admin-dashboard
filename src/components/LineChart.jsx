@@ -14,12 +14,14 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         axis: {
           domain: {
             line: {
-              stroke: colors.grey[100],
+              stroke: "#CCCCCC",
             },
           },
           legend: {
             text: {
-              fill: colors.grey[100],
+              fill: "#000099",
+              fontSize: "15px",
+              fontWeight: "bold",
             },
           },
           ticks: {
@@ -29,12 +31,14 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
             },
             text: {
               fill: colors.grey[100],
+              fontSize: "15px",
             },
           },
         },
         legends: {
           text: {
-            fill: colors.grey[100],
+            fill: "#FFFFFF",
+            fontSize: "15px",
           },
         },
         tooltip: {
@@ -43,7 +47,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
           },
         },
       }}
-      colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
+      colors={isDashboard ? { datum: "color" } : { scheme: "accent" }} 
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
@@ -59,21 +63,21 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
       axisRight={null}
       axisBottom={{
         orient: "bottom",
-        tickSize: 0,
+        tickSize: 3,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "transportation", // added
-        legendOffset: 36,
+        legend: isDashboard ? undefined : "Categorias", 
+        legendOffset: 40,
         legendPosition: "middle",
       }}
       axisLeft={{
         orient: "left",
-        tickValues: 5, // added
+        tickValues: 5, 
         tickSize: 3,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "count", // added
-        legendOffset: -40,
+        legend: isDashboard ? undefined : "Quantidade", 
+        legendOffset: -50,
         legendPosition: "middle",
       }}
       enableGridX={false}

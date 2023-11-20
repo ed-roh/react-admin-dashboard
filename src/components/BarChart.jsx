@@ -20,7 +20,9 @@ const BarChart = ({ isDashboard = false }) => {
           },
           legend: {
             text: {
-              fill: colors.grey[100],
+              fill: "#000099",
+              fontSize: "15px",
+              fontWeight: "bold",
             },
           },
           ticks: {
@@ -39,8 +41,8 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-      indexBy="country"
+      keys={["roupas", "sapatos", "acessórios", "bolsas"]}
+      indexBy="cidade"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
       valueScale={{ type: "linear" }}
@@ -76,15 +78,15 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "country", // changed
+        legend: isDashboard ? undefined : "Estados", 
         legendPosition: "middle",
         legendOffset: 32,
       }}
       axisLeft={{
-        tickSize: 5,
+        tickSize: 5, 
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "food", // changed
+        legend: isDashboard ? undefined : "Quantidade Total -  Categorias", 
         legendPosition: "middle",
         legendOffset: -40,
       }}
@@ -121,7 +123,7 @@ const BarChart = ({ isDashboard = false }) => {
       ]}
       role="application"
       barAriaLabel={function (e) {
-        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
+        return e.id + ": " + e.formattedValue + " na cidade: " + e.indexValue;
       }}
     />
   );

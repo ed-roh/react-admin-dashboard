@@ -1,10 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
 
-html,
-body,
-#root,
-.app,
-.content {
+html, body, #root, .app, .content {
   height: 100%;
   width: 100%;
   font-family: "Source Sans Pro", sans-serif;
@@ -32,4 +28,13 @@ body,
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
