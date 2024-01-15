@@ -20,6 +20,7 @@ import TableRow from '@mui/material/TableRow';
 
 const Invoices = () => {
   const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const [tableKey, setTableKey] = useState(0);
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -55,7 +56,6 @@ const Invoices = () => {
       border: 0,
     },
   }));
-  const colors = tokens(theme.palette.mode);
   const columns = [
     // {
     //   title: "Change",
@@ -77,50 +77,87 @@ const Invoices = () => {
     {
       title: "הצביע", field: "voted",
       cellStyle: { textAlign: 'right', className: 'custom-cell' },
-      headerStyle: { textAlign: 'right', className: 'custom-header' }
+      headerStyle: { textAlign: 'right', className: 'custom-header',
+     backgroundColor: colors.blueAccent[700],
+      borderStyle: "solid", borderColor: "white",
+      borderTopColor:  colors.blueAccent[700],
+      borderBottomColor:  colors.blueAccent[700],
+      padding: "20px 10px 20px 10px",
+      fontSize: "20px",
+      cursor: "pointer"
+     }
     },
     {
       title: "מס קלפי", field: "ballot",
       cellStyle: { textAlign: 'right', className: 'custom-cell' },
-      headerStyle: { textAlign: 'right', className: 'custom-header' }
+      headerStyle: { textAlign: 'right', className: 'custom-header',
+      backgroundColor: colors.blueAccent[700],
+      borderStyle: "solid", borderColor: "white",
+      borderTopColor:  colors.blueAccent[700],
+      borderBottomColor:  colors.blueAccent[700], }
     },
     {
       title: "מס בית", field: "house_number",
       cellStyle: { textAlign: 'right' },
-      headerStyle: { textAlign: 'right' }
+      headerStyle: { textAlign: 'right',
+      backgroundColor: colors.blueAccent[700],
+      borderStyle: "solid", borderColor: "white",
+      borderTopColor:  colors.blueAccent[700],
+      borderBottomColor:  colors.blueAccent[700]}
     },
     {
       title: "רחוב", field: "street",
       cellStyle: { textAlign: 'right' },
-      headerStyle: { textAlign: 'right' }
+      headerStyle: { textAlign: 'right',
+      backgroundColor: colors.blueAccent[700],
+      borderStyle: "solid", borderColor: "white",
+      borderTopColor:  colors.blueAccent[700],
+      borderBottomColor:  colors.blueAccent[700]}
     },
     {
       title: "שם אב", field: "father_name",
       cellStyle: { textAlign: 'right' },
-      headerStyle: { textAlign: 'right' }
+      headerStyle: { textAlign: 'right',
+      backgroundColor: colors.blueAccent[700],
+      borderStyle: "solid", borderColor: "white",
+      borderTopColor:  colors.blueAccent[700],
+      borderBottomColor:  colors.blueAccent[700] }
     },
     {
       title: "שם משפחה", field: "last_name",
       cellStyle: { textAlign: 'right' },
-      headerStyle: { textAlign: 'right' }
+      headerStyle: { textAlign: 'right',
+      backgroundColor: colors.blueAccent[700],
+      borderStyle: "solid", borderColor: "white",
+      borderTopColor:  colors.blueAccent[700],
+      borderBottomColor:  colors.blueAccent[700] }
     },
     {
       title: "שם פרטי", field: "first_name",
       cellStyle: { textAlign: 'right' },
-      headerStyle: { textAlign: 'right' }
+      headerStyle: { textAlign: 'right',
+      backgroundColor: colors.blueAccent[700],
+      borderStyle: "solid", borderColor: "white",
+      borderTopColor:  colors.blueAccent[700],
+      borderBottomColor:  colors.blueAccent[700] }
     },
     {
       title: "ת.ז", field: "id",
       cellStyle: { textAlign: 'right' },
-      headerStyle: { textAlign: 'right' }
+      headerStyle: { textAlign: 'right',
+        backgroundColor: colors.blueAccent[700],
+        borderStyle: "solid", borderColor: "white",
+      borderTopColor:  colors.blueAccent[700],
+      borderBottomColor:  colors.blueAccent[700]
+       }
     }
-  ];
+  ]; //cursor pointer
 
 
   return (
     <Box m="20px">
       <Header title="INVOICES" subtitle="List of Invoice Balances" />
-      {/* <Box
+      { <Box
         m="40px 0 0 0"
         height="75vh"
         sx={{
@@ -149,11 +186,7 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
-      </Box> */}
-      <>
-            <ThemeProvider theme={theme}>
-              <MaterialTable
+        <MaterialTable
                 key={tableKey}
                 className="custom-material-table"
                 title="רשימת המצביעים"
@@ -227,6 +260,10 @@ const Invoices = () => {
                   Clear: Clear
                 }}
               />
+      </Box> }
+      <>
+            <ThemeProvider theme={theme}>
+              
             </ThemeProvider>
             {/* ... existing commented out components */}
           </>
