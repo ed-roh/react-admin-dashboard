@@ -23,6 +23,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.5",
     "chart.js": "^3.9.1",
     "formik": "^2.2.9",
     "material-table": "^2.0.5",

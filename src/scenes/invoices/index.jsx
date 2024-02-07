@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { Box, Typography, useTheme } from "@mui/material";
+import axios from "axios";
+import { Box, Typography, Button, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import HowToVoteIcon from "@mui/icons-material/HowToVote";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { tokens } from "../../theme";
 import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../components/Header";
@@ -18,10 +22,14 @@ import Checkbox from '@mui/material/Checkbox';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
+axios.defaults.baseURL = 'https://elections-bice.vercel.app/v1';
+
 const Invoices = () => {
+  
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [tableKey, setTableKey] = useState(0);
+  const [users, setUsers] = useState([]);
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -56,24 +64,76 @@ const Invoices = () => {
       border: 0,
     },
   }));
+
+  const handleCheckboxChange = (rowData, newVotedStatus) => {
+    rowData.checkboxStatus = !rowData.checkboxStatus;
+  };
+
+
+  const handleApply = async (rowData, newVotedStatus) => {
+    try {
+      console.log(rowData);
+
+      await axios.put(`/elections/data`, {
+        id: rowData.id,
+        voted: newVotedStatus,
+      });
+
+      // Create a new array with the updated data
+      const updatedUsers = users.map((user) => {
+        if (user.id === rowData.id) {
+          return { ...user, voted: newVotedStatus };
+        }
+        return user;
+      });
+
+      // Set state with the new array reference
+      setUsers(updatedUsers);
+
+      // Force re-render by changing the key
+      setTableKey((prevKey) => prevKey + 1);
+    } catch (error) {
+      console.error('Error updating data:', error.message);
+    }
+  };
+
   const columns = [
-    // {
-    //   title: "Change",
-    //   field: "edit",
-    //   render: (rowData) => (
-    //     <>
-    //       <Checkbox
-    //         checked={rowData.checkboxStatus}
-    //         onChange={() => handleCheckboxChange(rowData)}
-    //       />
-    //       <button onClick={() => handleApply(rowData, rowData.checkboxStatus)}>
-    //         Apply
-    //       </button>
-    //     </>
-    //   ),
-    //   cellStyle: { textAlign: 'right' },
-    //   headerStyle: { textAlign: 'right' }
-    // },
+    {
+      title: "Change",
+      field: "edit",
+      render: (rowData) => (
+        <>
+        <Box>
+          <Button onClick={() => handleApply(rowData, rowData.checkboxStatus)}
+            sx={{
+              backgroundColor: colors.blueAccent[700],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+            }}
+          >
+            <HowToVoteIcon sx={{ mr: "10px" }} />
+            לשנות
+          </Button>
+          <Checkbox
+            checked={rowData.checkboxStatus}
+            onChange={() => handleCheckboxChange(rowData)}
+          />
+        </Box>
+        </>
+      ),
+      cellStyle: { textAlign: 'right' },
+      headerStyle: { textAlign: 'right', className: 'custom-header',
+      backgroundColor: colors.blueAccent[700],
+      borderStyle: "solid", borderColor: "white",
+      borderTopColor:  colors.blueAccent[700],
+      borderBottomColor:  colors.blueAccent[700],
+      padding: "20px 10px 20px 10px",
+      fontSize: "20px",
+      cursor: "pointer"
+     }
+    },
     {
       title: "הצביע", field: "voted",
       cellStyle: { textAlign: 'right', className: 'custom-cell' },
@@ -199,7 +259,7 @@ const Invoices = () => {
                       return (
                         <StyledTableRow>
                           <StyledVotedTableCell align="right" voted={rowData.voted}>
-                            {rowData.voted ? <>&#x2713;</> : <>&times;</>}
+                            {rowData.voted ? <ThumbUpIcon sx={{ mr: "10px" }} /> : <ThumbDownIcon sx={{ mr: "10px" }} />}
                           </StyledVotedTableCell>
                         </StyledTableRow>
                       );
