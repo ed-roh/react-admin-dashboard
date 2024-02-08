@@ -1,18 +1,18 @@
+// PieChart.js
+import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
-import { mockPieData as data } from "../data/mockData";
-// https://elections-bice.vercel.app/v1/elections/statistics
-const PieChart = ({ data }) => {
+
+const PieChart = ({ data, familyName }) => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode) || {}; // Use an empty object if the theme or colors are undefined
+  const colors = tokens(theme.palette.mode) || {};
 
-  const votingData = data.family_voting_percentage;
+  const votingData = familyName
+    ? data.family_voting_percentage.filter((item) => item.last_name === familyName)
+    : data.family_voting_percentage;
 
-  // Filter out those who voted
   const votedData = votingData.filter((item) => item.voted_count > 0);
-
-  // Filter out those who did not vote
   const notVotedData = votingData.filter((item) => item.voted_count === 0);
 
   const chartData = [
@@ -20,17 +20,18 @@ const PieChart = ({ data }) => {
       id: 'Voted',
       label: `Voted ${votedData.reduce((total, item) => total + item.voted_count, 0)}`,
       value: votedData.reduce((total, item) => total + item.voted_count, 0),
-      color: colors.green ? colors.green[500] : '#00FF00', // Provide a default color if undefined
+      color: colors.green ? colors.green[500] : '#00FF00',
     },
     {
       id: 'Not Voted',
       label: `Not Voted ${notVotedData.reduce((total, item) => total + item.family_size, 0)}`,
       value: notVotedData.reduce((total, item) => total + item.family_size, 0),
-      color: colors.red ? colors.red[500] : '#FF0000', // Provide a default color if undefined
+      color: colors.red ? colors.red[500] : '#FF0000',
     },
   ];
 
   return (
+
     <ResponsivePie
       data={chartData}
       theme={{

@@ -1,3 +1,4 @@
+// Pie.js
 import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Header from "../../components/Header";
@@ -24,7 +25,16 @@ const Pie = () => {
     <Box m="20px">
       <Header title="Pie Chart" subtitle="Simple Pie Chart" />
       <Box height="75vh">
-        {apiData && <PieChart data={apiData} />}
+        {apiData && (
+          <>
+            <h2 style={{textAlign: "center"}}>כללי</h2>
+            <PieChart data={apiData} />
+            <h2 style={{textAlign: "center"}}>אבו גוש</h2>
+            <PieChart data={apiData} familyName="אבו גוש" />
+            <h2 style={{textAlign: "center"}}>גבר</h2>
+            <PieChart data={apiData} familyName="גבר" />
+          </>
+        )}
       </Box>
     </Box>
   );
