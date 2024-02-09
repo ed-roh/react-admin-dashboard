@@ -1,11 +1,13 @@
 // Pie.js
 import React, { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Header from "../../components/Header";
 import PieChart from "../../components/PieChart";
 
 const Pie = () => {
   const [apiData, setApiData] = useState(null);
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,18 +26,40 @@ const Pie = () => {
   return (
     <Box m="20px">
       <Header title="Pie Chart" subtitle="Simple Pie Chart" />
-      <Box height="75vh">
-        {apiData && (
-          <>
-            <h2 style={{textAlign: "center"}}>כללי</h2>
-            <PieChart data={apiData} />
-            <h2 style={{textAlign: "center"}}>אבו גוש</h2>
-            <PieChart data={apiData} familyName="אבו גוש" />
-            <h2 style={{textAlign: "center"}}>גבר</h2>
-            <PieChart data={apiData} familyName="גבר" />
-          </>
-        )}
-      </Box>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={4} style={{ height: "400px" }}>
+          {apiData && (
+            <>
+              <h2 style={{ textAlign: "center" }}>כללי</h2>
+              <PieChart data={apiData} />
+            </>
+          )}
+        </Grid>
+        <Grid item xs={12} md={4} style={{ height: "400px" }}>
+          {apiData && (
+            <>
+              <h2 style={{ textAlign: "center" }}>גבר</h2>
+              <PieChart data={apiData} familyName="גבר" />
+            </>
+          )}
+        </Grid>
+        <Grid item xs={12} md={4} style={{ height: "400px" }}>
+          {apiData && (
+            <>
+              <h2 style={{ textAlign: "center" }}>אבו גוש</h2>
+              <PieChart data={apiData} familyName="אבו גוש" />
+            </>
+          )}
+        </Grid>
+        <Grid item xs={12} md={4} style={{ height: "400px" }}>
+          {apiData && (
+            <>
+              <h2 style={{ textAlign: "center" }}>אבראהים</h2>
+              <PieChart data={apiData} familyName="אבראהים" />
+            </>
+          )}
+        </Grid>
+      </Grid>
     </Box>
   );
 };

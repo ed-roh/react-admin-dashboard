@@ -64,7 +64,7 @@ const Invoices = () => {
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
+      backgroundColor: theme.palette.background.default, // Set the background color to the default background color
       color: theme.palette.common.white,
       textAlign: 'right', // Align text to the right in body cells
     },
@@ -84,14 +84,12 @@ const Invoices = () => {
     [`&.${tableCellClasses.body}`]: {
       fontSize: 14,
       backgroundColor: voted ? "#90EE90" : "#FF7F7F",
-      textAlign: 'right', // Align text to the right in body cells
+      textAlign: 'right',
     },
   }));
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
+    
     '&:last-child td, &:last-child th': {
       border: 0,
     },
@@ -131,29 +129,31 @@ const Invoices = () => {
 
   const columns = [
     {
-      title: "Change",
+      title: "לשנות",
       field: "edit",
       render: (rowData) => (
         <>
-          <Box>
-            <Button onClick={() => handleApply(rowData, rowData.checkboxStatus)}
-              sx={{
-                backgroundColor: colors.blueAccent[700],
-                color: colors.grey[100],
-                fontSize: "14px",
-                fontWeight: "bold",
-                padding: "10px 20px",
-              }}
-            >
-              <HowToVoteIcon sx={{ mr: "10px" }} />
-              לשנות
-            </Button>
-            <Checkbox
-              checked={checkboxStatus[rowData.id]}
-              onChange={() => handleCheckboxChange(rowData)}
-            />
-          </Box>
-        </>
+  <Box display="flex" alignItems="center">
+    <Button
+      onClick={() => handleApply(rowData, rowData.checkboxStatus)}
+      sx={{
+        backgroundColor: colors.blueAccent[700],
+        color: colors.grey[100],
+        fontSize: "14px",
+        fontWeight: "bold",
+        padding: "10px 20px",
+        marginRight: "10px", // Add margin to create space between Button and Checkbox
+      }}
+    >
+      <HowToVoteIcon sx={{ mr: "10px" }} />
+      לשנות
+    </Button>
+    <Checkbox
+      checked={checkboxStatus[rowData.id]}
+      onChange={() => handleCheckboxChange(rowData)}
+    />
+  </Box>
+</>
       ),
       cellStyle: { textAlign: 'right' },
       headerStyle: {
@@ -162,7 +162,7 @@ const Invoices = () => {
         borderStyle: "solid", borderColor: "white",
         borderTopColor: colors.blueAccent[700],
         borderBottomColor: colors.blueAccent[700],
-        padding: "20px 10px 20px 10px",
+        padding: "10px 10px 10px 10px",
         fontSize: "20px",
         cursor: "pointer"
       }
@@ -176,7 +176,7 @@ const Invoices = () => {
         borderStyle: "solid", borderColor: "white",
         borderTopColor: colors.blueAccent[700],
         borderBottomColor: colors.blueAccent[700],
-        padding: "20px 10px 20px 10px",
+        padding: "10px 10px 10px 10px",
         fontSize: "20px",
         cursor: "pointer"
       }
@@ -190,86 +190,113 @@ const Invoices = () => {
         borderStyle: "solid", borderColor: "white",
         borderTopColor: colors.blueAccent[700],
         borderBottomColor: colors.blueAccent[700],
+        padding: "10px 10px 10px 10px",
+        fontSize: "20px",
+        cursor: "pointer"
       }
     },
     {
       title: "מס בית", field: "house_number",
       cellStyle: { textAlign: 'right' },
       headerStyle: {
-        textAlign: 'right',
+        textAlign: 'right', className: 'custom-header',
         backgroundColor: colors.blueAccent[700],
         borderStyle: "solid", borderColor: "white",
         borderTopColor: colors.blueAccent[700],
-        borderBottomColor: colors.blueAccent[700]
+        borderBottomColor: colors.blueAccent[700],
+        padding: "10px 10px 10px 10px",
+        fontSize: "20px",
+        cursor: "pointer"
       }
     },
     {
       title: "רחוב", field: "street",
       cellStyle: { textAlign: 'right' },
       headerStyle: {
-        textAlign: 'right',
+        textAlign: 'right', className: 'custom-header',
         backgroundColor: colors.blueAccent[700],
         borderStyle: "solid", borderColor: "white",
         borderTopColor: colors.blueAccent[700],
-        borderBottomColor: colors.blueAccent[700]
+        borderBottomColor: colors.blueAccent[700],
+        padding: "10px 10px 10px 10px",
+        fontSize: "20px",
+        cursor: "pointer"
       }
     },
     {
       title: "שם אב", field: "father_name",
       cellStyle: { textAlign: 'right' },
       headerStyle: {
-        textAlign: 'right',
+        textAlign: 'right', className: 'custom-header',
         backgroundColor: colors.blueAccent[700],
         borderStyle: "solid", borderColor: "white",
         borderTopColor: colors.blueAccent[700],
-        borderBottomColor: colors.blueAccent[700]
+        borderBottomColor: colors.blueAccent[700],
+        padding: "10px 10px 10px 10px",
+        fontSize: "20px",
+        cursor: "pointer"
       }
     },
     {
       title: "שם משפחה", field: "last_name",
       cellStyle: { textAlign: 'right' },
       headerStyle: {
-        textAlign: 'right',
+        textAlign: 'right', className: 'custom-header',
         backgroundColor: colors.blueAccent[700],
         borderStyle: "solid", borderColor: "white",
         borderTopColor: colors.blueAccent[700],
-        borderBottomColor: colors.blueAccent[700]
+        borderBottomColor: colors.blueAccent[700],
+        padding: "10px 10px 10px 10px",
+        fontSize: "20px",
+        cursor: "pointer"
       }
     },
     {
       title: "שם פרטי", field: "first_name",
       cellStyle: { textAlign: 'right' },
       headerStyle: {
-        textAlign: 'right',
+        textAlign: 'right', className: 'custom-header',
         backgroundColor: colors.blueAccent[700],
         borderStyle: "solid", borderColor: "white",
         borderTopColor: colors.blueAccent[700],
-        borderBottomColor: colors.blueAccent[700]
+        borderBottomColor: colors.blueAccent[700],
+        padding: "10px 10px 10px 10px",
+        fontSize: "20px",
+        cursor: "pointer"
       }
     },
     {
       title: "ת.ז", field: "id",
       cellStyle: { textAlign: 'right' },
       headerStyle: {
-        textAlign: 'right',
+        textAlign: 'right', className: 'custom-header',
         backgroundColor: colors.blueAccent[700],
         borderStyle: "solid", borderColor: "white",
         borderTopColor: colors.blueAccent[700],
-        borderBottomColor: colors.blueAccent[700]
+        borderBottomColor: colors.blueAccent[700],
+        padding: "10px 10px 10px 10px",
+        fontSize: "20px",
+        cursor: "pointer"
       }
     }
   ]; //cursor pointer
 
-
+console.log(theme.palette.mode)
   return (
     <Box m="20px">
-      <Header title="INVOICES" subtitle="List of Invoice Balances" />
+      <div style={{textAlign: 'right'}}>
+      <Header title="בחירות לרשויות המקומיות" subtitle="רשימת המצביעים"/>
+      </div>
       {<Box
         m="40px 0 0 0"
         height="75vh"
         sx={{
+          "& .MuiPaper-root": {
+            backgroundColor: theme.palette.mode == 'light' ? '#f2f0f0' : '', // Change background color to red
+          },
           "& .MuiDataGrid-root": {
             border: "none",
+            backgroundColor: theme.palette.background.default, // Set the background color for the entire table
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",

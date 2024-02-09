@@ -96,7 +96,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={`../../assets/elections-logo.jpg`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -132,6 +132,7 @@ const Sidebar = () => {
             >
               Data
             </Typography>
+
             <Item
               title="Invoices Balances"
               to="/invoices"
@@ -139,21 +140,21 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Pages
-            </Typography>
             <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
+              title="רשימה"
+              to="/invoices2"
+              icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+            <Item
+              title="Contacts Information"
+              to="/contacts"
+              icon={<ContactsOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -168,6 +169,21 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Pages
+            </Typography>
+            <Item
+              title="Calendar"
+              to="/calendar"
+              icon={<CalendarTodayOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
           </Box>
         </Menu>
       </ProSidebar>

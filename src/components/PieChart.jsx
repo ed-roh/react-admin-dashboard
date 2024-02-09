@@ -8,27 +8,33 @@ const PieChart = ({ data, familyName }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode) || {};
 
-  const votingData = familyName
-    ? data.family_voting_percentage.filter((item) => item.last_name === familyName)
-    : data.family_voting_percentage;
+    const votingData = familyName
+  ? data.family_voting_percentage.filter((item) => item.last_name.toLowerCase() === familyName.toLowerCase())
+  : data.family_voting_percentage;
 
   const votedData = votingData.filter((item) => item.voted_count > 0);
-  const notVotedData = votingData.filter((item) => item.voted_count === 0);
-
-  const chartData = [
-    {
-      id: 'Voted',
-      label: `Voted ${votedData.reduce((total, item) => total + item.voted_count, 0)}`,
-      value: votedData.reduce((total, item) => total + item.voted_count, 0),
-      color: colors.green ? colors.green[500] : '#00FF00',
-    },
-    {
-      id: 'Not Voted',
-      label: `Not Voted ${notVotedData.reduce((total, item) => total + item.family_size, 0)}`,
-      value: notVotedData.reduce((total, item) => total + item.family_size, 0),
-      color: colors.red ? colors.red[500] : '#FF0000',
-    },
-  ];
+  const notVotedData = votingData.filter((item) => item.family_size);
+  const votedNumber = votedData.reduce((total, item) => total + item.voted_count, 0);
+  const total = notVotedData.reduce((total, item) => total + item.family_size, 0);
+  const notVotedNumber = total - votedNumber;
+console.log(familyName)
+console.log("data: ", votingData)
+console.log("voted: ", votedData.reduce((total, item) => total + item.voted_count, 0));
+console.log("total: ", total);
+const chartData = [
+  {
+    id: 'Voted',
+    label: `Voted (${votedNumber})`,
+    value: votedNumber,
+    color: colors.green ? colors.green[500] : '#00FF00',
+  },
+  {
+    id: 'Not Voted',
+    label: `Not Voted (${notVotedNumber})`,
+    value: notVotedNumber, // Count the number of families where no one voted
+    color: colors.red ? colors.red[500] : '#FF0000',
+  },
+];
 
   return (
 
@@ -62,7 +68,7 @@ const PieChart = ({ data, familyName }) => {
           },
         },
       }}
-      margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+      margin={{ top: -40, right: 80, bottom: 80, left: 80 }}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
