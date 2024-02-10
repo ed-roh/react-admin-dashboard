@@ -1,14 +1,45 @@
+// PieChart.js
+import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
-import { mockPieData as data } from "../data/mockData";
 
-const PieChart = () => {
+const PieChart = ({ data, familyName }) => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const colors = tokens(theme.palette.mode) || {};
+
+    const votingData = familyName
+  ? data.family_voting_percentage.filter((item) => item.last_name.toLowerCase() === familyName.toLowerCase())
+  : data.family_voting_percentage;
+
+  const votedData = votingData.filter((item) => item.voted_count > 0);
+  const notVotedData = votingData.filter((item) => item.family_size);
+  const votedNumber = votedData.reduce((total, item) => total + item.voted_count, 0);
+  const total = notVotedData.reduce((total, item) => total + item.family_size, 0);
+  const notVotedNumber = total - votedNumber;
+console.log(familyName)
+console.log("data: ", votingData)
+console.log("voted: ", votedData.reduce((total, item) => total + item.voted_count, 0));
+console.log("total: ", total);
+const chartData = [
+  {
+    id: 'Voted',
+    label: `Voted (${votedNumber})`,
+    value: votedNumber,
+    color: colors.green ? colors.green[500] : '#00FF00',
+  },
+  {
+    id: 'Not Voted',
+    label: `Not Voted (${notVotedNumber})`,
+    value: notVotedNumber, // Count the number of families where no one voted
+    color: colors.red ? colors.red[500] : '#FF0000',
+  },
+];
+
   return (
+
     <ResponsivePie
-      data={data}
+      data={chartData}
       theme={{
         axis: {
           domain: {
@@ -37,7 +68,7 @@ const PieChart = () => {
           },
         },
       }}
-      margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+      margin={{ top: -40, right: 80, bottom: 80, left: 80 }}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
