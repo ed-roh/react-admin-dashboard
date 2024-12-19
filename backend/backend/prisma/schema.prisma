@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TipoIrrigacao {
+  manual
+  auto
+}
+
+enum StatusAlerta {
+  resolvido
+  monitorando
+}
+
+model produtor {
+  id                        Int                         @id @default(autoincrement())
+  nome                      String
+  email                     String                      @unique
+  senha                     String
+  telefone                  String
+  criado_em                 DateTime                    @default(now())
+  ativo                     Boolean
+  configuracoes_notificacao configuracoes_notificacao[]
+  area_cultivo              area_cultivo[]
+}
+
+model configuracoes_notificacao {
+  id                      Int      @id @default(autoincrement())
+  produtor                produtor @relation(fields: [produtor_id], references: [id])
+  produtor_id             Int
+  telefone_para_notificar String
+}
+
+model area_cultivo {
+  id                     Int                @id @default(autoincrement())
+  produtor               produtor           @relation(fields: [produtor_id], references: [id])
+  produtor_id            Int
+  nome                   String
+  criado_em              DateTime           @default(now())
+  ativo                  Boolean
+  umidade_min            Float?
+  umidade_max            Float?
+  co2_ar                 Float?
+  ph_agua                Float?
+  nutrientes_agua        Float?
+  temperatura            Float?
+  umidade_ar             Float?
+  tempo_irrigacao_padrao Int?
+  horarios_permitidos    Json?
+  saco_cultivo           saco_cultivo[]
+  leitura_sensor         leitura_sensor[]
+  lote                   lote[]
+  evento_irrigacao       evento_irrigacao[]
+  alerta                 alerta[]
+}
+
+model saco_cultivo {
+  id                    Int                    @id @default(autoincrement())
+  area_cultivo          area_cultivo           @relation(fields: [area_cultivo_id], references: [id])
+  area_cultivo_id       Int
+  codigo                String
+  posicao               String
+  data_inicio           DateTime
+  ativo                 Boolean
+  unidade_monitoramento unidade_monitoramento?
+}
+
+model unidade_monitoramento {
+  id                  Int                @id @default(autoincrement())
+  saco_cultivo        saco_cultivo       @relation(fields: [saco_cultivo_id], references: [id])
+  saco_cultivo_id     Int                @unique
+  codigo_serie        String
+  microaspersor_ativo Boolean
+  sensor_ativo        Boolean
+  ultima_manutencao   DateTime
+  vazao_media         Float
+  leitura_sensor      leitura_sensor[]
+  evento_irrigacao    evento_irrigacao[]
+  alerta              alerta[]
+}
+
+model leitura_sensor {
+  id                       Int                   @id @default(autoincrement())
+  unidade_monitoramento    unidade_monitoramento @relation(fields: [unidade_monitoramento_id], references: [id])
+  unidade_monitoramento_id Int
+  area_cultivo             area_cultivo          @relation(fields: [area_cultivo_id], references: [id])
+  area_cultivo_id          Int
+  umidade_substrato        Float
+  umidade_ambiente         Float
+  timestamp                DateTime              @default(now())
+}
+
+model evento_irrigacao {
+  id                       Int                   @id @default(autoincrement())
+  area_cultivo             area_cultivo          @relation(fields: [area_cultivo_id], references: [id])
+  area_cultivo_id          Int
+  unidade_monitoramento    unidade_monitoramento @relation(fields: [unidade_monitoramento_id], references: [id])
+  unidade_monitoramento_id Int
+  inicio                   DateTime
+  fim                      DateTime
+  tipo                     TipoIrrigacao // "Manual/Automático"
+  volume_agua              Float
+}
+
+model lote {
+  id                Int                 @id @default(autoincrement())
+  area_cultivo      area_cultivo        @relation(fields: [area_cultivo_id], references: [id])
+  area_cultivo_id   Int
+  data_inicio       DateTime
+  status            String
+  observacoes       String              @db.Text
+  registro_producao registro_producao[]
+}
+
+model registro_producao {
+  id                    Int      @id @default(autoincrement())
+  lote                  lote     @relation(fields: [lote_id], references: [id])
+  lote_id               Int
+  data                  DateTime @db.Date
+  quantidade_tipo_a_kg  Float
+  quantidade_tipo_b_kg  Float
+  quantidade_tipo_c_kg  Float
+  problemas_encontrados Json
+  observacoes           String   @db.Text
+}
+
+model alerta {
+  id                       Int                   @id @default(autoincrement())
+  area_cultivo             area_cultivo          @relation(fields: [area_cultivo_id], references: [id])
+  area_cultivo_id          Int
+  unidade_monitoramento    unidade_monitoramento @relation(fields: [unidade_monitoramento_id], references: [id])
+  unidade_monitoramento_id Int
+  tipo                     String
+  mensagem                 String
+  timestamp                DateTime              @default(now())
+  status                   StatusAlerta // "Resolvido/Monitorando"
+}
