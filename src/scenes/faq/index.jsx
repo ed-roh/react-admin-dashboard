@@ -22,8 +22,10 @@ const FAQ = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            How do I access the admin panel? To access the admin panel, simply
+            log in using your registered email and password. If you’ve forgotten
+            your password, click on “Forgot Password” on the login screen and
+            follow the instructions sent to your email to reset your account.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -35,8 +37,10 @@ const FAQ = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            Can I customize the content displayed on the dashboard? Yes! The
+            dashboard is fully customizable. You can adjust colors, layout, and
+            displayed information according to your business or project needs
+            through the “Preferences” section.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -48,8 +52,10 @@ const FAQ = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            Does the system automatically save the changes I make? Yes. The
+            system has real-time auto-save. Every change you make is instantly
+            stored in the database, ensuring no information is lost—even if your
+            connection drops unexpectedly.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -61,8 +67,10 @@ const FAQ = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            How can I add new users to the system? You can add new users in the
+            “Manage Users” section. Just click “Add User,” fill in the details,
+            and set the access level (Administrator, Editor, or Viewer). The new
+            user will automatically receive an activation email.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -74,8 +82,10 @@ const FAQ = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            Is there technical support if I have problems? Yes! Our support team
+            is available Monday through Saturday, from 8:00 AM to 8:00 PM. You
+            can contact us via the in-dashboard chat, support email, or WhatsApp
+            for quick and personalized assistance.
           </Typography>
         </AccordionDetails>
       </Accordion>
